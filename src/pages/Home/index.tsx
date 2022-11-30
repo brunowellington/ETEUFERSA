@@ -52,7 +52,7 @@ const emptyLagoasBaseData: LagoasBaseData = {
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
-  populacao: "",
+  populacao: "20000",
   vazaoAfluente: "3000",
   DBOAfluente: "350",
   temperatura: "23",

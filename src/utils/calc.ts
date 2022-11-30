@@ -172,9 +172,9 @@ export const dimensionamento = ({
 
     //   if(calculaMaturacao) {
 
-    //     const largura = 130
+         const largura = 130
 
-    //     console.log(largura)
+        console.log(largura)
 
     //   }
 
