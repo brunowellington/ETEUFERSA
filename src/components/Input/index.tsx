@@ -1,24 +1,28 @@
-import React from "react";
-import styled from "styled-components";
-interface InputProps {
-    err?: boolean
-}
-const InputData = styled.input`
-    width: 130px;
-    height: 35px;
-    border: ${(props:InputProps ) => props.err ? "1px solid #828282" : "1px solid #e00000"};
-    text-align: center;
-    outline: none;
-    border-radius: 8px;
-`
+import React, { useState } from "react";
+import { StyledInput } from "./styles";
 
-function Input(props:any){
-    function setValue(value:any){
-        props.func(value)
-    }
-    return(
-        <InputData type={props.type} value={props.value} err={props.err} onChange={e => setValue(e.target.value)} />
-    )
+type InputProps = {
+  type: "text" | "number";
+  value: string | number;
+  setValue: (value: string) => void;
+  min?: number;
+  err?: boolean;
+};
+
+function Input(props: InputProps) {
+  const [started, setSarted] = useState(false);
+  const value = props.value.toString();
+
+  return (
+    <StyledInput
+      type={props.type}
+      value={value}
+      min={props.min || 0}
+      err={props.err ?? (started && value.length === 0)}
+      onChange={(e) => props.setValue(e.target.value)}
+      onKeyDown={() => !started && setSarted(true)}
+    />
+  );
 }
 
-export default Input
+export default Input;
