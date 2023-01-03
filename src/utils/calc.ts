@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { LagoaAnaerobia } from "../types/LagoaAnaerobia";
 import { LagoaFacultativa } from "../types/LagoaFacultativa";
 import { LagoasBaseData } from "../types/LagoasBaseData";
@@ -172,11 +173,80 @@ export const dimensionamento = ({
 
     //   if(calculaMaturacao) {
 
-         const largura = 130
+        //dados 1
+        const populacaoMaturacao = 10000;
+        console.log("populacao: " + populacaoMaturacao);
+        const vazaoAfluenteMaturacao  = 1478;
+        console.log("vazao afluente:" + vazaoAfluenteMaturacao);
+        const temperaturaMediaMaturacao = 23;
+        console.log("temperatura media no mês mais frio: " + temperaturaMediaMaturacao);
+        const coliformesFecais = 1 * Math.pow(10,7);
+        console.log("coliformes fecais: " + coliformesFecais);
+        const ovosHelmintos = 200;
+        console.log("ovos de helmintos: " + ovosHelmintos);
 
-        console.log(largura)
+        //Remoçao dos coliformes pelo reator UASB
+        const reatorUASB = 80;
+        const remocaoColiformes = Math.round(coliformesFecais * (1 - reatorUASB/100));
+        console.log(remocaoColiformes + " CF/100 ml")
 
-    //   }
+        //Volume das lagoas
+        const quantidadeLagoasMaturacao = 4;
+        const tempoDetencaoMaturacao = 12 / quantidadeLagoasMaturacao;
+        const volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluenteMaturacao;
+        console.log("volume cada lagoa: " + volumeCadaLagoaMaturacao + "m³");
+
+        //dados 2 das dimensões das lagoas
+        const profundidadeUtilH = 0.80;
+        console.log("profundidade util (fundo ao NA): " + profundidadeUtilH);
+       
+        const areaSuperficialCadaLagoa = Math.round(volumeCadaLagoaMaturacao / profundidadeUtilH); // aqui que dava dando BO
+        console.log("area superficial cada lagoa: " + areaSuperficialCadaLagoa);
+       
+        const areaSuperficialTotal = areaSuperficialCadaLagoa * quantidadeLagoasMaturacao;
+        console.log("area superficial total: " + areaSuperficialTotal);
+       
+        const comprimentoMaturacao = 148.80;
+        console.log("comprimento: " + comprimentoMaturacao);
+       
+        const larguraMaturacao = 37.20;
+        console.log("largura: " + larguraMaturacao);
+       
+        const profundidadeUtilMaturacao = 0.80;
+        console.log("profundidade util: " + profundidadeUtilMaturacao);
+
+        //Concentração de coliformes no efluente final
+        //Cálculo segundo o modelo de fluxo disperso
+        const D = 1 / (comprimentoMaturacao / larguraMaturacao);
+        console.log("D = "+ D);
+
+        //valor do coeficinete de decaimento bacteriano
+        const kb = Number((0.542 * Math.pow(profundidadeUtilH, -1.259)).toFixed(2));
+        console.log("kb = "+ kb);
+       
+        // Para temperatura 23 celcius, o valor de Kb é:
+        const kbT = Number((kb * Math.pow(1.07, temperaturaMediaMaturacao - 20)).toFixed(2));
+        console.log("KbT = "+ kbT);
+
+//to empacado daqui em diante 
+
+        //Concentração de coliformes no efluente final
+        const a = Number(Math.sqrt(1 + 4 * kbT * (temperaturaMediaMaturacao-20) * D).toFixed(2));
+        console.log("a = "+ a);
+
+        
+        const d = 0.25;
+        const N = remocaoColiformes * 4 * a * Math.exp(1/(2*d)) / 
+        Math.pow(1 + a, 2) * Math.exp(a/(2*d)) - Math.pow(1 - a, 2) * Math.exp(-a/(2*d));
+        console.log(N);
+        
+        // usando outra maneira de fazer
+        const e = 2.71
+        const Nt = ( remocaoColiformes * 4*a*Math.pow(e, 1/2*d))/(Math.pow(1+a, 2)*Math.pow(e, a/2*d) - Math.pow(1 - a, 2)*Math.pow(e, -a/2*d))
+        console.log("valor de nt" + Nt);
+        console.log("termina aqui")
+        
+        //   }
 
   return {
     lagoaAnaerobia: {
