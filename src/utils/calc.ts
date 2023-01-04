@@ -235,15 +235,14 @@ export const dimensionamento = ({
         console.log("a = "+ a);
 
         
-        const d = 0.25;
-        const N = remocaoColiformes * 4 * a * Math.exp(1/(2*d)) / 
-        Math.pow(1 + a, 2) * Math.exp(a/(2*d)) - Math.pow(1 - a, 2) * Math.exp(-a/(2*d));
-        console.log(N);
-        
+        let euler = 2.718281828459045235360287;
+        let d = 0.25;
+        const Nt =   (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
+        console.log("valor de nt" + Nt.toFixed(2));
+    
         // usando outra maneira de fazer
-        const e = 2.71
-        const Nt = ( remocaoColiformes * 4*a*Math.pow(e, 1/2*d))/(Math.pow(1+a, 2)*Math.pow(e, a/2*d) - Math.pow(1 - a, 2)*Math.pow(e, -a/2*d))
-        console.log("valor de nt" + Nt);
+        const Ntt =   (2000000*((4*a*Math.pow(euler, 1/(2*d)))/(Math.pow(1+a, 2)*Math.pow(euler, a/(2*d)) - Math.pow(1 - a, 2)*Math.pow(euler, -a/(2*d)))))
+        console.log("valor de ntt" + Ntt.toFixed(2));
         console.log("termina aqui")
         
         //   }
