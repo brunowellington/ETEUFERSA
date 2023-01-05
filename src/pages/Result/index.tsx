@@ -24,7 +24,7 @@ type ResultProps = {
 
 function Result({ lagoasBaseData }: ResultProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano } = calc.dimensionamento(lagoasBaseData);
+  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao } = calc.dimensionamento(lagoasBaseData);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
   useEffect(() => {

@@ -1,13 +1,14 @@
-import { Console } from "console";
 import { LagoaAnaerobia } from "../types/LagoaAnaerobia";
 import { LagoaFacultativa } from "../types/LagoaFacultativa";
 import { LagoasBaseData } from "../types/LagoasBaseData";
 import { SistemaAustraliano } from "../types/SistemaAustraliano";
+import { LagoaMaturacao } from "../types/LagoaMaturacao";
 
 type TDimensionamento = {
   lagoaAnaerobia: LagoaAnaerobia;
   lagoaFacultativa: LagoaFacultativa;
   sistemaAustraliano: SistemaAustraliano;
+  lagoaMaturacao: LagoaMaturacao;
 };
 
 export const dimensionamento = ({
@@ -228,7 +229,6 @@ export const dimensionamento = ({
         const kbT = Number((kb * Math.pow(1.07, temperaturaMediaMaturacao - 20)).toFixed(2));
         console.log("KbT = "+ kbT);
 
-//to empacado daqui em diante 
 
         //Concentração de coliformes no efluente final
         const a = Number(Math.sqrt(1 + 4 * kbT * (temperaturaMediaMaturacao-20) * D).toFixed(2));
@@ -237,12 +237,67 @@ export const dimensionamento = ({
         
         let euler = 2.718281828459045235360287;
         let d = 0.25;
-        const Nt =   (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
-        console.log("valor de nt " + Nt.toFixed(5));
+        //Vê com alysson essa divisão para não ter essa truncagem na linha 243
+        const Nt = (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
+
+        const Ntt = Number(String((Number(Nt.toFixed(4))/100000)).slice(0,4));
+        const NttExpandido = Ntt * Math.pow(10,5)  
+        console.log("Valor de Nt = " + NttExpandido) ;
+
+        const e = ((remocaoColiformes - NttExpandido)) / remocaoColiformes ;
+        console.log("valor de e " + e);
+        console.log("valor de e na porcentagem " + (100*e).toFixed(0) + "%");
     
-        // usando outra maneira de fazer
-        const Ntt =   (2000000*((4*a*Math.pow(euler, 1/(2*d)))/(Math.pow(1+a, 2)*Math.pow(euler, a/(2*d)) - Math.pow(1 - a, 2)*Math.pow(euler, -a/(2*d)))))
-        console.log("valor de ntt " + Ntt.toFixed(2));
+        const eFicienciaSerieLagoa = 1 - Math.pow((1 - e), quantidadeLagoasMaturacao)
+        console.log("Eficiencia da lagoas em serie: " + eFicienciaSerieLagoa.toFixed(4))
+        console.log("valor da porcentagem Eficiencia da lagoas em serie: " + (100*eFicienciaSerieLagoa).toFixed(2) + "%")
+        
+        const concentracaoColiformesEfluenteFinal = Math.round(remocaoColiformes * (1 - eFicienciaSerieLagoa))
+        console.log("Concentração dos coliformes no efluente final: " + concentracaoColiformesEfluenteFinal)
+        console.log("Concentração dos coliformes no efluente final expandido: " + (concentracaoColiformesEfluenteFinal / 100).toFixed(1) + " x 10²")
+      
+        const eficienciaRemocaoGlobal = (coliformesFecais - concentracaoColiformesEfluenteFinal) /coliformesFecais
+        console.log("Eficiencia de remoção global: " + eficienciaRemocaoGlobal.toFixed(4))
+        console.log("Eficiencia de remoção global por %: " + (eficienciaRemocaoGlobal * 100).toFixed(2) + "%") 
+        
+        //Remoção de ovos de helmitos
+        //1. Reator UASB
+        const eficienciaReator = 60
+        const concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaReator/100)
+        console.log("Concentracao de ovos no efluente do reator UASB: " + concentracaoOvosEfluenteReatorUASB + " ovos/L")
+
+        //2.Lagoas de polimento
+        const t = temperaturaMediaMaturacao-20
+        const tElevado = (temperaturaMediaMaturacao-20) **2
+        const eficienciaRemocaoOvosHelmitos = (100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado))) 
+        console.log("Eficiencia remocao ovos helmitos: " + eficienciaRemocaoOvosHelmitos.toFixed(1) + "%")
+        const eficienciaRemocaoOvosHelmitosPercentual = Number((eficienciaRemocaoOvosHelmitos/100).toFixed(3))
+        //console.log(eficienciaRemocaoOvosHelmitosPercentual)
+
+        ////Remoção de ovos de helmitos
+        //1. Reator UASB
+        //Eficiencia de remoção global
+        const eficienciaRemocaoGlobalHelmitos = Number((1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4))
+        console.log("Eficiencia remocao global helmitos: " + eficienciaRemocaoGlobalHelmitos)
+        const eficienciaRemocaoGlobalHelmitosPorcentagem =  eficienciaRemocaoGlobalHelmitos * 100
+        console.log("Eficiencia remocao global helmitos %: " + eficienciaRemocaoGlobalHelmitosPorcentagem + "%")
+
+        const unidadeLogRemovidasLagoa = Math.round(quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos)
+        console.log("Unidade log removidas nas lagoas aproximadamente: " + unidadeLogRemovidasLagoa + " unidades log")
+
+        //A eficiência global (reator UASB + lagoas) é:
+        const ovosH = 8 * Math.pow(10,-3) // não sei de onde vem, slide 79
+        const eficienciaGlobal = (ovosHelmintos - ovosH) / ovosHelmintos
+        console.log("Eficiencia global: " + eficienciaGlobal) 
+        const eficienciaGlobalPorcentagem = eficienciaGlobal * 100
+        console.log("Eficiencia global %: " + eficienciaGlobalPorcentagem + " %")
+
+        //Em termos de unidades log removidas no sistema
+        const calculo = 1-eficienciaGlobalPorcentagem / 100
+        console.log(calculo)
+        const unidadeLogRemov = -Math.log(calculo)
+        console.log(unidadeLogRemov)
+
         console.log("termina aqui")
         
         //   }
@@ -278,6 +333,19 @@ export const dimensionamento = ({
       areaTotalAnaerobiaFacultativa,
       areaTotal,
       areaPercapitaFacultativa,
+    },
+    lagoaMaturacao: {
+      populacaoMaturacao,
+      vazaoAfluenteMaturacao,
+      temperaturaMediaMaturacao,
+      coliformesFecais,
+      ovosHelmintos,
+      reatorUASB,
+      quantidadeLagoasMaturacao,
+      profundidadeUtilH,
+      comprimentoMaturacao,
+      larguraMaturacao,
+      profundidadeUtilMaturacao,
     }
   };
 };
