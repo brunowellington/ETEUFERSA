@@ -11,4 +11,8 @@ export type LagoasBaseData = {
   dqo: number;
   hAnaerobia: number;
   hFacultativa: number;
+
+   //aqui vai os dados que ta sendo atribuidos
+  populacaoMaturacao: number; 
+  vazaoAfluenteMaturacao: number;
 };

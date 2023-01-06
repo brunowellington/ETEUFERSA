@@ -27,6 +27,10 @@ function Result({ lagoasBaseData }: ResultProps) {
   const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao } = calc.dimensionamento(lagoasBaseData);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
+  // testando se ta passando
+console.log("esta passando por aqui" + lagoaMaturacao.populacaoMaturacao)
+console.log("esta passando por aqui" + lagoaMaturacao.vazaoAfluenteMaturacao)
+
   useEffect(() => {
     const img = new Image();
 
@@ -60,6 +64,7 @@ function Result({ lagoasBaseData }: ResultProps) {
   return (
     <Page>
       <Container>
+      
         <Card>
           <TitleCard>Lagoa Anaeróbia</TitleCard>
           <Item>
@@ -120,6 +125,7 @@ function Result({ lagoasBaseData }: ResultProps) {
             <Value>{lagoaAnaerobia.tempo1terco.toFixed(1)} anos</Value>
           </Item>
         </Card>
+      
         <Card>
           <TitleCard>Lagoa Facultativa</TitleCard>
           <Item>
@@ -213,7 +219,38 @@ function Result({ lagoasBaseData }: ResultProps) {
             <Value>{lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l</Value>
           </Item>
         </Card>
+      
       </Container>
+      
+      {/* card de lagoa de maturacao vai aqui */}
+      <Card>
+          <TitleCard>Lagoa Maturação</TitleCard>
+          <Item>
+            <Description>
+              População <sup>🛈</sup>
+              <span className="tooltiptext">Carga afluente de DBO</span>
+            </Description>
+            <Value>{lagoaMaturacao.populacaoMaturacao} hab.</Value>
+          </Item>
+          
+          <Item>
+            <Description>
+              Vazao Afluente <sup>🛈</sup>
+              <span className="tooltiptext">Carga afluente de DBO</span>
+            </Description>
+            <Value>{lagoaMaturacao.vazaoAfluenteMaturacao} m3/d</Value>
+          </Item>
+
+          <Item>
+            <Description>
+              Remoção de coliformes <sup>🛈</sup>
+              <span className="tooltiptext">Carga afluente de DBO</span>
+            </Description>
+            <Value>{lagoaMaturacao.remocaoColiformes} hab.</Value>
+          </Item>
+
+      </Card>
+
       <Card>
         <TitleCard>Sistema Australiano</TitleCard>
         <Item>
@@ -286,6 +323,7 @@ function Result({ lagoasBaseData }: ResultProps) {
           </Item>
         )}
       </Card>
+
       <GraficContainer>
         {/* <canvas ref={canvas}></canvas> */}
         <TitleCard>Layout do sistema</TitleCard>

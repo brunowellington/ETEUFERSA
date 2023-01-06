@@ -24,6 +24,10 @@ export const dimensionamento = ({
   hAnaerobia,
   hFacultativa,
   dqo,
+
+  populacaoMaturacao,
+  vazaoAfluenteMaturacao,
+     
 }: LagoasBaseData): TDimensionamento => {
   // lagoa anaeróbia
 
@@ -175,9 +179,9 @@ export const dimensionamento = ({
     //   if(calculaMaturacao) {
 
         //dados 1
-        const populacaoMaturacao = 10000;
+        //const populacaoMaturacao = 10000;
         console.log("populacao: " + populacaoMaturacao);
-        const vazaoAfluenteMaturacao  = 1478;
+        //const vazaoAfluenteMaturacao  = 1478;
         console.log("vazao afluente:" + vazaoAfluenteMaturacao);
         const temperaturaMediaMaturacao = 23;
         console.log("temperatura media no mês mais frio: " + temperaturaMediaMaturacao);
@@ -293,10 +297,9 @@ export const dimensionamento = ({
         console.log("Eficiencia global %: " + eficienciaGlobalPorcentagem + " %")
 
         //Em termos de unidades log removidas no sistema
-        const calculo = 1-eficienciaGlobalPorcentagem / 100
-        console.log(calculo)
-        const unidadeLogRemov = -Math.log(calculo)
-        console.log(unidadeLogRemov)
+        const unidadeLog = 1 - (eficienciaGlobalPorcentagem / 100);
+        const unidadeLogRemovida = (-1 * Math.log10(unidadeLog)).toFixed(0);
+        console.log(unidadeLogRemovida)
 
         console.log("termina aqui")
         
@@ -337,15 +340,17 @@ export const dimensionamento = ({
     lagoaMaturacao: {
       populacaoMaturacao,
       vazaoAfluenteMaturacao,
-      temperaturaMediaMaturacao,
-      coliformesFecais,
-      ovosHelmintos,
-      reatorUASB,
-      quantidadeLagoasMaturacao,
-      profundidadeUtilH,
-      comprimentoMaturacao,
-      larguraMaturacao,
-      profundidadeUtilMaturacao,
+      remocaoColiformes,
+      
+      // temperaturaMediaMaturacao,
+      // coliformesFecais,
+      // ovosHelmintos,
+      // reatorUASB,
+      // quantidadeLagoasMaturacao,
+      // profundidadeUtilH,
+      // comprimentoMaturacao,
+      // larguraMaturacao,
+      // profundidadeUtilMaturacao,
     }
   };
 };

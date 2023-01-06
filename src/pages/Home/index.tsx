@@ -49,6 +49,10 @@ const emptyLagoasBaseData: LagoasBaseData = {
   dqo: 0,
   hAnaerobia: 0,
   hFacultativa: 0,
+
+  //aqui vai as variaveis que recebe atribuição
+  populacaoMaturacao: 0,
+  vazaoAfluenteMaturacao: 0,
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
@@ -64,18 +68,20 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   dqo: "500",
   hAnaerobia: "4.5",
   hFacultativa: "1.8",
+  
   // colocar os dados fixos de maturação
+  //aqui vai as variaveis que recebe atribuição
   populacaoMaturacao: "10000",
   vazaoAfluenteMaturacao: "1478",
-  temperaturaMediaMaturacao: "23",
-  coliformesFecais: "10000000",
-  ovosHelmintos: "200",
-  reatorUASB: "80",
-  quantidadeLagoasMaturacao: "4",
-  profundidadeUtilH: "0.80",
-  comprimentoMaturacao: "148.80",
-  larguraMaturacao: "37.20",
-  profundidadeUtilMaturacao: "0.80",
+  // temperaturaMediaMaturacao: "23",
+  // coliformesFecais: "10000000",
+  // ovosHelmintos: "200",
+  // reatorUASB: "80",
+  // quantidadeLagoasMaturacao: "4",
+  // profundidadeUtilH: "0.80",
+  // comprimentoMaturacao: "148.80",
+  // larguraMaturacao: "37.20",
+  // profundidadeUtilMaturacao: "0.80",
 };
 
 const transformValuesInNumber = <T extends Record<string, string>>(target: T) => {
