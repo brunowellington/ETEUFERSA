@@ -53,6 +53,13 @@ const emptyLagoasBaseData: LagoasBaseData = {
   //aqui vai as variaveis que recebe atribuição
   populacaoMaturacao: 0,
   vazaoAfluenteMaturacao: 0,
+  temperaturaMediaMaturacao: 0,
+  coliformesFecais: 0,
+  ovosHelmintos: 0,
+  quantidadeLagoasMaturacao: 0,
+  profundidadeUtilH: 0,
+  comprimentoMaturacao: 0,
+  larguraMaturacao: 0,
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
@@ -73,14 +80,13 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   //aqui vai as variaveis que recebe atribuição
   populacaoMaturacao: "10000",
   vazaoAfluenteMaturacao: "1478",
-  // temperaturaMediaMaturacao: "23",
-  // coliformesFecais: "10000000",
-  // ovosHelmintos: "200",
-  // reatorUASB: "80",
-  // quantidadeLagoasMaturacao: "4",
-  // profundidadeUtilH: "0.80",
-  // comprimentoMaturacao: "148.80",
-  // larguraMaturacao: "37.20",
+  temperaturaMediaMaturacao: "23",
+  coliformesFecais: "10000000",
+  ovosHelmintos: "200",
+  quantidadeLagoasMaturacao: "4",
+  profundidadeUtilH: "0.80",
+  comprimentoMaturacao: "148.80",
+  larguraMaturacao: "37.20",
   // profundidadeUtilMaturacao: "0.80",
 };
 

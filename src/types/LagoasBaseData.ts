@@ -15,4 +15,11 @@ export type LagoasBaseData = {
    //aqui vai os dados que ta sendo atribuidos
   populacaoMaturacao: number; 
   vazaoAfluenteMaturacao: number;
+  temperaturaMediaMaturacao: number;
+  coliformesFecais: number;
+  ovosHelmintos: number;
+  quantidadeLagoasMaturacao: number;
+  profundidadeUtilH: number,
+  comprimentoMaturacao: number,
+  larguraMaturacao: number,
 };

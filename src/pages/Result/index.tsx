@@ -28,8 +28,15 @@ function Result({ lagoasBaseData }: ResultProps) {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
   // testando se ta passando
-console.log("esta passando por aqui" + lagoaMaturacao.populacaoMaturacao)
-console.log("esta passando por aqui" + lagoaMaturacao.vazaoAfluenteMaturacao)
+console.log("esta passando por aqui a populacao " + lagoaMaturacao.populacaoMaturacao)
+console.log("esta passando por aqui a vazao afluente " + lagoaMaturacao.vazaoAfluenteMaturacao)
+console.log("esta passand por aqui a temperatura " + lagoaMaturacao.temperaturaMediaMaturacao)
+console.log("esta passand por aqui o coliformes fecais " + lagoaMaturacao.coliformesFecais)
+console.log("esta passand por aqui os ovos de helmitos " + lagoaMaturacao.ovosHelmintos)
+console.log("esta passand por aqui a quantidade de lagoas " + lagoaMaturacao.quantidadeLagoasMaturacao)
+console.log("esta passand por aqui a profundidade util " + lagoaMaturacao.profundidadeUtilH)
+console.log("esta passand por aqui o comprimento maturação" + lagoaMaturacao.comprimentoMaturacao)
+console.log("esta passand por aqui o comprimento da largura" + lagoaMaturacao.larguraMaturacao)
 
   useEffect(() => {
     const img = new Image();
@@ -222,32 +229,131 @@ console.log("esta passando por aqui" + lagoaMaturacao.vazaoAfluenteMaturacao)
       
       </Container>
       
-      {/* card de lagoa de maturacao vai aqui */}
+      {/*card de lagoa de maturacao */}
       <Card>
           <TitleCard>Lagoa Maturação</TitleCard>
           <Item>
             <Description>
-              População <sup>🛈</sup>
-              <span className="tooltiptext">Carga afluente de DBO</span>
+              Remoção de coliformes <sup>🛈</sup>
+              <span className="tooltiptext">Concentração efluente do reator UASB</span>
             </Description>
-            <Value>{lagoaMaturacao.populacaoMaturacao} hab.</Value>
-          </Item>
-          
-          <Item>
-            <Description>
-              Vazao Afluente <sup>🛈</sup>
-              <span className="tooltiptext">Carga afluente de DBO</span>
-            </Description>
-            <Value>{lagoaMaturacao.vazaoAfluenteMaturacao} m3/d</Value>
+            <Value>{lagoaMaturacao.remocaoColiformes}  CF/100 ml</Value>
           </Item>
 
           <Item>
             <Description>
-              Remoção de coliformes <sup>🛈</sup>
-              <span className="tooltiptext">Carga afluente de DBO</span>
+              Volume das lagoas <sup>🛈</sup>
+              <span className="tooltiptext">Volume de cada lagoa</span>
             </Description>
-            <Value>{lagoaMaturacao.remocaoColiformes} hab.</Value>
+            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao}  m³ m²</Value>
           </Item>
+
+          <Item>
+            <Description>
+            Área superficial <sup>🛈</sup>
+              <span className="tooltiptext">Área superficial de cada lagoa</span>
+            </Description>
+            <Value>{lagoaMaturacao.areaSuperficialCadaLagoa} m²</Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Área superficial total <sup>🛈</sup>
+              <span className="tooltiptext">Área superficial total</span>
+            </Description>
+            <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Número de dispersão <sup>🛈</sup>
+              <span className="tooltiptext">Número de dispersão</span>
+            </Description>
+            <Value>{lagoaMaturacao.D} </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Coeficiente de decaimento bacteriano <sup>🛈</sup>
+              <span className="tooltiptext">Coeficiente de decaimento bacteriano</span>
+            </Description>
+            <Value>{lagoaMaturacao.kb} d<sup>-1</sup> (20ºC) </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Coeficiente de decaimento bacteriano <sup>🛈</sup>
+              <span className="tooltiptext">Coeficiente de decaimento bacteriano para T=23ºC</span>
+            </Description>
+            <Value>{lagoaMaturacao.kbT} d<sup>-1</sup> </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Concentração de coliformes efluentes <sup>🛈</sup>
+              <span className="tooltiptext">Concentração de coliformes efluentes da 1ª lagoa da série</span>
+            </Description>
+            <Value>{lagoaMaturacao.NttExpandido} CF/100 ml </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Eficiência das lagoas <sup>🛈</sup>
+              <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de CF</span>
+            </Description>
+            <Value>{lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} % </Value>
+          </Item>
+          
+          <Item>
+            <Description>
+            Concentração de coliformes no efluente final <sup>🛈</sup>
+              <span className="tooltiptext">Coliformes fecais no efluente final</span>
+            </Description>
+            <Value>{lagoaMaturacao.concentracaoColiformesEfluenteFinal} </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            A eficiência de remoção global <sup>🛈</sup>
+              <span className="tooltiptext">Eficiência global na remoção de CF (reator UASB + lagoas)</span>
+            </Description>
+            <Value>{lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} % </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Concentração de ovos no efluente do reator UASB <sup>🛈</sup>
+              <span className="tooltiptext">Ovos de helmintos no efluentes do reator UASB</span>
+            </Description>
+            <Value>{lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Eficiência de remoção global dos ovos <sup>🛈</sup>
+              <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de helmintos</span>
+            </Description>
+            <Value>{lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} % </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Eficiência global de remoção de helmitos <sup>🛈</sup>
+              <span className="tooltiptext">Eficiência global na remoção de helmintos (reator UASB + lagoas)</span>
+            </Description>
+            <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
+          </Item>
+
+          <Item>
+            <Description>
+            Unidades log remov <sup>🛈</sup>
+              <span className="tooltiptext">Unidades log removidas de helmintos (global)</span>
+            </Description>
+            <Value>{lagoaMaturacao.unidadeLogRemovida} unidades log removidas </Value>
+          </Item>
+
+          
+        
 
       </Card>
 
@@ -323,6 +429,7 @@ console.log("esta passando por aqui" + lagoaMaturacao.vazaoAfluenteMaturacao)
           </Item>
         )}
       </Card>
+      
 
       <GraficContainer>
         {/* <canvas ref={canvas}></canvas> */}
