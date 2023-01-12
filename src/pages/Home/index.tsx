@@ -9,6 +9,9 @@ import {
   Label,
   BottomInputs,
   ButtonCalc,
+  CalcMaturacao,
+  Toggle,
+  Slider
 } from "./styles";
 import Input from "../../components/Input";
 import Result from "../Result";
@@ -57,9 +60,9 @@ const emptyLagoasBaseData: LagoasBaseData = {
   coliformesFecais: 0,
   ovosHelmintos: 0,
   quantidadeLagoasMaturacao: 0,
-  profundidadeUtilH: 0,
-  comprimentoMaturacao: 0,
   larguraMaturacao: 0,
+  comprimentoMaturacao: 0,
+  profundidadeUtilH: 0,
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
@@ -84,9 +87,9 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   coliformesFecais: "10000000",
   ovosHelmintos: "200",
   quantidadeLagoasMaturacao: "4",
-  profundidadeUtilH: "0.80",
-  comprimentoMaturacao: "148.80",
   larguraMaturacao: "37.20",
+  comprimentoMaturacao: "148.80",
+  profundidadeUtilH: "0.80",
   // profundidadeUtilMaturacao: "0.80",
 };
 
@@ -99,6 +102,7 @@ const transformValuesInNumber = <T extends Record<string, string>>(target: T) =>
 };
 
 function Home() {
+  const [toggle, setToggle] = useState(false);
   const [calculated, setCalculated] = useState(false);
   const [lagoasBaseData, setLagoasBaseData] = useState<LagoasBaseStringData>(
     emptyLagoasBaseStringData
@@ -130,6 +134,10 @@ function Home() {
       },
     });
   };
+
+  const setToggleValue = () => {
+    setToggle(!toggle)
+  }
 
   function calcular() {
     const validatedValues = !Object.values(lagoasBaseData).includes("");
@@ -329,6 +337,137 @@ function Home() {
               />
             </Item>
           </BottomInputs>
+          <CalcMaturacao>
+            <Toggle>
+                <input type="checkbox" onClick={() => setToggleValue()}/> 
+                <Slider className="round"></Slider>
+            </Toggle>
+            <h2>Deseja calcular Lagoa de Maturação?</h2>
+          </CalcMaturacao>
+          {toggle ? (
+            <TopInputs>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  População <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.populacaoMaturacao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ populacaoMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Vazão afluente <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.vazaoAfluenteMaturacao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ vazaoAfluenteMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Temperatura média <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.temperaturaMediaMaturacao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ temperaturaMediaMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Coliformes fecais <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.coliformesFecais}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ coliformesFecais: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Ovos de helmintos <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.ovosHelmintos}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ ovosHelmintos: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Lagoas em série  <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.quantidadeLagoasMaturacao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ quantidadeLagoasMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Relação de comprimento <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.comprimentoMaturacao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ comprimentoMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Profundidade útil <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.profundidadeUtilH}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ profundidadeUtilH: e })
+                  }
+                />
+              </Item>
+            </TopInputs>
+          ) : null}
           <ButtonCalc>
             <button onClick={calcular}>Dimensionar</button>
           </ButtonCalc>

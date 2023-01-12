@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
 `;
 export const Painel = styled.div`
-  width: 750px;
+  width: 900px;
   height: 100%;
   padding: 20px;
   border-radius: 8px;
@@ -30,8 +30,8 @@ export const Title = styled.h2`
 `;
 export const TopInputs = styled.div`
   display: grid;
-  grid-gap: 30px;
-  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px 5px;
+  grid-template-columns: auto auto auto auto auto;
   padding: 10px;
 `;
 export const Item = styled.div`
@@ -62,7 +62,7 @@ export const Label = styled.label`
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    left: 10%;
+    left: 100%;
     margin-left: -105px;
     opacity: 0;
     transition: opacity 0.3s;
@@ -93,6 +93,7 @@ export const BottomInputs = styled.div`
 `;
 export const ButtonCalc = styled.div`
   width: 100%;
+  margin-top: 30px;
   button {
     width: 150px;
     height: 40px;
@@ -110,3 +111,70 @@ export const ButtonCalc = styled.div`
     cursor: pointer;
   }
 `;
+
+export const CalcMaturacao = styled.div`
+  display: flex;
+  margin-top: 20px;
+
+  h2 {
+    margin-left: 15px;
+    font-size: 18px;
+    color: #828282;
+  }
+`
+
+export const Slider = styled.span`
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+
+  ::before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 1px;
+    bottom: 0px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  border-radius: 34px;
+  ::before {
+    border-radius: 50%;
+  }
+  
+`
+export const Toggle = styled.label`
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+
+  input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  input:checked + ${Slider} {
+    background-color: #2196F3;
+  }
+
+  input:focus + ${Slider} {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + ${Slider}:before {
+    -webkit-transform: translateX(25px);
+    -ms-transform: translateX(26px);
+    transform: translateX(20px);
+  }
+`

@@ -183,8 +183,9 @@ export const dimensionamento = ({
     //=========================================================================
 
     // LAGOA MATURAÇÃO
-
-    //   if(calculaMaturacao) {
+    let D = 0;
+    
+    //   if(populacaoMaturacao && vazaoAfluenteMaturacao && temperaturaMediaMaturacao && coliformesFecais && ovosHelmintos && quantidadeLagoasMaturacao && profundidadeUtilH && comprimentoMaturacao && larguraMaturacao ) {
 
         //Remoçao dos coliformes pelo reator UASB
         const reatorUASB = 80;
@@ -217,7 +218,7 @@ export const dimensionamento = ({
        
         //Concentração de coliformes no efluente final
         //Cálculo segundo o modelo de fluxo disperso
-        const D = 1 / (comprimentoMaturacao / larguraMaturacao);
+        D = 1 / (comprimentoMaturacao / larguraMaturacao);
         //console.log("D = "+ D);
 
         //valor do coeficinete de decaimento bacteriano
@@ -358,8 +359,7 @@ export const dimensionamento = ({
       concentracaoOvosEfluenteReatorUASB,
       eficienciaRemocaoGlobalHelmitosPorcentagem,
       eficienciaGlobalPorcentagem,
-      unidadeLogRemovida,
-      
+      unidadeLogRemovida
     }
   };
 };

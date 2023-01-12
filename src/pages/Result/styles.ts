@@ -1,25 +1,30 @@
 import styled from "styled-components";
 
-export const Page = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-export const Value = styled.p`
-  width: 360px;
-  text-align: right;
-`;
 export const Card = styled.div`
-  width: 600px;
+  width: 70%;
   height: 100%;
+  margin: 30px 0;
   background: #fff;
   padding: 10px 20px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const Page = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ${Card}:nth-child(3) {
+    width: 550px;
+  }
+`;
+export const Value = styled.p`
+  text-align: right;
 `;
 
 export const Container = styled.div`
@@ -32,6 +37,7 @@ export const Container = styled.div`
 
   ${Card} {
     width: 400px;
+    margin: 0;
     ${Value} {
       width: 43%;
     }
@@ -67,6 +73,7 @@ export const Canvas = styled.div`
 
 export const Description = styled.p`
   font-weight: 500;
+  max-width: 70%;
   cursor: help;
   position: relative;
   display: inline-block;

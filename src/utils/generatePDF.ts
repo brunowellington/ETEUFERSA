@@ -1,28 +1,11 @@
 import jsPDF from "jspdf";
 import { LagoaAnaerobia } from "../types/LagoaAnaerobia";
 import { LagoaFacultativa } from "../types/LagoaFacultativa";
+import { LagoaMaturacao } from "../types/LagoaMaturacao";
 import { LagoasBaseData } from "../types/LagoasBaseData";
 import { SistemaAustraliano } from "../types/SistemaAustraliano";
 
-type GeneratePDFProps = {
-  lagoasBaseData: LagoasBaseData;
-  lagoaAnaerobia: LagoaAnaerobia;
-  lagoaFacultativa: LagoaFacultativa;
-  sistemaAustraliano: SistemaAustraliano;
-  canvas: HTMLCanvasElement | null;
-};
-
-export const generatePDF = ({
-  lagoasBaseData,
-  lagoaAnaerobia,
-  lagoaFacultativa,
-  sistemaAustraliano,
-  canvas,
-}: GeneratePDFProps) => {
-  const doc = new jsPDF("p", "pt");
-
-  doc.setFont("courier");
-  doc.setFontSize(10);
+const addCabecalho = (doc: jsPDF) => {
   doc.text(
     "ESTAÇÃO  DE  TRATAMENTO  DE  ESGOTO  UNIVERSIDADE  FEDERAL RURAL DO",
     80,
@@ -44,6 +27,30 @@ export const generatePDF = ({
 
   doc.setLineWidth(0.5);
   doc.line(485, 115, 80, 115);
+}
+
+type GeneratePDFProps = {
+  lagoasBaseData: LagoasBaseData;
+  lagoaAnaerobia: LagoaAnaerobia;
+  lagoaFacultativa: LagoaFacultativa;
+  lagoaMaturacao: LagoaMaturacao;
+  sistemaAustraliano: SistemaAustraliano;
+  canvas: HTMLCanvasElement | null;
+};
+
+export const generatePDF = ({
+  lagoasBaseData,
+  lagoaAnaerobia,
+  lagoaFacultativa,
+  lagoaMaturacao,
+  sistemaAustraliano,
+  canvas,
+}: GeneratePDFProps) => {
+  const doc = new jsPDF("p", "pt");
+
+  doc.setFont("courier");
+  doc.setFontSize(10);
+  addCabecalho(doc);
 
   doc.text("Dados de entrada", 80, 140);
   doc.text(`Populacao: ${lagoasBaseData.populacao}`, 100, 160);
@@ -61,7 +68,7 @@ export const generatePDF = ({
     doc.text(`DQO fornecido: ${lagoasBaseData.dqo}`, 100, 303);
   }
 
-  doc.text("Lagoa Anaeróbia", 80, 320);
+  doc.text("Lagoa Anaeróbia", 80, 323);
   doc.text(`Carga afluente de DBO = ${lagoaAnaerobia.cargaAnaerobia.toFixed(3)} kgDBO/m³.d`,100,343);
   doc.text(`Volume resultante da lagoa anaeróbia = ${lagoaAnaerobia.volume} m³`,100,356);
   doc.text(`Tempo de detenção = ${(lagoaAnaerobia.tempo / 1000).toFixed(1)} dia`,100,369);
@@ -81,6 +88,34 @@ export const generatePDF = ({
   doc.text(`Estimativa da DBO solúvel efluente = ${lagoaFacultativa.s.toFixed(0)} mg/l`,100,553);
   doc.text(`Estimativa da DBO particulada efluente = ${lagoaFacultativa.DBO5Particulada} mgDBO`,100,566);
   doc.text(`DBO total efluente = ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,100,579);
+ 
+  doc.text("Lagoa de maturação", 80, 610);
+  doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 635);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 650);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 665);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 680);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 695);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 710);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 725);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 740);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 755);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 770);
+  
+  doc.addPage();
+
+  addCabecalho(doc);
+
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 140);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 155);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 170);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 185);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 200);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 215);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 230);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 245);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 260);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 275);
+  doc.text(`Eficiênciaaaaaaaaaaaa = ${sistemaAustraliano.eficiencia}%`, 100, 290);
 
   doc.text("Sistema Australiano", 80, 610);
 
@@ -104,30 +139,12 @@ export const generatePDF = ({
 
   if (canvas !== null) {
     doc.addPage();
-    doc.text(
-      "ESTAÇÃO  DE  TRATAMENTO  DE  ESGOTO  UNIVERSIDADE  FEDERAL RURAL DO",
-      80,
-      50,
-      { align: "justify" }
-    );
-    doc.text("SEMI-ÁRIDO - UFERSA", 80, 63);
-    doc.text(
-      "Este programa é destinado à realização do pré-dimensionamento para",
-      80,
-      80
-    );
-    doc.text(
-      "uma estação de tratamento de esgoto do tipo anaeróbia seguida por",
-      80,
-      93
-    );
-    doc.text("lagoa facultativa (sistema australiano)", 80, 106);
-
-    doc.setLineWidth(0.5);
-    doc.line(485, 115, 80, 115);
+    addCabecalho(doc);
+    
     doc.text("Layout do Sistema Australiano", 80, 140);
     doc.addImage(canvas.toDataURL(), "PNG", 15, 145, 580, 250);
   }
 
-  doc.save("Relatório Analítico - ETEUFERSA.pdf");
+  window.open(doc.output('bloburl'))
+  // doc.save("Relatório Analítico - ETEUFERSA.pdf");
 };

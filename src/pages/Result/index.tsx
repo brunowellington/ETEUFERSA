@@ -64,6 +64,7 @@ console.log("esta passand por aqui o comprimento da largura" + lagoaMaturacao.la
       lagoasBaseData,
       lagoaAnaerobia,
       lagoaFacultativa,
+      lagoaMaturacao,
       sistemaAustraliano,
       canvas: canvas.current,
     });
