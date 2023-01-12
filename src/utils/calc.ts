@@ -34,6 +34,7 @@ export const dimensionamento = ({
   profundidadeUtilH,
   comprimentoMaturacao,
   larguraMaturacao,
+  valorTempoDetencao,
      
 }: LagoasBaseData): TDimensionamento => {
   // lagoa anaeróbia
@@ -184,122 +185,116 @@ export const dimensionamento = ({
 
     // LAGOA MATURAÇÃO
     let D = 0;
-    
+    let reatorUASB = 80;
+    let remocaoColiformes;
+    let tempoDetencaoMaturacao;
+    let volumeCadaLagoaMaturacao;
+    let areaSuperficialCadaLagoa;
+    let areaSuperficialTotal;
+    let kb;
+    let kbT;
+    let a;
+    let euler = 2.718281828459045235360287;
+    let d = 0.25;
+    let Nt;
+    let Ntt;
+    let NttExpandido;
+    let e;
+    let eFicienciaSerieLagoa;
+    let eFicienciaSerieLagoaPorcentagem;
+    let concentracaoColiformesEfluenteFinal;
+    let eficienciaRemocaoGlobal;
+    let eficienciaRemocaoGlobalPorcentagem;
+    let eficienciaReator = 60;
+    let concentracaoOvosEfluenteReatorUASB;
+    let t;
+    let tElevado;
+    let eficienciaRemocaoOvosHelmitos;
+    let eficienciaRemocaoOvosHelmitosPercentual;
+    let eficienciaRemocaoGlobalHelmitos;
+    let eficienciaRemocaoGlobalHelmitosPorcentagem;
+    let unidadeLogRemovidasLagoa;
+    let ovosH;
+    let eficienciaGlobal;
+    let eficienciaGlobalPorcentagem;
+    let unidadeLog;
+    let unidadeLogRemovida;
+
     //   if(populacaoMaturacao && vazaoAfluenteMaturacao && temperaturaMediaMaturacao && coliformesFecais && ovosHelmintos && quantidadeLagoasMaturacao && profundidadeUtilH && comprimentoMaturacao && larguraMaturacao ) {
 
         //Remoçao dos coliformes pelo reator UASB
-        const reatorUASB = 80;
-        const remocaoColiformes = Math.round(coliformesFecais * (1 - reatorUASB/100));
-        //console.log(remocaoColiformes + " CF/100 ml")
-
+         remocaoColiformes = Math.round(coliformesFecais * (1 - reatorUASB/100));
+        
         //Volume das lagoas
-        //const quantidadeLagoasMaturacao = 4;
-        const tempoDetencaoMaturacao = 12 / quantidadeLagoasMaturacao;
-        const volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluenteMaturacao;
-        //console.log("volume cada lagoa: " + volumeCadaLagoaMaturacao + "m³");
-
-        //dados 2 das dimensões das lagoas
-        //const profundidadeUtilH = 0.80;
-        //console.log("profundidade util (fundo ao NA): " + profundidadeUtilH);
+        tempoDetencaoMaturacao = valorTempoDetencao / quantidadeLagoasMaturacao;
+        volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluenteMaturacao;
        
-        //calculo para a area supercial de cada lagoa
-        const areaSuperficialCadaLagoa = Math.round(volumeCadaLagoaMaturacao / profundidadeUtilH); // aqui que dava dando BO
-        //console.log("area superficial cada lagoa: " + areaSuperficialCadaLagoa);
-       
+        //calculo para a area superficial de cada lagoa
+        areaSuperficialCadaLagoa = Math.round(volumeCadaLagoaMaturacao / profundidadeUtilH); // aqui que dava dando BO
+        
         //calculo para a area supercial total
-        const areaSuperficialTotal = areaSuperficialCadaLagoa * quantidadeLagoasMaturacao;
-        //console.log("area superficial total: " + areaSuperficialTotal);
-       
-        //const comprimentoMaturacao = 148.80;
-        //console.log("comprimento: " + comprimentoMaturacao);
-       
-        //const larguraMaturacao = 37.20;
-        //console.log("largura: " + larguraMaturacao);
+        areaSuperficialTotal = areaSuperficialCadaLagoa * quantidadeLagoasMaturacao;
        
         //Concentração de coliformes no efluente final
         //Cálculo segundo o modelo de fluxo disperso
         D = 1 / (comprimentoMaturacao / larguraMaturacao);
-        //console.log("D = "+ D);
-
-        //valor do coeficinete de decaimento bacteriano
-        const kb = Number((0.542 * Math.pow(profundidadeUtilH, -1.259)).toFixed(2));
-        //console.log("kb = "+ kb);
        
+        //valor do coeficinete de decaimento bacteriano
+        kb = Number((0.542 * Math.pow(profundidadeUtilH, -1.259)).toFixed(2));
+              
         // Para temperatura 23 celcius, o valor de Kb é:
-        const kbT = Number((kb * Math.pow(1.07, temperaturaMediaMaturacao - 20)).toFixed(2));
-        //console.log("KbT = "+ kbT);
-
-
-        //Concentração de coliformes no efluente final
-        const a = Number(Math.sqrt(1 + 4 * kbT * (temperaturaMediaMaturacao-20) * D).toFixed(2));
-        //console.log("a = "+ a);
-
+        kbT = Number((kb * Math.pow(1.07, temperaturaMediaMaturacao - 20)).toFixed(2));
         
-        let euler = 2.718281828459045235360287;
-        let d = 0.25;
-        //Vê com alysson essa divisão para não ter essa truncagem na linha 243
-        const Nt = (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
-        const Ntt = Number(String((Number(Nt.toFixed(4))/100000)).slice(0,4));
-        const NttExpandido = Ntt * Math.pow(10,5)  
-        //console.log("Valor de Nt = " + NttExpandido) ;
-
-        const e = ((remocaoColiformes - NttExpandido)) / remocaoColiformes ;
-        //console.log("valor de e " + e);
+        //Concentração de coliformes no efluente final
+        a = Number(Math.sqrt(1 + 4 * kbT * (temperaturaMediaMaturacao-20) * D).toFixed(2));
+        
+        Nt = (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
+        Ntt = Number(String((Number(Nt.toFixed(4))/100000)).slice(0,4));
+        NttExpandido = Ntt * Math.pow(10,5)  
+        
+        e = ((remocaoColiformes - NttExpandido)) / remocaoColiformes ;
         //console.log("valor de e na porcentagem " + (100*e).toFixed(0) + "%");
     
-        const eFicienciaSerieLagoa = 1 - Math.pow((1 - e), quantidadeLagoasMaturacao)
-        //console.log("Eficiencia da lagoas em serie: " + eFicienciaSerieLagoa.toFixed(4))
-        const eFicienciaSerieLagoaPorcentagem = Number((100*eFicienciaSerieLagoa).toFixed(2))
+        eFicienciaSerieLagoa = 1 - Math.pow((1 - e), quantidadeLagoasMaturacao)
+        eFicienciaSerieLagoaPorcentagem = Number((100*eFicienciaSerieLagoa).toFixed(2))
         //console.log("valor da porcentagem Eficiencia da lagoas em serie: " + (100*eFicienciaSerieLagoa).toFixed(2) + "%")
         
-        const concentracaoColiformesEfluenteFinal = Math.round(remocaoColiformes * (1 - eFicienciaSerieLagoa))
-        //console.log("Concentração dos coliformes no efluente final: " + concentracaoColiformesEfluenteFinal)
+        concentracaoColiformesEfluenteFinal = Math.round(remocaoColiformes * (1 - eFicienciaSerieLagoa))
         //console.log("Concentração dos coliformes no efluente final expandido: " + (concentracaoColiformesEfluenteFinal / 100).toFixed(1) + " x 10²")
       
-        const eficienciaRemocaoGlobal = (coliformesFecais - concentracaoColiformesEfluenteFinal) /coliformesFecais
+        eficienciaRemocaoGlobal = (coliformesFecais - concentracaoColiformesEfluenteFinal) /coliformesFecais
         //console.log("Eficiencia de remoção global: " + eficienciaRemocaoGlobal.toFixed(4))
-        const eficienciaRemocaoGlobalPorcentagem = Number((eficienciaRemocaoGlobal * 100).toFixed(2))
+        eficienciaRemocaoGlobalPorcentagem = Number((eficienciaRemocaoGlobal * 100).toFixed(2))
         //console.log("Eficiencia de remoção global por %: " + (eficienciaRemocaoGlobal * 100).toFixed(2) + "%") 
         
-
         //Remoção de ovos de helmitos
         //1. Reator UASB
-        const eficienciaReator = 60
-        const concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaReator/100)
-        //console.log("Concentracao de ovos no efluente do reator UASB: " + concentracaoOvosEfluenteReatorUASB + " ovos/L")
-
+        concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaReator/100)
+        
         //2.Lagoas de polimento
-        const t = temperaturaMediaMaturacao-20
-        const tElevado = (temperaturaMediaMaturacao-20) **2
-        const eficienciaRemocaoOvosHelmitos = (100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado))) 
+        t = temperaturaMediaMaturacao-20
+        tElevado = (temperaturaMediaMaturacao-20) **2
+        eficienciaRemocaoOvosHelmitos = (100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado))) 
         //console.log("Eficiencia remocao ovos helmitos: " + eficienciaRemocaoOvosHelmitos.toFixed(1) + "%")
-        const eficienciaRemocaoOvosHelmitosPercentual = Number((eficienciaRemocaoOvosHelmitos/100).toFixed(3))
-        //console.log(eficienciaRemocaoOvosHelmitosPercentual)
-
+        eficienciaRemocaoOvosHelmitosPercentual = Number((eficienciaRemocaoOvosHelmitos/100).toFixed(3))
+   
         ////Remoção de ovos de helmitos
         //1. Reator UASB
         //Eficiencia de remoção global
-        const eficienciaRemocaoGlobalHelmitos = Number((1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4))
-        //console.log("Eficiencia remocao global helmitos: " + eficienciaRemocaoGlobalHelmitos)
-        const eficienciaRemocaoGlobalHelmitosPorcentagem =  eficienciaRemocaoGlobalHelmitos * 100
-        //console.log("Eficiencia remocao global helmitos %: " + eficienciaRemocaoGlobalHelmitosPorcentagem + "%")
-
+        eficienciaRemocaoGlobalHelmitos = Number((1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4))
+        eficienciaRemocaoGlobalHelmitosPorcentagem =  eficienciaRemocaoGlobalHelmitos * 100
         
-        const unidadeLogRemovidasLagoa = Math.round(quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos)
-        //console.log("Unidade log removidas nas lagoas aproximadamente: " + unidadeLogRemovidasLagoa + " unidades log")
+        unidadeLogRemovidasLagoa = Math.round(quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos)
 
         //A eficiência global (reator UASB + lagoas) é:
-        const ovosH = 8 * Math.pow(10,-3) // não sei de onde vem, slide 79
-        const eficienciaGlobal = (ovosHelmintos - ovosH) / ovosHelmintos
-        //console.log("Eficiencia global: " + eficienciaGlobal) 
-        const eficienciaGlobalPorcentagem = eficienciaGlobal * 100
-        //console.log("Eficiencia global %: " + eficienciaGlobalPorcentagem + " %")
-
+        ovosH = 8 * Math.pow(10,-3) // não sei de onde vem, slide 79
+        eficienciaGlobal = (ovosHelmintos - ovosH) / ovosHelmintos 
+        eficienciaGlobalPorcentagem = eficienciaGlobal * 100
+       
         //Em termos de unidades log removidas no sistema
-        const unidadeLog = 1 - (eficienciaGlobalPorcentagem / 100);
-        const unidadeLogRemovida = Number((-1 * Math.log10(unidadeLog)).toFixed(2));
-        //console.log(unidadeLogRemovida)
-
+        unidadeLog = 1 - (eficienciaGlobalPorcentagem / 100);
+        unidadeLogRemovida = Number((-1 * Math.log10(unidadeLog)).toFixed(2));
+        
         
         //   }
 
@@ -349,6 +344,7 @@ export const dimensionamento = ({
       areaSuperficialTotal,
       comprimentoMaturacao,
       larguraMaturacao,
+      valorTempoDetencao,
       D,
       kb,
       kbT,

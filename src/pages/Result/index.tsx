@@ -28,15 +28,7 @@ function Result({ lagoasBaseData }: ResultProps) {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
   // testando se ta passando
-console.log("esta passando por aqui a populacao " + lagoaMaturacao.populacaoMaturacao)
-console.log("esta passando por aqui a vazao afluente " + lagoaMaturacao.vazaoAfluenteMaturacao)
-console.log("esta passand por aqui a temperatura " + lagoaMaturacao.temperaturaMediaMaturacao)
-console.log("esta passand por aqui o coliformes fecais " + lagoaMaturacao.coliformesFecais)
-console.log("esta passand por aqui os ovos de helmitos " + lagoaMaturacao.ovosHelmintos)
-console.log("esta passand por aqui a quantidade de lagoas " + lagoaMaturacao.quantidadeLagoasMaturacao)
-console.log("esta passand por aqui a profundidade util " + lagoaMaturacao.profundidadeUtilH)
-console.log("esta passand por aqui o comprimento maturação" + lagoaMaturacao.comprimentoMaturacao)
-console.log("esta passand por aqui o comprimento da largura" + lagoaMaturacao.larguraMaturacao)
+console.log("esta passando por aqui a populacao " + lagoaMaturacao.valorTempoDetencao)
 
   useEffect(() => {
     const img = new Image();
@@ -246,7 +238,7 @@ console.log("esta passand por aqui o comprimento da largura" + lagoaMaturacao.la
               Volume das lagoas <sup>🛈</sup>
               <span className="tooltiptext">Volume de cada lagoa</span>
             </Description>
-            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao}  m³ m²</Value>
+            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao}  m²</Value>
           </Item>
 
           <Item>
@@ -347,7 +339,7 @@ console.log("esta passand por aqui o comprimento da largura" + lagoaMaturacao.la
 
           <Item>
             <Description>
-            Unidades log remov <sup>🛈</sup>
+            Unidades log removidas <sup>🛈</sup>
               <span className="tooltiptext">Unidades log removidas de helmintos (global)</span>
             </Description>
             <Value>{lagoaMaturacao.unidadeLogRemovida} unidades log removidas </Value>

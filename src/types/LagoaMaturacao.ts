@@ -13,6 +13,7 @@ export type LagoaMaturacao = {
     areaSuperficialTotal: number,
     comprimentoMaturacao: number,
     larguraMaturacao: number,
+    valorTempoDetencao: number,
     D: number,
     kb: number,
     kbT: number,

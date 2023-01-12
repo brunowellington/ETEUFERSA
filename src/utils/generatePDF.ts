@@ -58,8 +58,8 @@ export const generatePDF = ({
   doc.text(`DBO afluente: ${lagoasBaseData.DBOAfluente}`, 100, 186);
   doc.text(`Temperatura: ${lagoasBaseData.temperatura}`, 100, 199);
   doc.text(`Taxa volumétrica: ${lagoasBaseData.taxaVolumetrica}`,100,212);
-  doc.text(`Taxa de acúmulo: {lagoasBaseData.taxaAcumulo}`, 100, 225);
-  doc.text(`Quantidade de lagoas: {lagoasBaseData.quantidadeLagoas}`,100,238);
+  doc.text(`Taxa de acúmulo: ${lagoasBaseData.taxaAcumulo}`, 100, 225);
+  doc.text(`Quantidade de lagoas: ${lagoasBaseData.quantidadeLagoas}`,100,238);
   doc.text(`Proporção/1: ${lagoasBaseData.proporcao}`, 100, 251);
   doc.text(`K: ${lagoasBaseData.k}`, 100, 264);
   doc.text(`Profundidade Anaeróbia: ${lagoasBaseData.hAnaerobia}`,100,277);
@@ -90,39 +90,45 @@ export const generatePDF = ({
   doc.text(`DBO total efluente = ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,100,579);
  
   doc.text("Lagoa de maturação", 80, 610);
-  doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 635);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 650);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 665);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 680);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 695);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 710);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 725);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 740);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 755);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 770);
-  
+  doc.text(`Dados de entrada`, 90, 630);
+  doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 650);
+  doc.text(`Vazão afluente = ${lagoaMaturacao.vazaoAfluenteMaturacao}`, 100, 665);
+  doc.text(`Temperatura média = ${lagoaMaturacao.temperaturaMediaMaturacao}`, 100, 680);
+  doc.text(`Coliformes fecais = ${lagoaMaturacao.coliformesFecais}`, 100, 695);
+  doc.text(`Ovos de helmintos = ${lagoaMaturacao.ovosHelmintos}`, 100, 710);
+  doc.text(`Lagoas em série = ${lagoaMaturacao.quantidadeLagoasMaturacao}`, 100, 725);
+  doc.text(`Profundidade útil = ${lagoaMaturacao.profundidadeUtilH}`, 100, 740);
+  doc.text(`Comprimento = ${lagoaMaturacao.comprimentoMaturacao}`, 100, 755);
+  doc.text(`Largura = ${lagoaMaturacao.larguraMaturacao}`, 100, 770);
+  doc.text(`Tempo de detenção = ${lagoaMaturacao.valorTempoDetencao}`, 100, 785);
+
   doc.addPage();
 
   addCabecalho(doc);
 
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 140);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 155);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 170);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 185);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 200);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 215);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 230);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 245);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 260);
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 275);
-  doc.text(`Eficiênciaaaaaaaaaaaa = ${sistemaAustraliano.eficiencia}%`, 100, 290);
+  doc.text(`Resultado da lagoa de maturação`, 90, 135);
+  doc.text(`Remoção de coliformes = ${lagoaMaturacao.remocaoColiformes} CF/100 ml`, 100, 155);
+  doc.text(`Volume das lagoas = ${lagoaMaturacao.volumeCadaLagoaMaturacao} m²`, 100, 170);
+  doc.text(`Área superficial = ${lagoaMaturacao.areaSuperficialCadaLagoa} m²`, 100, 185);
+  doc.text(`Área superficial total = ${lagoaMaturacao.areaSuperficialTotal} m²`, 100, 200);
+  doc.text(`Número de dispersão = ${lagoaMaturacao.D}`, 100, 215);
+  doc.text(`Coeficiente de decaimento bacteriano = ${lagoaMaturacao.kb} d-1`, 100, 230);
+  doc.text(`Coeficiente de decaimento bacteriano = ${lagoaMaturacao.kbT} d-1`, 100, 245);
+  doc.text(`Concentração de coliformes efluentes = ${lagoaMaturacao.NttExpandido} CF/100 ml`, 100, 260);
+  doc.text(`Eficiência das lagoas = ${lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} %`, 100, 275);
+  doc.text(`Concentração de coliformes no efluente final = ${lagoaMaturacao.concentracaoColiformesEfluenteFinal}`, 100, 290);
+  doc.text(`A eficiência de remoção global = ${lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} %`, 100, 305);
+  doc.text(`Concentração de ovos no efluente do reator UASB = ${lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L`, 100, 320);
+  doc.text(`Eficiência de remoção global dos ovos = ${lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} %`, 100, 335);
+  doc.text(`Eficiência global de remoção de helmitos = ${lagoaMaturacao.eficienciaGlobalPorcentagem} %`, 100, 350);
+  doc.text(`Unidades log removidas = ${lagoaMaturacao.unidadeLogRemovida} unidades log removidas`, 100, 365);
 
-  doc.text("Sistema Australiano", 80, 610);
+  doc.text("Sistema Australiano", 80, 395);
 
-  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 635);
-  doc.text(`Area útil total = ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,100,648);
-  doc.text(`Area Total = ${sistemaAustraliano.areaTotal} ha`, 100, 661);
-  doc.text(`Area per capita = ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,100,674);
+  doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 410);
+  doc.text(`Area útil total = ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,100,425);
+  doc.text(`Area Total = ${sistemaAustraliano.areaTotal} ha`, 100, 440);
+  doc.text(`Area per capita = ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,100,455);
 
   if (lagoaAnaerobia.dqoDbo >= 0) {
     let message = "";
@@ -134,7 +140,7 @@ export const generatePDF = ({
       message = "(Elevada) - A fração inerte (não biodegradável) é elevada.";
     }
 
-    doc.text(`Relação DQO/DBO = ${lagoaAnaerobia.dqoDbo} ${message}`,100,687);
+    doc.text(`Relação DQO/DBO = ${lagoaAnaerobia.dqoDbo} ${message}`,100,470);
   }
 
   if (canvas !== null) {

@@ -19,7 +19,8 @@ export type LagoasBaseData = {
   coliformesFecais: number;
   ovosHelmintos: number;
   quantidadeLagoasMaturacao: number;
-  profundidadeUtilH: number,
-  comprimentoMaturacao: number,
-  larguraMaturacao: number,
+  profundidadeUtilH: number;
+  comprimentoMaturacao: number;
+  larguraMaturacao: number;
+  valorTempoDetencao: number;
 };

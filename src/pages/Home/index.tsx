@@ -63,6 +63,7 @@ const emptyLagoasBaseData: LagoasBaseData = {
   larguraMaturacao: 0,
   comprimentoMaturacao: 0,
   profundidadeUtilH: 0,
+  valorTempoDetencao: 0,
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
@@ -90,7 +91,7 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   larguraMaturacao: "37.20",
   comprimentoMaturacao: "148.80",
   profundidadeUtilH: "0.80",
-  // profundidadeUtilMaturacao: "0.80",
+  valorTempoDetencao: "12",
 };
 
 const transformValuesInNumber = <T extends Record<string, string>>(target: T) => {
@@ -337,6 +338,7 @@ function Home() {
               />
             </Item>
           </BottomInputs>
+
           <CalcMaturacao>
             <Toggle>
                 <input type="checkbox" onClick={() => setToggleValue()}/> 
@@ -349,7 +351,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    População que será atendida pelo o sistema
                   </span>
                   População <sup>🛈</sup>
                 </Label>
@@ -364,7 +366,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Quantidade de entrada de esgoto por dia
                   </span>
                   Vazão afluente <sup>🛈</sup>
                 </Label>
@@ -379,7 +381,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                  Temperatura média do líquido no mês mais frio
                   </span>
                   Temperatura média <sup>🛈</sup>
                 </Label>
@@ -394,7 +396,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Quantidade de coliformes no esgoto bruto
                   </span>
                   Coliformes fecais <sup>🛈</sup>
                 </Label>
@@ -409,7 +411,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Concentração de ovos no esgoto bruto
                   </span>
                   Ovos de helmintos <sup>🛈</sup>
                 </Label>
@@ -424,7 +426,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Quantidade de lagoas de maturação
                   </span>
                   Lagoas em série  <sup>🛈</sup>
                 </Label>
@@ -439,9 +441,24 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Profundidade da lagoa
                   </span>
-                  Relação de comprimento <sup>🛈</sup>
+                  Profundidade útil <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.profundidadeUtilH}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ profundidadeUtilH: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Comprimento da lagoa
+                  </span>
+                  Comprimento <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
@@ -454,15 +471,30 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Largura da lagoa
                   </span>
-                  Profundidade útil <sup>🛈</sup>
+                  Largura <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
-                  value={lagoasBaseData.profundidadeUtilH}
+                  value={lagoasBaseData.larguraMaturacao}
                   setValue={(e) =>
-                    updateLagoasBaseData({ profundidadeUtilH: e })
+                    updateLagoasBaseData({ larguraMaturacao: e })
+                  }
+                />
+              </Item>
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Tempo de detenção total
+                  </span>
+                  Tempo de detenção <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.valorTempoDetencao}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ valorTempoDetencao: e })
                   }
                 />
               </Item>
