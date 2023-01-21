@@ -25,9 +25,9 @@ export const dimensionamento = ({
   hFacultativa,
   dqo,
 
-  populacaoMaturacao,
-  vazaoAfluenteMaturacao,
-  temperaturaMediaMaturacao,
+  //populacaoMaturacao,
+  //vazaoAfluenteMaturacao,
+  //temperaturaMediaMaturacao,
   coliformesFecais,
   ovosHelmintos,
   quantidadeLagoasMaturacao,
@@ -227,7 +227,7 @@ export const dimensionamento = ({
         
         //Volume das lagoas
         tempoDetencaoMaturacao = valorTempoDetencao / quantidadeLagoasMaturacao;
-        volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluenteMaturacao;
+        volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluente;
        
         //calculo para a area superficial de cada lagoa
         areaSuperficialCadaLagoa = Math.round(volumeCadaLagoaMaturacao / profundidadeUtilH); // aqui que dava dando BO
@@ -243,10 +243,10 @@ export const dimensionamento = ({
         kb = Number((0.542 * Math.pow(profundidadeUtilH, -1.259)).toFixed(2));
               
         // Para temperatura 23 celcius, o valor de Kb é:
-        kbT = Number((kb * Math.pow(1.07, temperaturaMediaMaturacao - 20)).toFixed(2));
+        kbT = Number((kb * Math.pow(1.07, temperatura - 20)).toFixed(2));
         
         //Concentração de coliformes no efluente final
-        a = Number(Math.sqrt(1 + 4 * kbT * (temperaturaMediaMaturacao-20) * D).toFixed(2));
+        a = Number(Math.sqrt(1 + 4 * kbT * (temperatura-20) * D).toFixed(2));
         
         Nt = (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
         Ntt = Number(String((Number(Nt.toFixed(4))/100000)).slice(0,4));
@@ -272,8 +272,8 @@ export const dimensionamento = ({
         concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaReator/100)
         
         //2.Lagoas de polimento
-        t = temperaturaMediaMaturacao-20
-        tElevado = (temperaturaMediaMaturacao-20) **2
+        t = temperatura-20
+        tElevado = (temperatura-20) **2
         eficienciaRemocaoOvosHelmitos = (100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado))) 
         //console.log("Eficiencia remocao ovos helmitos: " + eficienciaRemocaoOvosHelmitos.toFixed(1) + "%")
         eficienciaRemocaoOvosHelmitosPercentual = Number((eficienciaRemocaoOvosHelmitos/100).toFixed(3))
@@ -331,9 +331,9 @@ export const dimensionamento = ({
       areaPercapitaFacultativa,
     },
     lagoaMaturacao: {
-      populacaoMaturacao,
-      vazaoAfluenteMaturacao,
-      temperaturaMediaMaturacao,
+      //populacaoMaturacao,
+      //vazaoAfluenteMaturacao,
+      //temperaturaMediaMaturacao,
       coliformesFecais,
       ovosHelmintos,
       remocaoColiformes,

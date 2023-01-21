@@ -91,9 +91,9 @@ export const generatePDF = ({
  
   doc.text("Lagoa de maturação", 80, 610);
   doc.text(`Dados de entrada`, 90, 630);
-  doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 650);
-  doc.text(`Vazão afluente = ${lagoaMaturacao.vazaoAfluenteMaturacao}`, 100, 665);
-  doc.text(`Temperatura média = ${lagoaMaturacao.temperaturaMediaMaturacao}`, 100, 680);
+  // doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 650);
+  // doc.text(`Vazão afluente = ${lagoaMaturacao.vazaoAfluenteMaturacao}`, 100, 665);
+  // doc.text(`Temperatura média = ${lagoaMaturacao.temperaturaMediaMaturacao}`, 100, 680);
   doc.text(`Coliformes fecais = ${lagoaMaturacao.coliformesFecais}`, 100, 695);
   doc.text(`Ovos de helmintos = ${lagoaMaturacao.ovosHelmintos}`, 100, 710);
   doc.text(`Lagoas em série = ${lagoaMaturacao.quantidadeLagoasMaturacao}`, 100, 725);

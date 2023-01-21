@@ -54,9 +54,9 @@ const emptyLagoasBaseData: LagoasBaseData = {
   hFacultativa: 0,
 
   //aqui vai as variaveis que recebe atribuição
-  populacaoMaturacao: 0,
-  vazaoAfluenteMaturacao: 0,
-  temperaturaMediaMaturacao: 0,
+  //populacaoMaturacao: 0,
+  //vazaoAfluenteMaturacao: 0,
+  //temperaturaMediaMaturacao: 0,
   coliformesFecais: 0,
   ovosHelmintos: 0,
   quantidadeLagoasMaturacao: 0,
@@ -82,9 +82,9 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   
   // colocar os dados fixos de maturação
   //aqui vai as variaveis que recebe atribuição
-  populacaoMaturacao: "10000",
-  vazaoAfluenteMaturacao: "1478",
-  temperaturaMediaMaturacao: "23",
+  //populacaoMaturacao: "10000",
+  //vazaoAfluenteMaturacao: "1478",
+  //temperaturaMediaMaturacao: "23",
   coliformesFecais: "10000000",
   ovosHelmintos: "200",
   quantidadeLagoasMaturacao: "4",
@@ -348,7 +348,7 @@ function Home() {
           </CalcMaturacao>
           {toggle ? (
             <TopInputs>
-              <Item>
+              {/* <Item>
                 <Label>
                   <span className="tooltiptext">
                     População que será atendida pelo o sistema
@@ -362,8 +362,8 @@ function Home() {
                     updateLagoasBaseData({ populacaoMaturacao: e })
                   }
                 />
-              </Item>
-              <Item>
+              </Item> */}
+              {/* <Item>
                 <Label>
                   <span className="tooltiptext">
                     Quantidade de entrada de esgoto por dia
@@ -377,8 +377,8 @@ function Home() {
                     updateLagoasBaseData({ vazaoAfluenteMaturacao: e })
                   }
                 />
-              </Item>
-              <Item>
+              </Item> */}
+              {/* <Item>
                 <Label>
                   <span className="tooltiptext">
                   Temperatura média do líquido no mês mais frio
@@ -392,7 +392,7 @@ function Home() {
                     updateLagoasBaseData({ temperaturaMediaMaturacao: e })
                   }
                 />
-              </Item>
+              </Item> */}
               <Item>
                 <Label>
                   <span className="tooltiptext">

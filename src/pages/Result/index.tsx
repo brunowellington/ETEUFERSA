@@ -27,8 +27,6 @@ function Result({ lagoasBaseData }: ResultProps) {
   const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao } = calc.dimensionamento(lagoasBaseData);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
-  // testando se ta passando
-console.log("esta passando por aqui a populacao " + lagoaMaturacao.valorTempoDetencao)
 
   useEffect(() => {
     const img = new Image();
@@ -315,7 +313,7 @@ console.log("esta passando por aqui a populacao " + lagoaMaturacao.valorTempoDet
 
           <Item>
             <Description>
-            Concentração de ovos no efluente do reator UASB <sup>🛈</sup>
+            Concentração de ovos no efluente do tratamento secundário <sup>🛈</sup>
               <span className="tooltiptext">Ovos de helmintos no efluentes do reator UASB</span>
             </Description>
             <Value>{lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L </Value>
