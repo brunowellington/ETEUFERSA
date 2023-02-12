@@ -1,5 +1,26 @@
 import styled from "styled-components";
 
+export const Resultado = styled.div`
+  width: 100%;
+  padding: 0 9.8%;
+  display: grid;
+  grid-template-columns: 4fr 1.5fr 4fr;
+  align-items: center;
+  text-align: center;
+  transition: 1s;
+  transition-property: all;
+  margin-bottom: 20px;
+  h2 {
+    padding-top: 5px;
+    color: var(--primaria-dark);
+  }
+`
+
+export const Linha = styled.hr`
+  width: 100%;
+  border: 1px solid var(--primaria-dark);
+`
+
 export const Card = styled.div`
   width: 70%;
   height: 100%;
@@ -67,7 +88,7 @@ export const Item = styled.div`
 
 export const Canvas = styled.div`
   width: 1100px;
-  height: 440px;
+  height: 438px;
   background-color: #909090;
 `;
 

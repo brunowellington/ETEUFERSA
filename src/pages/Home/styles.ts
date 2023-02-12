@@ -20,7 +20,7 @@ export const Painel = styled.div`
   height: 100%;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 130px;
+  margin-bottom: 40px;
   background-color: white;
 `;
 export const Title = styled.h2`
@@ -94,7 +94,8 @@ export const BottomInputs = styled.div`
 export const ButtonCalc = styled.div`
   width: 100%;
   margin-top: 30px;
-  button {
+  a {
+    display: block;
     width: 150px;
     height: 40px;
     margin-left: 76%;
@@ -109,6 +110,8 @@ export const ButtonCalc = styled.div`
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: 1s;
+    transition-property: all;
   }
 `;
 

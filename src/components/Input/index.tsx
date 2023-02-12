@@ -12,13 +12,13 @@ type InputProps = {
 function Input(props: InputProps) {
   const [started, setSarted] = useState(false);
   const value = props.value.toString();
-
+  
   return (
     <StyledInput
       type={props.type}
       value={value}
       min={props.min || 0}
-      err={props.err ?? (started && value.length === 0)}
+      err={props.err ?? (started && value.length === 0 || value === "0")}
       onChange={(e) => props.setValue(e.target.value)}
       onKeyDown={() => !started && setSarted(true)}
     />

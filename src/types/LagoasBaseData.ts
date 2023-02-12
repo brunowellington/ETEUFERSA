@@ -16,11 +16,11 @@ export type LagoasBaseData = {
   //populacaoMaturacao: number; 
   //vazaoAfluenteMaturacao: number;
   //temperaturaMediaMaturacao: number;
-  coliformesFecais: number;
-  ovosHelmintos: number;
-  quantidadeLagoasMaturacao: number;
-  profundidadeUtilH: number;
-  comprimentoMaturacao: number;
-  larguraMaturacao: number;
-  valorTempoDetencao: number;
+  coliformesFecais?: number;
+  ovosHelmintos?: number;
+  quantidadeLagoasMaturacao?: number;
+  profundidadeUtilH?: number;
+  comprimentoMaturacao?: number;
+  larguraMaturacao?: number;
+  valorTempoDetencao?: number;
 };

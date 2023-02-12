@@ -10,6 +10,8 @@ import {
   Description,
   GraficContainer,
   PDFButton,
+  Resultado,
+  Linha,
 } from "./styles";
 import { generatePDF } from "../../utils/generatePDF";
 // import logo from '../../assets/images/logo.png';
@@ -24,7 +26,7 @@ type ResultProps = {
 
 function Result({ lagoasBaseData }: ResultProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao } = calc.dimensionamento(lagoasBaseData);
+  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao, maturacaoCalculated } = calc.dimensionamento(lagoasBaseData);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
 
@@ -32,12 +34,42 @@ function Result({ lagoasBaseData }: ResultProps) {
     const img = new Image();
 
     const is1x1 = lagoasBaseData.proporcao === 1;
-    const proporcao = is1x1 ? "proporcao1x1" : "proporcaonx1";
-    const src = mappedImages[proporcao][lagoasBaseData.quantidadeLagoas];
+    let value = lagoasBaseData.quantidadeLagoas
+    const quantidadeLagoaMaturacao = lagoasBaseData.quantidadeLagoasMaturacao || 0
+  
+    if (maturacaoCalculated) {
+      if (lagoasBaseData.quantidadeLagoas === 1) {
+        if (quantidadeLagoaMaturacao === 1)
+          value = 1
+        if (quantidadeLagoaMaturacao === 2)
+          value = 2
+        if (quantidadeLagoaMaturacao > 2)
+          value = 3
+      } else if (lagoasBaseData.quantidadeLagoas === 2) {
+        if (quantidadeLagoaMaturacao === 1)
+          value = 4
+        if (quantidadeLagoaMaturacao === 2)
+          value = 5
+        if (quantidadeLagoaMaturacao > 2)
+          value = 6
+      } else {
+        if (quantidadeLagoaMaturacao === 1)
+          value = 7
+        if (quantidadeLagoaMaturacao === 2)
+          value = 8
+        if (quantidadeLagoaMaturacao > 2)
+          value = 9
+      }
+    } else {
+      if (value > 2)
+        value = 3
+    }
 
+    const src = mappedImages[maturacaoCalculated ? "maturacao" : is1x1 ? "proporcao1x1" : "proporcaonx1"][value];
     img.src = src;
+    
     img.onload = () => setImage(img);
-  }, [lagoasBaseData.quantidadeLagoas, lagoasBaseData.proporcao]);
+  }, [lagoasBaseData.quantidadeLagoas, lagoasBaseData.proporcao, lagoasBaseData.quantidadeLagoasMaturacao]);
 
   useEffect(() => {
     writeInCanvas({
@@ -45,7 +77,9 @@ function Result({ lagoasBaseData }: ResultProps) {
       canvas: canvas.current,
       lagoaAnaerobia,
       lagoaFacultativa,
+      lagoaMaturacao,
       lagoasBaseData,
+      maturacaoCalculated,
     });
   }, [image, lagoaAnaerobia, lagoaFacultativa, lagoasBaseData]);
 
@@ -57,12 +91,17 @@ function Result({ lagoasBaseData }: ResultProps) {
       lagoaMaturacao,
       sistemaAustraliano,
       canvas: canvas.current,
+      maturacaoCalculated
     });
 
   return (
     <Page>
+      <Resultado>
+        <Linha />
+        <h2>Resultados</h2>
+        <Linha />
+      </Resultado>
       <Container>
-      
         <Card>
           <TitleCard>Lagoa Anaeróbia</TitleCard>
           <Item>
@@ -217,136 +256,133 @@ function Result({ lagoasBaseData }: ResultProps) {
             <Value>{lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l</Value>
           </Item>
         </Card>
-      
       </Container>
       
       {/*card de lagoa de maturacao */}
-      <Card>
-          <TitleCard>Lagoa Maturação</TitleCard>
-          <Item>
-            <Description>
-              Remoção de coliformes <sup>🛈</sup>
-              <span className="tooltiptext">Concentração efluente do reator UASB</span>
-            </Description>
-            <Value>{lagoaMaturacao.remocaoColiformes}  CF/100 ml</Value>
-          </Item>
+      {maturacaoCalculated && lagoaMaturacao &&
+        <Card>
+            <TitleCard>Lagoa Maturação</TitleCard>
+            <Item>
+              <Description>
+                Remoção de coliformes <sup>🛈</sup>
+                <span className="tooltiptext">Concentração efluente do reator UASB</span>
+              </Description>
+              <Value>{lagoaMaturacao.remocaoColiformes}  CF/100 ml</Value>
+            </Item>
 
-          <Item>
-            <Description>
-              Volume das lagoas <sup>🛈</sup>
-              <span className="tooltiptext">Volume de cada lagoa</span>
-            </Description>
-            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao}  m²</Value>
-          </Item>
+            <Item>
+              <Description>
+                Volume das lagoas <sup>🛈</sup>
+                <span className="tooltiptext">Volume de cada lagoa</span>
+              </Description>
+              <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao}  m²</Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Área superficial <sup>🛈</sup>
-              <span className="tooltiptext">Área superficial de cada lagoa</span>
-            </Description>
-            <Value>{lagoaMaturacao.areaSuperficialCadaLagoa} m²</Value>
-          </Item>
+            <Item>
+              <Description>
+              Área superficial <sup>🛈</sup>
+                <span className="tooltiptext">Área superficial de cada lagoa</span>
+              </Description>
+              <Value>{lagoaMaturacao.areaSuperficialCadaLagoa} m²</Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Área superficial total <sup>🛈</sup>
-              <span className="tooltiptext">Área superficial total</span>
-            </Description>
-            <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
-          </Item>
+            <Item>
+              <Description>
+              Área superficial total <sup>🛈</sup>
+                <span className="tooltiptext">Área superficial total</span>
+              </Description>
+              <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Número de dispersão <sup>🛈</sup>
-              <span className="tooltiptext">Número de dispersão</span>
-            </Description>
-            <Value>{lagoaMaturacao.D} </Value>
-          </Item>
+            <Item>
+              <Description>
+              Número de dispersão <sup>🛈</sup>
+                <span className="tooltiptext">Número de dispersão</span>
+              </Description>
+              <Value>{lagoaMaturacao.D} </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Coeficiente de decaimento bacteriano <sup>🛈</sup>
-              <span className="tooltiptext">Coeficiente de decaimento bacteriano</span>
-            </Description>
-            <Value>{lagoaMaturacao.kb} d<sup>-1</sup> (20ºC) </Value>
-          </Item>
+            <Item>
+              <Description>
+              Coeficiente de decaimento bacteriano <sup>🛈</sup>
+                <span className="tooltiptext">Coeficiente de decaimento bacteriano</span>
+              </Description>
+              <Value>{lagoaMaturacao.kb} d<sup>-1</sup> (20ºC) </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Coeficiente de decaimento bacteriano <sup>🛈</sup>
-              <span className="tooltiptext">Coeficiente de decaimento bacteriano para T=23ºC</span>
-            </Description>
-            <Value>{lagoaMaturacao.kbT} d<sup>-1</sup> </Value>
-          </Item>
+            <Item>
+              <Description>
+              Coeficiente de decaimento bacteriano <sup>🛈</sup>
+                <span className="tooltiptext">Coeficiente de decaimento bacteriano para T=23ºC</span>
+              </Description>
+              <Value>{lagoaMaturacao.kbT} d<sup>-1</sup> </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Concentração de coliformes efluentes <sup>🛈</sup>
-              <span className="tooltiptext">Concentração de coliformes efluentes da 1ª lagoa da série</span>
-            </Description>
-            <Value>{lagoaMaturacao.NttExpandido} CF/100 ml </Value>
-          </Item>
+            <Item>
+              <Description>
+              Concentração de coliformes efluentes <sup>🛈</sup>
+                <span className="tooltiptext">Concentração de coliformes efluentes da 1ª lagoa da série</span>
+              </Description>
+              <Value>{lagoaMaturacao.NttExpandido} CF/100 ml </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Eficiência das lagoas <sup>🛈</sup>
-              <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de CF</span>
-            </Description>
-            <Value>{lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} % </Value>
-          </Item>
-          
-          <Item>
-            <Description>
-            Concentração de coliformes no efluente final <sup>🛈</sup>
-              <span className="tooltiptext">Coliformes fecais no efluente final</span>
-            </Description>
-            <Value>{lagoaMaturacao.concentracaoColiformesEfluenteFinal} </Value>
-          </Item>
+            <Item>
+              <Description>
+              Eficiência das lagoas <sup>🛈</sup>
+                <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de CF</span>
+              </Description>
+              <Value>{lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} % </Value>
+            </Item>
+            
+            <Item>
+              <Description>
+              Concentração de coliformes no efluente final <sup>🛈</sup>
+                <span className="tooltiptext">Coliformes fecais no efluente final</span>
+              </Description>
+              <Value>{lagoaMaturacao.concentracaoColiformesEfluenteFinal} </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            A eficiência de remoção global <sup>🛈</sup>
-              <span className="tooltiptext">Eficiência global na remoção de CF (reator UASB + lagoas)</span>
-            </Description>
-            <Value>{lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} % </Value>
-          </Item>
+            <Item>
+              <Description>
+              A eficiência de remoção global <sup>🛈</sup>
+                <span className="tooltiptext">Eficiência global na remoção de CF (reator UASB + lagoas)</span>
+              </Description>
+              <Value>{lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} % </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Concentração de ovos no efluente do tratamento secundário <sup>🛈</sup>
-              <span className="tooltiptext">Ovos de helmintos no efluentes do reator UASB</span>
-            </Description>
-            <Value>{lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L </Value>
-          </Item>
+            <Item>
+              <Description>
+              Concentração de ovos no efluente do tratamento secundário <sup>🛈</sup>
+                <span className="tooltiptext">Ovos de helmintos no efluentes do reator UASB</span>
+              </Description>
+              <Value>{lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Eficiência de remoção global dos ovos <sup>🛈</sup>
-              <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de helmintos</span>
-            </Description>
-            <Value>{lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} % </Value>
-          </Item>
+            <Item>
+              <Description>
+              Eficiência de remoção global dos ovos <sup>🛈</sup>
+                <span className="tooltiptext">Eficiência das lagoas de polimento na remoção de helmintos</span>
+              </Description>
+              <Value>{lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} % </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Eficiência global de remoção de helmitos <sup>🛈</sup>
-              <span className="tooltiptext">Eficiência global na remoção de helmintos (reator UASB + lagoas)</span>
-            </Description>
-            <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
-          </Item>
+            <Item>
+              <Description>
+              Eficiência global de remoção de helmitos <sup>🛈</sup>
+                <span className="tooltiptext">Eficiência global na remoção de helmintos (reator UASB + lagoas)</span>
+              </Description>
+              <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
+            </Item>
 
-          <Item>
-            <Description>
-            Unidades log removidas <sup>🛈</sup>
-              <span className="tooltiptext">Unidades log removidas de helmintos (global)</span>
-            </Description>
-            <Value>{lagoaMaturacao.unidadeLogRemovida} unidades log removidas </Value>
-          </Item>
-
-          
-        
-
-      </Card>
+            <Item>
+              <Description>
+              Unidades log removidas <sup>🛈</sup>
+                <span className="tooltiptext">Unidades log removidas de helmintos (global)</span>
+              </Description>
+              <Value>{lagoaMaturacao.unidadeLogRemovida} unidades log removidas </Value>
+            </Item>
+        </Card>
+      }
 
       <Card>
         <TitleCard>Sistema Australiano</TitleCard>
@@ -420,42 +456,13 @@ function Result({ lagoasBaseData }: ResultProps) {
           </Item>
         )}
       </Card>
-      
 
       <GraficContainer>
         {/* <canvas ref={canvas}></canvas> */}
         <TitleCard>Layout do sistema</TitleCard>
         <Canvas id="canvas">
-          <canvas width={1100} height={440} ref={canvas}></canvas>
+          <canvas width={1100} height={438} ref={canvas}></canvas>
         </Canvas>
-        {/* <Grafic>
-                    <Anaerobia>
-                        {
-                            list.map((e,index) => {
-                                return (
-                                    <Retangle style={{ width: `${lagoaAnaerobia.BAnaerobia * 3}px`,maxWidth: '170px', height: `${lagoaAnaerobia.LAnaerobia * 3}px`, minHeight: '35px', marginRight: "100px", fontSize: "10px" }}>
-                                        <TTop>{lagoaAnaerobia.BAnaerobia}m</TTop>
-                                        <TRight>{lagoaAnaerobia.LAnaerobia}m</TRight>
-                                        <DescLagoa>Lag. Anaer. {index+1}</DescLagoa>
-                                    </Retangle>
-                                )
-                            })
-                        }
-                    </Anaerobia>
-                    <Facultativa>
-                        {
-                            list.map((e, index) => {
-                                return (
-                                    <Retangle style={{ width: `${lagoaFacultativa.BFacultativa * 2}px`, maxWidth: '400px', height: `${lagoaFacultativa.LFacultativa * 2}px`,  minHeight: '50px'}}>
-                                        <TTop>{lagoaFacultativa.BFacultativa}m</TTop>
-                                        <TRight style={{ lineHeight: `${lagoaFacultativa.LFacultativa / 3}px` }}>{lagoaFacultativa.LFacultativa}m</TRight>
-                                        <DescLagoa>Lagoa Facult. {index+1}</DescLagoa>
-                                    </Retangle>
-                                )
-                            })
-                        }
-                    </Facultativa>
-                </Grafic> */}
       </GraficContainer>
       <PDFButton>
         <button onClick={onClick}>Gerar Relatório</button>

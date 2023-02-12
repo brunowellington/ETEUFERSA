@@ -112,7 +112,6 @@ function Home() {
     useState<LagoasBaseData>(emptyLagoasBaseData);
 
   function updateLagoasBaseData(value: Partial<LagoasBaseStringData>) {
-    console.log(value);
     setLagoasBaseData((prev) => ({ ...prev, ...value }));
   }
 
@@ -138,13 +137,69 @@ function Home() {
 
   const setToggleValue = () => {
     setToggle(!toggle)
+    if (toggle) {
+      lagoasBaseData.coliformesFecais = "";
+      lagoasBaseData.ovosHelmintos = "";
+      lagoasBaseData.quantidadeLagoasMaturacao = "";
+      lagoasBaseData.larguraMaturacao = "";
+      lagoasBaseData.comprimentoMaturacao = "";
+      lagoasBaseData.profundidadeUtilH = "";
+      lagoasBaseData.valorTempoDetencao = "";
+    } else {
+      lagoasBaseData.coliformesFecais = "10000000";
+      lagoasBaseData.ovosHelmintos = "200";
+      lagoasBaseData.quantidadeLagoasMaturacao = "4";
+      lagoasBaseData.larguraMaturacao = "37.20";
+      lagoasBaseData.comprimentoMaturacao = "148.80";
+      lagoasBaseData.profundidadeUtilH = "0.80";
+      lagoasBaseData.valorTempoDetencao = "12";
+    }
   }
 
   function calcular() {
-    const validatedValues = !Object.values(lagoasBaseData).includes("");
+    let obj;
+    
+    if (toggle) {
+      obj = {...lagoasBaseData}
+    } else {
+      
+      let {
+        populacao,
+        vazaoAfluente,
+        DBOAfluente,
+        temperatura,
+        taxaVolumetrica,
+        taxaAcumulo,
+        quantidadeLagoas,
+        proporcao,
+        k,
+        dqo,
+        hAnaerobia,
+        hFacultativa,
+      } = lagoasBaseData
+
+      obj = {
+        populacao,
+        vazaoAfluente,
+        DBOAfluente,
+        temperatura,
+        taxaVolumetrica,
+        taxaAcumulo,
+        quantidadeLagoas,
+        proporcao,
+        k,
+        dqo,
+        hAnaerobia,
+        hFacultativa,
+      }
+      
+    }
+
+    const validatedValues = !Object.values(obj).includes("") && !Object.values(obj).includes("0");
+    
     if (validatedValues) {
       // const [vet1, vet2] = calc.dimensionamento(20.000, 3.000, 350, 23, 4.5, 1.8,  0.15, 0.04,2, 3);
-      const numberData = transformValuesInNumber(lagoasBaseData);
+      const numberData = transformValuesInNumber(obj);
       setComputedLagoasBaseData(numberData);
       setCalculated(true);
       success();
@@ -500,8 +555,8 @@ function Home() {
               </Item>
             </TopInputs>
           ) : null}
-          <ButtonCalc>
-            <button onClick={calcular}>Dimensionar</button>
+          <ButtonCalc id="resultados">
+            <a href="#resultados" onClick={calcular}>Dimensionar</a>
           </ButtonCalc>
         </Painel>
         {calculated ? (
