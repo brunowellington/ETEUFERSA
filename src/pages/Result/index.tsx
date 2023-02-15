@@ -24,9 +24,9 @@ type ResultProps = {
   lagoasBaseData: LagoasBaseData;
 };
 
-function Result({ lagoasBaseData }: ResultProps) {
+function Result({ lagoasBaseData}: ResultProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao, maturacaoCalculated } = calc.dimensionamento(lagoasBaseData);
+  const { lagoaAnaerobia, lagoaFacultativa, sistemaAustraliano, lagoaMaturacao, anaerobiaCalculated, maturacaoCalculated } = calc.dimensionamento(lagoasBaseData);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
 
@@ -91,6 +91,7 @@ function Result({ lagoasBaseData }: ResultProps) {
       lagoaMaturacao,
       sistemaAustraliano,
       canvas: canvas.current,
+      anaerobiaCalculated,
       maturacaoCalculated
     });
 
@@ -102,66 +103,68 @@ function Result({ lagoasBaseData }: ResultProps) {
         <Linha />
       </Resultado>
       <Container>
-        <Card>
-          <TitleCard>Lagoa Anaeróbia</TitleCard>
-          <Item>
-            <Description>
-              Carga afluente de DBO <sup>🛈</sup>
-              <span className="tooltiptext">Carga afluente de DBO</span>
-            </Description>
-            <Value>{lagoaAnaerobia.cargaAnaerobia.toFixed(3)} kgDBO/m³.d</Value>
-          </Item>
-          <Item>
-            <Description>
-              Volume <sup>🛈</sup>
-              <span className="tooltiptext">
-                Volume resultante da lagoa anaeróbia
-              </span>
-            </Description>
-            <Value>{lagoaAnaerobia.volume} m³</Value>
-          </Item>
-          <Item>
-            <Description>
-              Tempo <sup>🛈</sup>
-              <span className="tooltiptext">Tempo de detenção</span>
-            </Description>
-            <Value>{(lagoaAnaerobia.tempo / 1000).toFixed(1)} dia</Value>
-          </Item>
-          <Item>
-            <Description>
-              Área <sup>🛈</sup>
-              <span className="tooltiptext">Área requerida</span>
-            </Description>
-            <Value>{(lagoaAnaerobia.area / 1000).toFixed(0)} m²</Value>
-          </Item>
-          <Item>
-            <Description>
-              Acumulação anual <sup>🛈</sup>
-              <span className="tooltiptext">
-                Acúmulo de lodo na lagoa anaeróbia
-              </span>
-            </Description>
-            <Value>{lagoaAnaerobia.acumulacao_anual} m³/ano</Value>
-          </Item>
-          <Item>
-            <Description>
-              Expessura <sup>🛈</sup>
-              <span className="tooltiptext">
-                Expessura da camada de lodo em 1 ano
-              </span>
-            </Description>
-            <Value>{lagoaAnaerobia.expessura} cm/ano</Value>
-          </Item>
-          <Item>
-            <Description>
-              Tempo para se atingir 1/3 <sup>🛈</sup>
-              <span className="tooltiptext">
-                Tempo para se atingir 1/3 da altura útil das lagoas
-              </span>
-            </Description>
-            <Value>{lagoaAnaerobia.tempo1terco.toFixed(1)} anos</Value>
-          </Item>
-        </Card>
+        {anaerobiaCalculated &&
+          <Card>
+            <TitleCard>Lagoa Anaeróbia</TitleCard>
+            <Item>
+              <Description>
+                Carga afluente de DBO <sup>🛈</sup>
+                <span className="tooltiptext">Carga afluente de DBO</span>
+              </Description>
+              <Value>{lagoaAnaerobia.cargaAnaerobia ? lagoaAnaerobia.cargaAnaerobia.toFixed(3) : 0} kgDBO/m³.d</Value>
+            </Item>
+            <Item>
+              <Description>
+                Volume <sup>🛈</sup>
+                <span className="tooltiptext">
+                  Volume resultante da lagoa anaeróbia
+                </span>
+              </Description>
+              <Value>{lagoaAnaerobia.volume} m³</Value>
+            </Item>
+            <Item>
+              <Description>
+                Tempo <sup>🛈</sup>
+                <span className="tooltiptext">Tempo de detenção</span>
+              </Description>
+              <Value>{lagoaAnaerobia.tempo ? (lagoaAnaerobia.tempo / 1000).toFixed(1) : ''} dia</Value>
+            </Item>
+            <Item>
+              <Description>
+                Área <sup>🛈</sup>
+                <span className="tooltiptext">Área requerida</span>
+              </Description>
+              <Value>{lagoaAnaerobia.area ? (lagoaAnaerobia.area / 1000).toFixed(0) : ''} m²</Value>
+            </Item>
+            <Item>
+              <Description>
+                Acumulação anual <sup>🛈</sup>
+                <span className="tooltiptext">
+                  Acúmulo de lodo na lagoa anaeróbia
+                </span>
+              </Description>
+              <Value>{lagoaAnaerobia.acumulacao_anual} m³/ano</Value>
+            </Item>
+            <Item>
+              <Description>
+                Expessura <sup>🛈</sup>
+                <span className="tooltiptext">
+                  Expessura da camada de lodo em 1 ano
+                </span>
+              </Description>
+              <Value>{lagoaAnaerobia.expessura} cm/ano</Value>
+            </Item>
+            <Item>
+              <Description>
+                Tempo para se atingir 1/3 <sup>🛈</sup>
+                <span className="tooltiptext">
+                  Tempo para se atingir 1/3 da altura útil das lagoas
+                </span>
+              </Description>
+              <Value>{lagoaAnaerobia.tempo1terco ? lagoaAnaerobia.tempo1terco.toFixed(1) : ''} anos</Value>
+            </Item>
+          </Card>
+        }
       
         <Card>
           <TitleCard>Lagoa Facultativa</TitleCard>
@@ -384,78 +387,85 @@ function Result({ lagoasBaseData }: ResultProps) {
         </Card>
       }
 
-      <Card>
-        <TitleCard>Sistema Australiano</TitleCard>
-        <Item>
-          <Description>
-            Eficiência <sup>🛈</sup>
-            <span className="tooltiptext">
-              Eficiência total do distema de lagoa anaeróbia-lagoa facultativa
-              na remoção da DBO
-            </span>
-          </Description>
-          <Value>{sistemaAustraliano.eficiencia}%</Value>
-        </Item>
-        <Item>
-          <Description>
-            Area útil total <sup>🛈</sup>
-            <span className="tooltiptext">Lagoas anaeróbia + facultativa</span>
-          </Description>
-          <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
-        </Item>
-        <Item>
-          <Description>
-            Area Total <sup>🛈</sup>
-            <span className="tooltiptext">
-              25% a 33% superior a área útil requerida
-            </span>
-          </Description>
-          <Value>{sistemaAustraliano.areaTotal} ha</Value>
-        </Item>
-        <Item>
-          <Description>
-            Area per capita <sup>🛈</sup>
-            <span className="tooltiptext">Área per capita</span>
-          </Description>
-          <Value>{sistemaAustraliano.areaPercapitaFacultativa} m²/hab </Value>
-        </Item>
-        {lagoaAnaerobia.dqoDbo >= 0 && lagoaAnaerobia.dqoDbo < 2.5 && (
+      {
+        anaerobiaCalculated &&
+        <Card>
+          <TitleCard>Sistema Australiano</TitleCard>
           <Item>
             <Description>
-              Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+              Eficiência <sup>🛈</sup>
               <span className="tooltiptext">
-                Baixa - A fração biodegradável é elevada.
+                Eficiência total do distema de lagoa anaeróbia-lagoa facultativa
+                na remoção da DBO
               </span>
             </Description>
-            <Value>Indicação para tratamento biológico </Value>
+            <Value>{sistemaAustraliano.eficiencia}%</Value>
           </Item>
-        )}
-        {lagoaAnaerobia.dqoDbo >= 2.5 && lagoaAnaerobia.dqoDbo < 3.5 && (
           <Item>
             <Description>
-              Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
-              <span className="tooltiptext">
-                Intermediária - A fração biodegradável não é elevada.
-              </span>
+              Area útil total <sup>🛈</sup>
+              <span className="tooltiptext">Lagoas anaeróbia + facultativa</span>
             </Description>
-            <Value style={{ textAlign: "justify" }}>
-              Estudos de tratabilidade para verificar viabilidade do tratamento
-              biológico.{" "}
-            </Value>
+            <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
           </Item>
-        )}
-        {lagoaAnaerobia.dqoDbo >= 3.5 && (
           <Item>
             <Description>
-              Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+              Area Total <sup>🛈</sup>
               <span className="tooltiptext">
-                Elevada - A fração inerte (não biodegradável) é elevada.
+                25% a 33% superior a área útil requerida
               </span>
             </Description>
-            <Value> Possível indicação para tratamento físico-químico</Value>
+            <Value>{sistemaAustraliano.areaTotal} ha</Value>
           </Item>
-        )}
-      </Card>
+          <Item>
+            <Description>
+              Area per capita <sup>🛈</sup>
+              <span className="tooltiptext">Área per capita</span>
+            </Description>
+            <Value>{sistemaAustraliano.areaPercapitaFacultativa} m²/hab </Value>
+          </Item>
+          {lagoaAnaerobia.dqoDbo &&
+          <>  
+            {lagoaAnaerobia.dqoDbo >= 0 && lagoaAnaerobia.dqoDbo < 2.5 && (
+              <Item>
+                <Description>
+                  Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <span className="tooltiptext">
+                    Baixa - A fração biodegradável é elevada.
+                  </span>
+                </Description>
+                <Value>Indicação para tratamento biológico </Value>
+              </Item>
+            )}
+            {lagoaAnaerobia.dqoDbo >= 2.5 && lagoaAnaerobia.dqoDbo < 3.5 && (
+              <Item>
+                <Description>
+                  Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <span className="tooltiptext">
+                    Intermediária - A fração biodegradável não é elevada.
+                  </span>
+                </Description>
+                <Value style={{ textAlign: "justify" }}>
+                  Estudos de tratabilidade para verificar viabilidade do tratamento
+                  biológico.{" "}
+                </Value>
+              </Item>
+            )}
+            {lagoaAnaerobia.dqoDbo >= 3.5 && (
+              <Item>
+                <Description>
+                  Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <span className="tooltiptext">
+                    Elevada - A fração inerte (não biodegradável) é elevada.
+                  </span>
+                </Description>
+                <Value> Possível indicação para tratamento físico-químico</Value>
+              </Item>
+            )}
+          </>
+          }
+        </Card>
+      }
 
       <GraficContainer>
         {/* <canvas ref={canvas}></canvas> */}

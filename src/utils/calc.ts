@@ -10,6 +10,7 @@ type TDimensionamento = {
   sistemaAustraliano: SistemaAustraliano;
   lagoaMaturacao?: LagoaMaturacao;
   maturacaoCalculated: boolean;
+  anaerobiaCalculated: boolean;
 };
 
 export const dimensionamento = ({
@@ -38,42 +39,64 @@ export const dimensionamento = ({
   valorTempoDetencao,
      
 }: LagoasBaseData): TDimensionamento => {
-  // lagoa anaeróbia
+  // valores de retorno da anaeróbia
+  let cargaAnaerobia = 0;
+  let area = 0;
+  let volume = 0;
+  let value = "";
+  let expessura = 0;
+  let tempo = 0;
+  let acumulacao_anual = 0;
+  let tempo1terco = 0;
 
-  // Carga afluente de DBO
-  let cargaAnaerobia = DBOAfluente * vazaoAfluente;
-  let value;
-  if (String(cargaAnaerobia).length > 3) {
-    value = String(cargaAnaerobia)[0] + ".";
-    value = Number(
-      value + String(cargaAnaerobia).slice(1, String(cargaAnaerobia).length - 1)
-    ).toFixed(4);
+  let anaerobiaCalculated = false
+  
+  if (hAnaerobia) {
+    anaerobiaCalculated = true
+    // lagoa anaeróbia
+
+    // Carga afluente de DBO
+    cargaAnaerobia = DBOAfluente * vazaoAfluente;
+    if (String(cargaAnaerobia).length > 3) {
+      value = String(cargaAnaerobia)[0] + ".";
+      value = Number(
+        value + String(cargaAnaerobia).slice(1, String(cargaAnaerobia).length - 1)
+      ).toFixed(4);
+    }
+
+    // Cálculo de volume requerido
+    volume = cargaAnaerobia / taxaVolumetrica;
+
+    // Verificação do tempo de detenção
+    tempo = volume / vazaoAfluente;
+
+    // Determinação da área requerida e dimensões
+    area = volume / hAnaerobia;
+
+    // Acúmulo de lodo na lagoa anaeróbia
+    acumulacao_anual = taxaAcumulo * populacao;
+
+    // Espessura da camada de lodo em 1 ano
+    expessura = (acumulacao_anual * 1000 * 1) / area; // 1 adotado
+
+    // Tempo para se atingir 1/3 da altura útil das lagoas
+    tempo1terco = hAnaerobia / 3 / expessura;
   }
-
-  // Cálculo de volume requerido
-  let volume = cargaAnaerobia / taxaVolumetrica;
-
-  // Verificação do tempo de detenção
-  let tempo = volume / vazaoAfluente;
-
-  // Determinação da área requerida e dimensões
-  let area = volume / hAnaerobia;
-
-  // Acúmulo de lodo na lagoa anaeróbia
-  let acumulacao_anual = taxaAcumulo * populacao;
-
-  // Espessura da camada de lodo em 1 ano
-  let expessura = (acumulacao_anual * 1000 * 1) / area; // 1 adotado
-
-  // Tempo para se atingir 1/3 da altura útil das lagoas
-  let tempo1terco = hAnaerobia / 3 / expessura;
 
   //=========================================================================
 
   // LAGOA FACULTATIVA
 
   // Carga afluente da lagoa facultativa
-  let CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 100;
+  let areaTotal_Anaerobia = 0;
+
+  let CargaFacultativa = 0;
+  if (hAnaerobia) {
+    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 100;
+    areaTotal_Anaerobia = volume / hAnaerobia;
+  } else {
+    CargaFacultativa = DBOAfluente * vazaoAfluente
+  }
 
   // adoção de taxas de aplicação superficial
   let aplicacaoSuperficial = 220;
@@ -82,8 +105,6 @@ export const dimensionamento = ({
 
   let areaTotalFacultativa = CargaFacultativa / aplicacaoSuperficial;
 
-  let areaTotal_Anaerobia = volume / hAnaerobia;
-  
   let at_value;
 
   if (String(areaTotal_Anaerobia).length > 3) {
@@ -361,6 +382,7 @@ export const dimensionamento = ({
       eficienciaGlobalPorcentagem,
       unidadeLogRemovida
     },
+    anaerobiaCalculated,
     maturacaoCalculated
   };
 };

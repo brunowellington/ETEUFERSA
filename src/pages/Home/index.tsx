@@ -11,7 +11,8 @@ import {
   ButtonCalc,
   CalcMaturacao,
   Toggle,
-  Slider
+  Slider,
+  CalcFacultativa
 } from "./styles";
 import Input from "../../components/Input";
 import Result from "../Result";
@@ -104,6 +105,7 @@ const transformValuesInNumber = <T extends Record<string, string>>(target: T) =>
 
 function Home() {
   const [toggle, setToggle] = useState(false);
+  const [toggleFacultativa, setToggleFacultativa] = useState(false);
   const [calculated, setCalculated] = useState(false);
   const [lagoasBaseData, setLagoasBaseData] = useState<LagoasBaseStringData>(
     emptyLagoasBaseStringData
@@ -135,6 +137,10 @@ function Home() {
     });
   };
 
+  const setToggleFacultativaValue = () => {
+    setToggleFacultativa(!toggleFacultativa)
+  }
+
   const setToggleValue = () => {
     setToggle(!toggle)
     if (toggle) {
@@ -163,40 +169,76 @@ function Home() {
       obj = {...lagoasBaseData}
     } else {
       
-      let {
-        populacao,
-        vazaoAfluente,
-        DBOAfluente,
-        temperatura,
-        taxaVolumetrica,
-        taxaAcumulo,
-        quantidadeLagoas,
-        proporcao,
-        k,
-        dqo,
-        hAnaerobia,
-        hFacultativa,
-      } = lagoasBaseData
-
-      obj = {
-        populacao,
-        vazaoAfluente,
-        DBOAfluente,
-        temperatura,
-        taxaVolumetrica,
-        taxaAcumulo,
-        quantidadeLagoas,
-        proporcao,
-        k,
-        dqo,
-        hAnaerobia,
-        hFacultativa,
+      if (!toggleFacultativa) {
+        let {
+          populacao,
+          vazaoAfluente,
+          DBOAfluente,
+          temperatura,
+          taxaVolumetrica,
+          taxaAcumulo,
+          quantidadeLagoas,
+          proporcao,
+          k,
+          dqo,
+          hAnaerobia,
+          hFacultativa,
+        } = lagoasBaseData
+        
+        
+        obj = {
+          populacao,
+          vazaoAfluente,
+          DBOAfluente,
+          temperatura,
+          taxaVolumetrica,
+          taxaAcumulo,
+          quantidadeLagoas,
+          proporcao,
+          k,
+          dqo,
+          hAnaerobia,
+          hFacultativa,
+        }
+      } else {
+        let {
+          populacao,
+          vazaoAfluente,
+          DBOAfluente,
+          temperatura,
+          taxaVolumetrica,
+          taxaAcumulo,
+          quantidadeLagoas,
+          proporcao,
+          k,
+          dqo,
+          hFacultativa,
+        } = lagoasBaseData
+        
+        obj = {
+          populacao,
+          vazaoAfluente,
+          DBOAfluente,
+          temperatura,
+          taxaVolumetrica,
+          taxaAcumulo,
+          quantidadeLagoas,
+          proporcao,
+          k,
+          dqo,
+          hFacultativa,
+        }
       }
-      
     }
 
     const validatedValues = !Object.values(obj).includes("") && !Object.values(obj).includes("0");
+    obj.hAnaerobia = lagoasBaseData.hAnaerobia
+    let { hAnaerobia } = lagoasBaseData
+    obj = {...obj, hAnaerobia}
     
+    if (toggleFacultativa)
+      obj.hAnaerobia = '0'
+
     if (validatedValues) {
       // const [vet1, vet2] = calc.dimensionamento(20.000, 3.000, 350, 23, 4.5, 1.8,  0.15, 0.04,2, 3);
       const numberData = transformValuesInNumber(obj);
@@ -362,21 +404,25 @@ function Home() {
             Adote profundidades (m) para as lagoas de estabilização!{" "}
           </div>
           <BottomInputs>
-            <Item>
-              <Label>
-                <span className="tooltiptext">
-                  Recomendado entre 2,5 a 5,0 m
-                </span>
-                Anaeróbia <sup>🛈</sup>
-              </Label>
-              <Input
-                type="number"
-                value={lagoasBaseData.hAnaerobia}
-                setValue={(e) =>
-                  updateLagoasBaseData({ hAnaerobia: e })
-                }
-              />
-            </Item>
+            {
+              !toggleFacultativa &&
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Recomendado entre 2,5 a 5,0 m
+                  </span>
+                  Anaeróbia <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  disabled={toggleFacultativa ? true : false}
+                  value={lagoasBaseData.hAnaerobia}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ hAnaerobia: e })
+                  }
+                />
+              </Item>
+            }
             <Item>
               <Label>
                 <span className="tooltiptext">
@@ -393,6 +439,20 @@ function Home() {
               />
             </Item>
           </BottomInputs>
+
+          <CalcFacultativa>
+            <Toggle>
+              <Label>
+                <span className="tooltiptext">
+                  Ao ativar o toggle, você estará considerando somente os dados de entrada acima para calcular a lagoa Facultativa
+                </span>
+                <sup>🛈</sup>
+              </Label>
+              <input type="checkbox" onClick={() => setToggleFacultativaValue()}/>
+              <Slider className="round"></Slider>
+            </Toggle>
+            <h2>Considere somente Facultativa?</h2>
+          </CalcFacultativa>
 
           <CalcMaturacao>
             <Toggle>

@@ -114,6 +114,19 @@ export const ButtonCalc = styled.div`
     transition-property: all;
   }
 `;
+export const CalcFacultativa = styled.div`
+  width: 400px;
+  display: flex;
+  margin-top: 20px;
+  h2 {
+    margin-left: 15px;
+    font-size: 18px;
+    color: #828282;
+  }
+  sup {
+    right: -330px;
+  }
+`
 
 export const CalcMaturacao = styled.div`
   display: flex;
