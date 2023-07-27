@@ -1,8 +1,5 @@
 export type LagoaMaturacao = {
   //as variaveis que recebe calculo vai tambem junto com as variaveis que ta sendo atribudas
-    //populacaoMaturacao: number,  
-    //vazaoAfluenteMaturacao: number,
-    //temperaturaMediaMaturacao: number,
     coliformesFecais?: number,
     remocaoColiformes?: number, 
     ovosHelmintos?: number,

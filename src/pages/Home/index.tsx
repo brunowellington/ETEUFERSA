@@ -56,9 +56,6 @@ const emptyLagoasBaseData: LagoasBaseData = {
   hFacultativa: 0,
 
   //aqui vai as variaveis que recebe atribuição
-  //populacaoMaturacao: 0,
-  //vazaoAfluenteMaturacao: 0,
-  //temperaturaMediaMaturacao: 0,
   coliformesFecais: 0,
   ovosHelmintos: 0,
   quantidadeLagoasMaturacao: 0,

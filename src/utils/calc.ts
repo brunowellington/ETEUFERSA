@@ -27,9 +27,6 @@ export const dimensionamento = ({
   hFacultativa,
   dqo,
 
-  //populacaoMaturacao,
-  //vazaoAfluenteMaturacao,
-  //temperaturaMediaMaturacao,
   coliformesFecais,
   ovosHelmintos,
   quantidadeLagoasMaturacao,
@@ -359,9 +356,6 @@ export const dimensionamento = ({
       areaPercapitaFacultativa,
     },
     lagoaMaturacao: {
-      //populacaoMaturacao,
-      //vazaoAfluenteMaturacao,
-      //temperaturaMediaMaturacao,
       coliformesFecais,
       ovosHelmintos,
       remocaoColiformes,
