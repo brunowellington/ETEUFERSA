@@ -14,6 +14,8 @@ export type LagoaMaturacao = {
     comprimentoMaturacao?: number,
     larguraMaturacao?: number,
     valorTempoDetencao?: number,
+    eficienciaRemocaoDBO?: number,
+    eficienciaRemocaoOvosHelmitoss?: number,
     D?: number,
     kb?: number,
     kbT?: number,

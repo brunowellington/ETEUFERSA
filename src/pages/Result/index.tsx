@@ -125,7 +125,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Item>
               <Description>
                 Tempo <sup>🛈</sup>
-                <span className="tooltiptext">Tempo de detenção</span>
+                <span className="tooltiptext">Tempo de detenção hidráulico</span>
               </Description>
               <Value>{lagoaAnaerobia.tempo ? (lagoaAnaerobia.tempo / 1000).toFixed(1) : ''} dia</Value>
             </Item>
@@ -192,9 +192,9 @@ function Result({ lagoasBaseData}: ResultProps) {
           </Item>
           <Item>
             <Description>
-              Àrea de cada lagoa <sup>🛈</sup>
+              Área de cada lagoa <sup>🛈</sup>
               <span className="tooltiptext">
-                Área individual para cada ladoa facultativa
+                Área individual para cada lagoa facultativa
               </span>
             </Description>
             <Value>
@@ -205,7 +205,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Description>
               Volume <sup>🛈</sup>
               <span className="tooltiptext">
-                volume resultante da lagoa facultativa
+                Volume resultante da lagoa facultativa
               </span>
             </Description>
             <Value>
@@ -216,7 +216,7 @@ function Result({ lagoasBaseData}: ResultProps) {
           <Item>
             <Description>
               Tempo <sup>🛈</sup>
-              <span className="tooltiptext">Tempo de detenção Resultante</span>
+              <span className="tooltiptext">Tempo de detenção hidráulico</span>
             </Description>
             <Value>
               {lagoaFacultativa.tempoDetencaoFacultativa.toFixed(2)} m³/ano
@@ -226,7 +226,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Description>
               KT <sup>🛈</sup>
               <span className="tooltiptext">
-                Correção para a temperatura de 23°C
+                Correção para a temperatura local
               </span>
             </Description>
             <Value>{lagoaFacultativa.kt} cm/ano</Value>
@@ -268,7 +268,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Item>
               <Description>
                 Remoção de coliformes <sup>🛈</sup>
-                <span className="tooltiptext">Concentração efluente do reator UASB</span>
+                <span className="tooltiptext">Concentração efluente pós tratamento secundário</span>
               </Description>
               <Value>{lagoaMaturacao.remocaoColiformes}  CF/100 ml</Value>
             </Item>
@@ -316,7 +316,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Item>
               <Description>
               Coeficiente de decaimento bacteriano <sup>🛈</sup>
-                <span className="tooltiptext">Coeficiente de decaimento bacteriano para T=23ºC</span>
+                <span className="tooltiptext">Coeficiente de decaimento bacteriano para temperatura local</span>
               </Description>
               <Value>{lagoaMaturacao.kbT} d<sup>-1</sup> </Value>
             </Item>
@@ -348,7 +348,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Item>
               <Description>
               A eficiência de remoção global <sup>🛈</sup>
-                <span className="tooltiptext">Eficiência global na remoção de CF (reator UASB + lagoas)</span>
+                <span className="tooltiptext">Tratamento secundário + lagoas de polimento</span>
               </Description>
               <Value>{lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} % </Value>
             </Item>
@@ -356,7 +356,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Item>
               <Description>
               Concentração de ovos no efluente do tratamento secundário <sup>🛈</sup>
-                <span className="tooltiptext">Ovos de helmintos no efluentes do reator UASB</span>
+                <span className="tooltiptext">Ovos de helmintos no efluentes do tratamento secundário</span>
               </Description>
               <Value>{lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L </Value>
             </Item>
@@ -371,8 +371,8 @@ function Result({ lagoasBaseData}: ResultProps) {
 
             <Item>
               <Description>
-              Eficiência global de remoção de helmitos <sup>🛈</sup>
-                <span className="tooltiptext">Eficiência global na remoção de helmintos (reator UASB + lagoas)</span>
+              Eficiência global de remoção de helmintos <sup>🛈</sup>
+                <span className="tooltiptext">Eficiência global na remoção de helmintos (tratamento secundário + lagoas)</span>
               </Description>
               <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
             </Item>
@@ -395,7 +395,7 @@ function Result({ lagoasBaseData}: ResultProps) {
             <Description>
               Eficiência <sup>🛈</sup>
               <span className="tooltiptext">
-                Eficiência total do distema de lagoa anaeróbia-lagoa facultativa
+                Eficiência total do sistema de lagoa anaeróbia - lagoa facultativa
                 na remoção da DBO
               </span>
             </Description>
@@ -403,14 +403,14 @@ function Result({ lagoasBaseData}: ResultProps) {
           </Item>
           <Item>
             <Description>
-              Area útil total <sup>🛈</sup>
+              Área útil total <sup>🛈</sup>
               <span className="tooltiptext">Lagoas anaeróbia + facultativa</span>
             </Description>
             <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
           </Item>
           <Item>
             <Description>
-              Area Total <sup>🛈</sup>
+              Área total <sup>🛈</sup>
               <span className="tooltiptext">
                 25% a 33% superior a área útil requerida
               </span>
@@ -419,7 +419,7 @@ function Result({ lagoasBaseData}: ResultProps) {
           </Item>
           <Item>
             <Description>
-              Area per capita <sup>🛈</sup>
+              Área per capita <sup>🛈</sup>
               <span className="tooltiptext">Área per capita</span>
             </Description>
             <Value>{sistemaAustraliano.areaPercapitaFacultativa} m²/hab </Value>
@@ -431,7 +431,7 @@ function Result({ lagoasBaseData}: ResultProps) {
                 <Description>
                   Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
                   <span className="tooltiptext">
-                    Baixa - A fração biodegradável é elevada.
+                    Baixa - A fração biodegradável é elevada
                   </span>
                 </Description>
                 <Value>Indicação para tratamento biológico </Value>

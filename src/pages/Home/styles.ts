@@ -34,6 +34,14 @@ export const TopInputs = styled.div`
   grid-template-columns: auto auto auto auto auto;
   padding: 10px;
 `;
+
+export const InputsDown = styled.div`
+  display: grid;
+  grid-gap: 20px 5px;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+`;
+
 export const Item = styled.div`
   display: flex;
   height: 60px;
@@ -41,6 +49,7 @@ export const Item = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
 export const Label = styled.label`
   font-size: 15px;
   color: #828282;

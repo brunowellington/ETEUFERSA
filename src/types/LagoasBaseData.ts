@@ -23,4 +23,6 @@ export type LagoasBaseData = {
   comprimentoMaturacao?: number;
   larguraMaturacao?: number;
   valorTempoDetencao?: number;
+  eficienciaRemocaoDBO?: number;
+  eficienciaRemocaoOvosHelmitoss?: number;
 };

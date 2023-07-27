@@ -37,6 +37,8 @@ export const dimensionamento = ({
   comprimentoMaturacao,
   larguraMaturacao,
   valorTempoDetencao,
+  eficienciaRemocaoDBO,
+  eficienciaRemocaoOvosHelmitoss
      
 }: LagoasBaseData): TDimensionamento => {
   // valores de retorno da anaeróbia
@@ -211,7 +213,7 @@ export const dimensionamento = ({
 
   // LAGOA MATURAÇÃO
   let D = 0;
-  let reatorUASB = 80;
+  //let reatorUASB = 80;
   let remocaoColiformes = 0;
   let tempoDetencaoMaturacao = 0;
   let volumeCadaLagoaMaturacao = 0;
@@ -231,7 +233,7 @@ export const dimensionamento = ({
   let concentracaoColiformesEfluenteFinal = 0;
   let eficienciaRemocaoGlobal = 0;
   let eficienciaRemocaoGlobalPorcentagem = 0;
-  let eficienciaReator = 60;
+  //let eficienciaReator = 60;
   let concentracaoOvosEfluenteReatorUASB = 0;
   let t = 0;
   let tElevado = 0;
@@ -247,10 +249,11 @@ export const dimensionamento = ({
   let unidadeLogRemovida = 0;
   let maturacaoCalculated = false
 
-  if (populacao && vazaoAfluente && temperatura && coliformesFecais && ovosHelmintos && quantidadeLagoasMaturacao && profundidadeUtilH && comprimentoMaturacao && larguraMaturacao && valorTempoDetencao ) {
+  if (populacao && vazaoAfluente && temperatura && coliformesFecais && ovosHelmintos && quantidadeLagoasMaturacao && profundidadeUtilH && comprimentoMaturacao && larguraMaturacao && valorTempoDetencao && eficienciaRemocaoDBO && eficienciaRemocaoOvosHelmitoss) {
     maturacaoCalculated = true
     //Remoçao dos coliformes pelo reator UASB
-      remocaoColiformes = Math.round(coliformesFecais * (1 - reatorUASB/100));
+    
+      remocaoColiformes = Math.round(coliformesFecais * (1 - eficienciaRemocaoDBO/100));
     
     //Volume das lagoas
     tempoDetencaoMaturacao = valorTempoDetencao / quantidadeLagoasMaturacao;
@@ -296,7 +299,7 @@ export const dimensionamento = ({
     
     //Remoção de ovos de helmitos
     //1. Reator UASB
-    concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaReator/100)
+    concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaRemocaoOvosHelmitoss/100)
     
     //2.Lagoas de polimento
     t = temperatura-20
@@ -370,6 +373,8 @@ export const dimensionamento = ({
       comprimentoMaturacao,
       larguraMaturacao,
       valorTempoDetencao,
+      eficienciaRemocaoDBO,
+      eficienciaRemocaoOvosHelmitoss,
       D,
       kb,
       kbT,

@@ -117,16 +117,15 @@ export const generatePDF = ({
   if (maturacaoCalculated && lagoaMaturacao) {
     doc.text("Lagoa de maturação", 80, 610);
     doc.text(`Dados de entrada`, 90, 630);
-    // doc.text(`População = ${lagoaMaturacao.populacaoMaturacao}`, 100, 650);
-    // doc.text(`Vazão afluente = ${lagoaMaturacao.vazaoAfluenteMaturacao}`, 100, 665);
-    // doc.text(`Temperatura média = ${lagoaMaturacao.temperaturaMediaMaturacao}`, 100, 680);
-    doc.text(`Coliformes fecais = ${lagoaMaturacao.coliformesFecais}`, 100, 695);
-    doc.text(`Ovos de helmintos = ${lagoaMaturacao.ovosHelmintos}`, 100, 710);
-    doc.text(`Lagoas em série = ${lagoaMaturacao.quantidadeLagoasMaturacao}`, 100, 725);
-    doc.text(`Profundidade útil = ${lagoaMaturacao.profundidadeUtilH}`, 100, 740);
-    doc.text(`Comprimento = ${lagoaMaturacao.comprimentoMaturacao}`, 100, 755);
-    doc.text(`Largura = ${lagoaMaturacao.larguraMaturacao}`, 100, 770);
-    doc.text(`Tempo de detenção = ${lagoaMaturacao.valorTempoDetencao}`, 100, 785);
+    doc.text(`Coliformes fecais = ${lagoaMaturacao.coliformesFecais}`, 100, 650);
+    doc.text(`Ovos de helmintos = ${lagoaMaturacao.ovosHelmintos}`, 100, 665);
+    doc.text(`Lagoas em série = ${lagoaMaturacao.quantidadeLagoasMaturacao}`, 100, 680);
+    doc.text(`Profundidade útil = ${lagoaMaturacao.profundidadeUtilH}`, 100, 695);
+    doc.text(`Comprimento = ${lagoaMaturacao.comprimentoMaturacao}`, 100, 710);
+    doc.text(`Largura = ${lagoaMaturacao.larguraMaturacao}`, 100, 725);
+    doc.text(`Tempo de detenção = ${lagoaMaturacao.valorTempoDetencao}`, 100, 740);
+    doc.text(`Eficiência típica de remoção de DBO = ${lagoaMaturacao.eficienciaRemocaoDBO}`, 100, 755);
+    doc.text(`Eficiência típica de remoção de ovos = ${lagoaMaturacao.eficienciaRemocaoOvosHelmitoss}`, 100, 770);
 
     doc.addPage();
 

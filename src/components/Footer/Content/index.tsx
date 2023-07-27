@@ -93,6 +93,7 @@ export default function FooterContent() {
         <FooterData>
           <Title>Desenvolvedores</Title>
           <Lista>
+            <li>Bruno Wellington da Silva Lima</li>
             <li>Fernando Dutra Ribeiro</li>
             <li>Alisson Gadelha de Medeiros</li>
           </Lista>
