@@ -117,7 +117,7 @@ export default function FooterContent() {
               <Icon>
                 <FiMail />
               </Icon>
-              <Email style={{ paddingBottom: "4px" }}>em breve!</Email>
+              <Email style={{ paddingBottom: "4px" }}>faceu.ufersa@gmail.com</Email>
             </li>
           </Lista>
         </FooterData>
