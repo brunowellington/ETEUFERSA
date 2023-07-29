@@ -96,6 +96,7 @@ export default function FooterContent() {
             <li>Bruno Wellington da Silva Lima</li>
             <li>Fernando Dutra Ribeiro</li>
             <li>Alisson Gadelha de Medeiros</li>
+            <li>Maria Josicleide Felipe Guedes</li>
           </Lista>
         </FooterData>
         <FooterData>
