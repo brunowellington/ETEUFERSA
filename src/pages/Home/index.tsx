@@ -13,7 +13,7 @@ import {
   CalcMaturacao,
   Toggle,
   Slider,
-  CalcFacultativa
+  CalcFacultativa,
 } from "./styles";
 import Input from "../../components/Input";
 import Result from "../Result";
@@ -64,41 +64,42 @@ const emptyLagoasBaseData: LagoasBaseData = {
   profundidadeUtilH: 0,
   valorTempoDetencao: 0,
   eficienciaRemocaoDBO: 0,
-  eficienciaRemocaoOvosHelmitoss: 0
+  eficienciaRemocaoOvosHelmitoss: 0,
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
-  populacao: "20000",
-  vazaoAfluente: "3000",
-  DBOAfluente: "350",
-  temperatura: "23",
-  taxaVolumetrica: "0.15",
-  taxaAcumulo: "0.04",
-  quantidadeLagoas: "2",
-  proporcao: "2",
-  k: "0.27",
-  dqo: "500",
-  hAnaerobia: "4.5",
-  hFacultativa: "1.8",
-  
+  populacao: "",
+  vazaoAfluente: "",
+  DBOAfluente: "",
+  temperatura: "",
+  taxaVolumetrica: "",
+  taxaAcumulo: "",
+  quantidadeLagoas: "",
+  proporcao: "",
+  k: "",
+  dqo: "",
+  hAnaerobia: "",
+  hFacultativa: "",
+
   // colocar os dados fixos de maturação
   //aqui vai as variaveis que recebe atribuição
   //populacaoMaturacao: "10000",
   //vazaoAfluenteMaturacao: "1478",
   //temperaturaMediaMaturacao: "23",
-  coliformesFecais: "10000000",
-  ovosHelmintos: "200",
-  quantidadeLagoasMaturacao: "4",
-  larguraMaturacao: "37.20",
-  comprimentoMaturacao: "148.80",
-  profundidadeUtilH: "0.80",
-  valorTempoDetencao: "12",
-  eficienciaRemocaoDBO: "80",
-  eficienciaRemocaoOvosHelmitoss: "60"
-
+  coliformesFecais: "",
+  ovosHelmintos: "",
+  quantidadeLagoasMaturacao: "",
+  larguraMaturacao: "",
+  comprimentoMaturacao: "",
+  profundidadeUtilH: "",
+  valorTempoDetencao: "",
+  eficienciaRemocaoDBO: "",
+  eficienciaRemocaoOvosHelmitoss: "",
 };
 
-const transformValuesInNumber = <T extends Record<string, string>>(target: T) => {
+const transformValuesInNumber = <T extends Record<string, string>>(
+  target: T
+) => {
   const entires = Object.entries(target) as Array<[keyof T, string]>;
   return entires.reduce<ValuesInNumber<T>>((obj, [key, value]) => {
     obj[key] = Number(value);
@@ -141,11 +142,11 @@ function Home() {
   };
 
   const setToggleFacultativaValue = () => {
-    setToggleFacultativa(!toggleFacultativa)
-  }
+    setToggleFacultativa(!toggleFacultativa);
+  };
 
   const setToggleValue = () => {
-    setToggle(!toggle)
+    setToggle(!toggle);
     if (toggle) {
       lagoasBaseData.coliformesFecais = "";
       lagoasBaseData.ovosHelmintos = "";
@@ -156,27 +157,25 @@ function Home() {
       lagoasBaseData.valorTempoDetencao = "";
       lagoasBaseData.eficienciaRemocaoDBO = "";
       lagoasBaseData.eficienciaRemocaoOvosHelmitoss = "";
-
     } else {
-      lagoasBaseData.coliformesFecais = "10000000";
-      lagoasBaseData.ovosHelmintos = "200";
-      lagoasBaseData.quantidadeLagoasMaturacao = "4";
-      lagoasBaseData.larguraMaturacao = "37.20";
-      lagoasBaseData.comprimentoMaturacao = "148.80";
-      lagoasBaseData.profundidadeUtilH = "0.80";
-      lagoasBaseData.valorTempoDetencao = "12";
-      lagoasBaseData.eficienciaRemocaoDBO = "80";
-      lagoasBaseData.eficienciaRemocaoOvosHelmitoss = "60";
+      lagoasBaseData.coliformesFecais = "";
+      lagoasBaseData.ovosHelmintos = "";
+      lagoasBaseData.quantidadeLagoasMaturacao = "";
+      lagoasBaseData.larguraMaturacao = "";
+      lagoasBaseData.comprimentoMaturacao = "";
+      lagoasBaseData.profundidadeUtilH = "";
+      lagoasBaseData.valorTempoDetencao = "";
+      lagoasBaseData.eficienciaRemocaoDBO = "";
+      lagoasBaseData.eficienciaRemocaoOvosHelmitoss = "";
     }
-  }
+  };
 
   function calcular() {
     let obj;
-    
+
     if (toggle) {
-      obj = {...lagoasBaseData}
+      obj = { ...lagoasBaseData };
     } else {
-      
       if (!toggleFacultativa) {
         let {
           populacao,
@@ -191,9 +190,8 @@ function Home() {
           dqo,
           hAnaerobia,
           hFacultativa,
-        } = lagoasBaseData
-        
-        
+        } = lagoasBaseData;
+
         obj = {
           populacao,
           vazaoAfluente,
@@ -207,7 +205,7 @@ function Home() {
           dqo,
           hAnaerobia,
           hFacultativa,
-        }
+        };
       } else {
         let {
           populacao,
@@ -221,8 +219,8 @@ function Home() {
           k,
           dqo,
           hFacultativa,
-        } = lagoasBaseData
-        
+        } = lagoasBaseData;
+
         obj = {
           populacao,
           vazaoAfluente,
@@ -235,17 +233,17 @@ function Home() {
           k,
           dqo,
           hFacultativa,
-        }
+        };
       }
     }
 
-    const validatedValues = !Object.values(obj).includes("") && !Object.values(obj).includes("0");
-    obj.hAnaerobia = lagoasBaseData.hAnaerobia
-    let { hAnaerobia } = lagoasBaseData
-    obj = {...obj, hAnaerobia}
-    
-    if (toggleFacultativa)
-      obj.hAnaerobia = '0'
+    const validatedValues =
+      !Object.values(obj).includes("") && !Object.values(obj).includes("0");
+    obj.hAnaerobia = lagoasBaseData.hAnaerobia;
+    let { hAnaerobia } = lagoasBaseData;
+    obj = { ...obj, hAnaerobia };
+
+    if (toggleFacultativa) obj.hAnaerobia = "0";
 
     if (validatedValues) {
       // const [vet1, vet2] = calc.dimensionamento(20.000, 3.000, 350, 23, 4.5, 1.8,  0.15, 0.04,2, 3);
@@ -287,9 +285,7 @@ function Home() {
               <Input
                 type="number"
                 value={lagoasBaseData.vazaoAfluente}
-                setValue={(e) =>
-                  updateLagoasBaseData({ vazaoAfluente: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ vazaoAfluente: e })}
               />
             </Item>
             <Item>
@@ -302,22 +298,20 @@ function Home() {
               <Input
                 type="number"
                 value={lagoasBaseData.DBOAfluente}
-                setValue={(e) =>
-                  updateLagoasBaseData({ DBOAfluente: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ DBOAfluente: e })}
               />
             </Item>
             <Item>
               <Label>
-                <span className="tooltiptext">Temperatura do esgoto no ambiente °C</span>
+                <span className="tooltiptext">
+                  Temperatura do esgoto no ambiente °C
+                </span>
                 Temperatura °C <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
                 value={lagoasBaseData.temperatura}
-                setValue={(e) =>
-                  updateLagoasBaseData({ temperatura: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ temperatura: e })}
               />
             </Item>
             <Item>
@@ -330,39 +324,33 @@ function Home() {
               <Input
                 type="number"
                 value={lagoasBaseData.taxaVolumetrica}
-                setValue={(e) =>
-                  updateLagoasBaseData({ taxaVolumetrica: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ taxaVolumetrica: e })}
               />
             </Item>
             <Item>
               <Label>
-                <span className="tooltiptext">
-                  Expressa em m³/hab/ano
-                </span>
+                <span className="tooltiptext">Expressa em m³/hab/ano</span>
                 Taxa de acúmulo <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
                 value={lagoasBaseData.taxaAcumulo}
-                setValue={(e) =>
-                  updateLagoasBaseData({ taxaAcumulo: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ taxaAcumulo: e })}
               />
             </Item>
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  N° de lagoas facultativa em paralelo em sistema único ou lagoas facultativas e anaeróbias em série em sistema australiano
+                  N° de lagoas facultativa em paralelo em sistema único ou
+                  lagoas facultativas e anaeróbias em série em sistema
+                  australiano
                 </span>
                 Quantidade de lagoas <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
                 value={lagoasBaseData.quantidadeLagoas}
-                setValue={(e) =>
-                  updateLagoasBaseData({ quantidadeLagoas: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ quantidadeLagoas: e })}
               />
             </Item>
             <Item>
@@ -394,7 +382,9 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  Valor de DQO em mg/L para classificação do mecanismo de remoção condicionada a tecnologia da ETE. Para esgotos domésticos, a relação DQO/DBO varia entre 1,7 - 2,4    
+                  Valor de DQO em mg/L para classificação do mecanismo de
+                  remoção condicionada a tecnologia da ETE. Para esgotos
+                  domésticos, a relação DQO/DBO varia entre 1,7 - 2,4
                 </span>
                 DQO <sup>🛈</sup>
               </Label>
@@ -409,8 +399,7 @@ function Home() {
             Adote profundidades em m para as lagoas de estabilização:{" "}
           </div>
           <BottomInputs>
-            {
-              !toggleFacultativa &&
+            {!toggleFacultativa && (
               <Item>
                 <Label>
                   <span className="tooltiptext">
@@ -422,12 +411,10 @@ function Home() {
                   type="number"
                   disabled={toggleFacultativa ? true : false}
                   value={lagoasBaseData.hAnaerobia}
-                  setValue={(e) =>
-                    updateLagoasBaseData({ hAnaerobia: e })
-                  }
+                  setValue={(e) => updateLagoasBaseData({ hAnaerobia: e })}
                 />
               </Item>
-            }
+            )}
             <Item>
               <Label>
                 <span className="tooltiptext">
@@ -438,9 +425,7 @@ function Home() {
               <Input
                 type="number"
                 value={lagoasBaseData.hFacultativa}
-                setValue={(e) =>
-                  updateLagoasBaseData({ hFacultativa: e })
-                }
+                setValue={(e) => updateLagoasBaseData({ hFacultativa: e })}
               />
             </Item>
           </BottomInputs>
@@ -449,11 +434,15 @@ function Home() {
             <Toggle>
               <Label>
                 <span className="tooltiptext">
-                  Ao ativar o toggle, você estará considerando somente os dados de entrada acima para calcular a lagoa Facultativa
+                  Ao ativar o toggle, você estará considerando somente os dados
+                  de entrada acima para calcular a lagoa Facultativa
                 </span>
                 <sup>🛈</sup>
               </Label>
-              <input type="checkbox" onClick={() => setToggleFacultativaValue()}/>
+              <input
+                type="checkbox"
+                onClick={() => setToggleFacultativaValue()}
+              />
               <Slider className="round"></Slider>
             </Toggle>
             <h2>Considere somente Facultativa?</h2>
@@ -461,18 +450,18 @@ function Home() {
 
           <CalcMaturacao>
             <Toggle>
-                <input type="checkbox" onClick={() => setToggleValue()}/> 
-                <Slider className="round"></Slider>
+              <input type="checkbox" onClick={() => setToggleValue()} />
+              <Slider className="round"></Slider>
             </Toggle>
             <h2>Deseja calcular Lagoa de Maturação?</h2>
           </CalcMaturacao>
           {toggle ? (
             <InputsDown>
-              
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                  Concentração de coliformes fecais em CF/100 mL no esgoto bruto
+                    Concentração de coliformes fecais em CF/100 mL no esgoto
+                    bruto
                   </span>
                   Coliformes fecais <sup>🛈</sup>
                 </Label>
@@ -487,24 +476,22 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                  Concentração de ovos de helmintos no esgoto bruto (ovos/L)
+                    Concentração de ovos de helmintos no esgoto bruto (ovos/L)
                   </span>
                   Ovos de helmintos <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
                   value={lagoasBaseData.ovosHelmintos}
-                  setValue={(e) =>
-                    updateLagoasBaseData({ ovosHelmintos: e })
-                  }
+                  setValue={(e) => updateLagoasBaseData({ ovosHelmintos: e })}
                 />
               </Item>
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                   Número de lagoas de maturação em série
+                    Número de lagoas de maturação em série
                   </span>
-                  Lagoas em série  <sup>🛈</sup>
+                  Lagoas em série <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
@@ -517,7 +504,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                   Profundidade útil da lagoa de maturação (em metros)
+                    Profundidade útil da lagoa de maturação (em metros)
                   </span>
                   Profundidade útil <sup>🛈</sup>
                 </Label>
@@ -547,7 +534,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                   Largura da lagoa de maturação (em metros)
+                    Largura da lagoa de maturação (em metros)
                   </span>
                   Largura <sup>🛈</sup>
                 </Label>
@@ -562,7 +549,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                  Tempo de detenção total (em dias)
+                    Tempo de detenção total (em dias)
                   </span>
                   Tempo de detenção <sup>🛈</sup>
                 </Label>
@@ -577,9 +564,7 @@ function Home() {
 
               <Item>
                 <Label>
-                  <span className="tooltiptext">
-                  Expressa em %
-                  </span>
+                  <span className="tooltiptext">Expressa em %</span>
                   Eficiência típica de remoção de DBO <sup>🛈</sup>
                 </Label>
                 <Input
@@ -593,9 +578,7 @@ function Home() {
 
               <Item>
                 <Label>
-                  <span className="tooltiptext">
-                  Expressa em % 
-                  </span>
+                  <span className="tooltiptext">Expressa em %</span>
                   Eficiência típica de remoção de ovos <sup>🛈</sup>
                 </Label>
                 <Input
@@ -606,11 +589,12 @@ function Home() {
                   }
                 />
               </Item>
-
             </InputsDown>
           ) : null}
           <ButtonCalc id="resultados">
-            <a href="#resultados" onClick={calcular}>Dimensionar</a>
+            <a href="#resultados" onClick={calcular}>
+              Dimensionar
+            </a>
           </ButtonCalc>
         </Painel>
         {calculated ? (
