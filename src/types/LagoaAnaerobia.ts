@@ -9,4 +9,6 @@ export type LagoaAnaerobia = {
   LAnaerobia?: number;
   BAnaerobia?: number;
   dqoDbo?: number;
+  //sAnaFac?: number;
+  aplicacaoSuper?: number;
 };

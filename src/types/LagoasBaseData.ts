@@ -9,10 +9,11 @@ export type LagoasBaseData = {
   proporcao: number;
   k: number;
   dqo: number;
+  aplicacaoSuper: number;
   hAnaerobia?: number;
   hFacultativa: number;
 
-   //aqui vai os dados que ta sendo atribuidos
+  //aqui vai os dados que ta sendo atribuidos
   coliformesFecais?: number;
   ovosHelmintos?: number;
   quantidadeLagoasMaturacao?: number;

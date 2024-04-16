@@ -37,6 +37,7 @@ type LagoasBaseStringData = ValuesInString<LagoasBaseData>;
 //   proporcao: 2,
 //   k: 0.27,
 //   dqo: 500,
+//   aplicacaoSuperficial: 220,
 //   hAnaerobia: 4.5,
 //   hFacultativa: 1.8,
 // };
@@ -52,6 +53,7 @@ const emptyLagoasBaseData: LagoasBaseData = {
   proporcao: 0,
   k: 0,
   dqo: 0,
+  aplicacaoSuper: 0,
   hAnaerobia: 0,
   hFacultativa: 0,
 
@@ -78,6 +80,7 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   proporcao: "",
   k: "",
   dqo: "",
+  aplicacaoSuper: "",
   hAnaerobia: "",
   hFacultativa: "",
 
@@ -188,6 +191,7 @@ function Home() {
           proporcao,
           k,
           dqo,
+          aplicacaoSuper,
           hAnaerobia,
           hFacultativa,
         } = lagoasBaseData;
@@ -203,6 +207,7 @@ function Home() {
           proporcao,
           k,
           dqo,
+          aplicacaoSuper,
           hAnaerobia,
           hFacultativa,
         };
@@ -218,6 +223,7 @@ function Home() {
           proporcao,
           k,
           dqo,
+          aplicacaoSuper,
           hFacultativa,
         } = lagoasBaseData;
 
@@ -232,6 +238,7 @@ function Home() {
           proporcao,
           k,
           dqo,
+          aplicacaoSuper,
           hFacultativa,
         };
       }
@@ -392,6 +399,17 @@ function Home() {
                 type="number"
                 value={lagoasBaseData.dqo}
                 setValue={(e) => updateLagoasBaseData({ dqo: e })}
+              />
+            </Item>
+            <Item>
+              <Label>
+                <span className="tooltiptext">aplicaçaoSuperfi</span>
+                Aplicação supercifial <sup>🛈</sup>
+              </Label>
+              <Input
+                type="number"
+                value={lagoasBaseData.aplicacaoSuper}
+                setValue={(e) => updateLagoasBaseData({ aplicacaoSuper: e })}
               />
             </Item>
           </TopInputs>

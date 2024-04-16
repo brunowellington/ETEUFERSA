@@ -26,6 +26,7 @@ export const dimensionamento = ({
   hAnaerobia,
   hFacultativa,
   dqo,
+  aplicacaoSuper,
 
   coliformesFecais,
   ovosHelmintos,
@@ -35,8 +36,7 @@ export const dimensionamento = ({
   larguraMaturacao,
   valorTempoDetencao,
   eficienciaRemocaoDBO,
-  eficienciaRemocaoOvosHelmitoss
-     
+  eficienciaRemocaoOvosHelmitoss,
 }: LagoasBaseData): TDimensionamento => {
   // valores de retorno da anaeróbia
   let cargaAnaerobia = 0;
@@ -48,20 +48,22 @@ export const dimensionamento = ({
   let acumulacao_anual = 0;
   let tempo1terco = 0;
 
-  let anaerobiaCalculated = false
-  
+  let anaerobiaCalculated = false;
+
   if (hAnaerobia) {
-    anaerobiaCalculated = true
+    anaerobiaCalculated = true;
     // lagoa anaeróbia
 
     // Carga afluente de DBO
-    cargaAnaerobia = DBOAfluente * vazaoAfluente;
-    if (String(cargaAnaerobia).length > 3) {
-      value = String(cargaAnaerobia)[0] + ".";
-      value = Number(
-        value + String(cargaAnaerobia).slice(1, String(cargaAnaerobia).length - 1)
-      ).toFixed(4);
-    }
+    cargaAnaerobia = (DBOAfluente * vazaoAfluente) / 1000; // aqui precisa ser assim e tirar essa seleção de baixo
+
+    // if (String(cargaAnaerobia).length > 3) {
+    //   value = String(cargaAnaerobia)[0] + ".";
+    //   value = Number(
+    //     value +
+    //       String(cargaAnaerobia).slice(1, String(cargaAnaerobia).length - 1)
+    //   ).toFixed(4);
+    // }
 
     // Cálculo de volume requerido
     volume = cargaAnaerobia / taxaVolumetrica;
@@ -76,7 +78,7 @@ export const dimensionamento = ({
     acumulacao_anual = taxaAcumulo * populacao;
 
     // Espessura da camada de lodo em 1 ano
-    expessura = (acumulacao_anual * 1000 * 1) / area; // 1 adotado
+    expessura = (acumulacao_anual * 1) / area; // 1 adotado      expessura = (acumulacao_anual * 1000 * 1) / area; // 1 adotado
 
     // Tempo para se atingir 1/3 da altura útil das lagoas
     tempo1terco = hAnaerobia / 3 / expessura;
@@ -91,23 +93,23 @@ export const dimensionamento = ({
 
   let CargaFacultativa = 0;
   if (hAnaerobia) {
-    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 100;
+    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 1000;
     areaTotal_Anaerobia = volume / hAnaerobia;
   } else {
-    CargaFacultativa = DBOAfluente * vazaoAfluente
+    CargaFacultativa = (DBOAfluente * vazaoAfluente) / 1000;
   }
 
   // adoção de taxas de aplicação superficial
-  let aplicacaoSuperficial = 220;
+  //aqui vai precisar ter uma caixa de texto
 
-  CargaFacultativa = Number(String(CargaFacultativa).slice(0, 3));
+  //CargaFacultativa = Number(String(CargaFacultativa).slice(0, 3));  // retirei isso aqui
 
-  let areaTotalFacultativa = CargaFacultativa / aplicacaoSuperficial;
+  let areaTotalFacultativa = CargaFacultativa / aplicacaoSuper;
 
   let at_value;
 
   if (String(areaTotal_Anaerobia).length > 3) {
-    at_value = String(areaTotal_Anaerobia)[0] + ".";
+    at_value = String(areaTotal_Anaerobia)[1] + ".";
     at_value = Number(
       at_value + String(areaTotal_Anaerobia).split(".")[0].slice(1, 5)
     ).toFixed(3);
@@ -152,7 +154,7 @@ export const dimensionamento = ({
     Number(hFacultativa.toFixed(2));
 
   let tempoDetencaoFacultativa =
-    Number(volumeResultanteFacultativa.toFixed(3)) / vazaoAfluente / 10;
+    Number(volumeResultanteFacultativa.toFixed(3)) / vazaoAfluente; // tirar esse /10 pois é para 11.4
 
   // valor adotado
   let regimeMistura_facultativa = k;
@@ -163,13 +165,21 @@ export const dimensionamento = ({
     (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2)
   );
 
-  // estimativa de DBO afluente
+  //  -->>> ver oque faz de estrutura de seleçao aqui
 
-  let s = 140 / (1 + kt * tempoDetencaoFacultativa);
+  //  // CALCULAR A ANAEROBIA E FACULTIVA
+
+  let DBOEFLUENTE = ((100 - 60) / 100) * DBOAfluente; //calculando o 140
+
+  let sAnaFac = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
+
+  // CALCULAR SEM A ANAEROBIA O S
+
+  let s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
 
   let DBO5Particulada = 28;
 
-  let DBOTotalAfluenteFacultativa = 31 + DBO5Particulada;
+  let DBOTotalAfluenteFacultativa = s + DBO5Particulada;
 
   let eficiencia =
     ((DBOAfluente - DBOTotalAfluenteFacultativa) * 100) / DBOAfluente;
@@ -195,7 +205,7 @@ export const dimensionamento = ({
   // proporção
   // let b = 3;
   // let l = 1;
-  cargaAnaerobia = Number(value);
+  // cargaAnaerobia = Number(value);
 
   expessura = Number((expessura * 100).toFixed(0));
   eficiencia = Number(eficiencia.toFixed(0));
@@ -244,82 +254,119 @@ export const dimensionamento = ({
   let eficienciaGlobalPorcentagem = 0;
   let unidadeLog = 0;
   let unidadeLogRemovida = 0;
-  let maturacaoCalculated = false
+  let maturacaoCalculated = false;
 
-  if (populacao && vazaoAfluente && temperatura && coliformesFecais && ovosHelmintos && quantidadeLagoasMaturacao && profundidadeUtilH && comprimentoMaturacao && larguraMaturacao && valorTempoDetencao && eficienciaRemocaoDBO && eficienciaRemocaoOvosHelmitoss) {
-    maturacaoCalculated = true
+  if (
+    populacao &&
+    vazaoAfluente &&
+    temperatura &&
+    coliformesFecais &&
+    ovosHelmintos &&
+    quantidadeLagoasMaturacao &&
+    profundidadeUtilH &&
+    comprimentoMaturacao &&
+    larguraMaturacao &&
+    valorTempoDetencao &&
+    eficienciaRemocaoDBO &&
+    eficienciaRemocaoOvosHelmitoss
+  ) {
+    maturacaoCalculated = true;
     //Remoçao dos coliformes pelo reator UASB
-    
-      remocaoColiformes = Math.round(coliformesFecais * (1 - eficienciaRemocaoDBO/100));
-    
+
+    remocaoColiformes = Math.round(
+      coliformesFecais * (1 - eficienciaRemocaoDBO / 100)
+    );
+
     //Volume das lagoas
     tempoDetencaoMaturacao = valorTempoDetencao / quantidadeLagoasMaturacao;
     volumeCadaLagoaMaturacao = tempoDetencaoMaturacao * vazaoAfluente;
-    
+
     //calculo para a area superficial de cada lagoa
-    areaSuperficialCadaLagoa = Math.round(volumeCadaLagoaMaturacao / profundidadeUtilH); // aqui que dava dando BO
-    
+    areaSuperficialCadaLagoa = Math.round(
+      volumeCadaLagoaMaturacao / profundidadeUtilH
+    ); // aqui que dava dando BO
+
     //calculo para a area supercial total
     areaSuperficialTotal = areaSuperficialCadaLagoa * quantidadeLagoasMaturacao;
-    
+
     //Concentração de coliformes no efluente final
     //Cálculo segundo o modelo de fluxo disperso
     D = 1 / (comprimentoMaturacao / larguraMaturacao);
-    
+
     //valor do coeficinete de decaimento bacteriano
     kb = Number((0.542 * Math.pow(profundidadeUtilH, -1.259)).toFixed(2));
-          
+
     // Para temperatura 23 celcius, o valor de Kb é:
     kbT = Number((kb * Math.pow(1.07, temperatura - 20)).toFixed(2));
-    
+
     //Concentração de coliformes no efluente final
-    a = Number(Math.sqrt(1 + 4 * kbT * (temperatura-20) * D).toFixed(2));
-    
-    Nt = (remocaoColiformes * (4*1.9*Math.pow(euler, (1/(2*d)))))/(Math.pow((1+1.91), 2)*(Math.pow(euler, (1.9/(2*d))))-(Math.pow(1-1.91, 2))*(Math.pow(euler, (-1.9/(2*d)))))
-    Ntt = Number(String((Number(Nt.toFixed(4))/100000)).slice(0,4));
-    NttExpandido = Ntt * Math.pow(10,5)  
-    
-    e = ((remocaoColiformes - NttExpandido)) / remocaoColiformes ;
+    a = Number(Math.sqrt(1 + 4 * kbT * (temperatura - 20) * D).toFixed(2));
+
+    Nt =
+      (remocaoColiformes * (4 * 1.9 * Math.pow(euler, 1 / (2 * d)))) /
+      (Math.pow(1 + 1.91, 2) * Math.pow(euler, 1.9 / (2 * d)) -
+        Math.pow(1 - 1.91, 2) * Math.pow(euler, -1.9 / (2 * d)));
+    Ntt = Number(String(Number(Nt.toFixed(4)) / 100000).slice(0, 4));
+    NttExpandido = Ntt * Math.pow(10, 5);
+
+    e = (remocaoColiformes - NttExpandido) / remocaoColiformes;
     //console.log("valor de e na porcentagem " + (100*e).toFixed(0) + "%");
 
-    eFicienciaSerieLagoa = 1 - Math.pow((1 - e), quantidadeLagoasMaturacao)
-    eFicienciaSerieLagoaPorcentagem = Number((100*eFicienciaSerieLagoa).toFixed(2))
+    eFicienciaSerieLagoa = 1 - Math.pow(1 - e, quantidadeLagoasMaturacao);
+    eFicienciaSerieLagoaPorcentagem = Number(
+      (100 * eFicienciaSerieLagoa).toFixed(2)
+    );
     //console.log("valor da porcentagem Eficiencia da lagoas em serie: " + (100*eFicienciaSerieLagoa).toFixed(2) + "%")
-    
-    concentracaoColiformesEfluenteFinal = Math.round(remocaoColiformes * (1 - eFicienciaSerieLagoa))
+
+    concentracaoColiformesEfluenteFinal = Math.round(
+      remocaoColiformes * (1 - eFicienciaSerieLagoa)
+    );
     //console.log("Concentração dos coliformes no efluente final expandido: " + (concentracaoColiformesEfluenteFinal / 100).toFixed(1) + " x 10²")
-  
-    eficienciaRemocaoGlobal = (coliformesFecais - concentracaoColiformesEfluenteFinal) /coliformesFecais
+
+    eficienciaRemocaoGlobal =
+      (coliformesFecais - concentracaoColiformesEfluenteFinal) /
+      coliformesFecais;
     //console.log("Eficiencia de remoção global: " + eficienciaRemocaoGlobal.toFixed(4))
-    eficienciaRemocaoGlobalPorcentagem = Number((eficienciaRemocaoGlobal * 100).toFixed(2))
-    //console.log("Eficiencia de remoção global por %: " + (eficienciaRemocaoGlobal * 100).toFixed(2) + "%") 
-    
+    eficienciaRemocaoGlobalPorcentagem = Number(
+      (eficienciaRemocaoGlobal * 100).toFixed(2)
+    );
+    //console.log("Eficiencia de remoção global por %: " + (eficienciaRemocaoGlobal * 100).toFixed(2) + "%")
+
     //Remoção de ovos de helmitos
     //1. Reator UASB
-    concentracaoOvosEfluenteReatorUASB =  ovosHelmintos * (1 - eficienciaRemocaoOvosHelmitoss/100)
-    
+    concentracaoOvosEfluenteReatorUASB =
+      ovosHelmintos * (1 - eficienciaRemocaoOvosHelmitoss / 100);
+
     //2.Lagoas de polimento
-    t = temperatura-20
-    tElevado = (temperatura-20) **2
-    eficienciaRemocaoOvosHelmitos = (100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado))) 
+    t = temperatura - 20;
+    tElevado = (temperatura - 20) ** 2;
+    eficienciaRemocaoOvosHelmitos =
+      100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado));
     //console.log("Eficiencia remocao ovos helmitos: " + eficienciaRemocaoOvosHelmitos.toFixed(1) + "%")
-    eficienciaRemocaoOvosHelmitosPercentual = Number((eficienciaRemocaoOvosHelmitos/100).toFixed(3))
+    eficienciaRemocaoOvosHelmitosPercentual = Number(
+      (eficienciaRemocaoOvosHelmitos / 100).toFixed(3)
+    );
 
     ////Remoção de ovos de helmitos
     //1. Reator UASB
     //Eficiencia de remoção global
-    eficienciaRemocaoGlobalHelmitos = Number((1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4))
-    eficienciaRemocaoGlobalHelmitosPorcentagem =  eficienciaRemocaoGlobalHelmitos * 100
-    
-    unidadeLogRemovidasLagoa = Math.round(quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos)
+    eficienciaRemocaoGlobalHelmitos = Number(
+      (1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4)
+    );
+    eficienciaRemocaoGlobalHelmitosPorcentagem =
+      eficienciaRemocaoGlobalHelmitos * 100;
+
+    unidadeLogRemovidasLagoa = Math.round(
+      quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos
+    );
 
     //A eficiência global (reator UASB + lagoas) é:
-    ovosH = 8 * Math.pow(10,-3) // não sei de onde vem, slide 79
-    eficienciaGlobal = (ovosHelmintos - ovosH) / ovosHelmintos 
-    eficienciaGlobalPorcentagem = eficienciaGlobal * 100
-    
+    ovosH = 8 * Math.pow(10, -3); // não sei de onde vem, slide 79
+    eficienciaGlobal = (ovosHelmintos - ovosH) / ovosHelmintos;
+    eficienciaGlobalPorcentagem = eficienciaGlobal * 100;
+
     //Em termos de unidades log removidas no sistema
-    unidadeLog = 1 - (eficienciaGlobalPorcentagem / 100);
+    unidadeLog = 1 - eficienciaGlobalPorcentagem / 100;
     unidadeLogRemovida = Number((-1 * Math.log10(unidadeLog)).toFixed(2));
   }
 
@@ -344,6 +391,8 @@ export const dimensionamento = ({
       tempoDetencaoFacultativa,
       kt,
       s,
+      sAnaFac,
+      aplicacaoSuper,
       DBO5Particulada,
       DBOTotalAfluenteFacultativa,
       LFacultativa,
@@ -379,9 +428,9 @@ export const dimensionamento = ({
       concentracaoOvosEfluenteReatorUASB,
       eficienciaRemocaoGlobalHelmitosPorcentagem,
       eficienciaGlobalPorcentagem,
-      unidadeLogRemovida
+      unidadeLogRemovida,
     },
     anaerobiaCalculated,
-    maturacaoCalculated
+    maturacaoCalculated,
   };
 };

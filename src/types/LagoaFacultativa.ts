@@ -6,6 +6,8 @@ export type LagoaFacultativa = {
   tempoDetencaoFacultativa: number;
   kt: number;
   s: number;
+  sAnaFac: number;
+  aplicacaoSuper: number;
   DBO5Particulada: number;
   DBOTotalAfluenteFacultativa: number;
   LFacultativa: number;
