@@ -352,7 +352,7 @@ export const generatePDF = ({
       305
     );
     doc.text(
-      `Concentração de ovos no efluente do reator UASB = ${lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L`,
+      `Concentração efluente pós tratamento secundário = ${lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L`,
       100,
       320
     );

@@ -165,6 +165,7 @@ export const dimensionamento = ({
     (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2)
   );
 
+  
   //  -->>> ver oque faz de estrutura de seleçao aqui
 
   //  // CALCULAR A ANAEROBIA E FACULTIVA
@@ -176,6 +177,11 @@ export const dimensionamento = ({
   // CALCULAR SEM A ANAEROBIA O S
 
   let s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
+
+
+
+
+
 
   let DBO5Particulada = 28;
 
