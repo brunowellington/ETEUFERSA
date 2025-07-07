@@ -144,10 +144,7 @@ function Result({ lagoasBaseData }: ResultProps) {
                 Área <sup>🛈</sup>
                 <span className="tooltiptext">Área requerida</span>
               </Description>
-              <Value>
-                {lagoaAnaerobia.area?.toFixed(0)}
-                m²
-              </Value>
+              <Value>{lagoaAnaerobia.area?.toFixed(0)} m²</Value>
             </Item>
             <Item>
               <Description>

@@ -93,14 +93,13 @@ export const dimensionamento = ({
 
   let CargaFacultativa = 0;
   if (hAnaerobia) {
-    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 1000;
+    // *ULTIMA REUNIÃO (07/07)*->>> ADICIONAR OUTRA CAIXINHA PARA O 60 **_-
+
+    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 100;
     areaTotal_Anaerobia = volume / hAnaerobia;
   } else {
     CargaFacultativa = (DBOAfluente * vazaoAfluente) / 1000;
   }
-
-  // adoção de taxas de aplicação superficial
-  //aqui vai precisar ter uma caixa de texto
 
   //CargaFacultativa = Number(String(CargaFacultativa).slice(0, 3));  // retirei isso aqui
 
@@ -165,24 +164,18 @@ export const dimensionamento = ({
     (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2)
   );
 
-  
-  //  -->>> ver oque faz de estrutura de seleçao aqui
-
-  //  // CALCULAR A ANAEROBIA E FACULTIVA
-
   let DBOEFLUENTE = ((100 - 60) / 100) * DBOAfluente; //calculando o 140
 
   let sAnaFac = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
 
   // CALCULAR SEM A ANAEROBIA O S
 
+  // *** ULTIMA REUNIAO (07/07)
+  // **** Fazer distinção quando for facultativa usar DBOAfluente e quando for anaeróbia usar DBOEFLUENTE ***
+  // *** e VERIFICAR AS DIMENSOES NO LAYOUT
   let s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
 
-
-
-
-
-
+  // ***-->> COLOCAR UMA CAIXA PARA A DBO5 PARTICULADA EFLUENTE. E O TOLTIP VAI SER O ()***
   let DBO5Particulada = 28;
 
   let DBOTotalAfluenteFacultativa = s + DBO5Particulada;

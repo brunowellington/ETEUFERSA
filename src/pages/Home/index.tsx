@@ -403,8 +403,8 @@ function Home() {
             </Item>
             <Item>
               <Label>
-                <span className="tooltiptext">aplicaçaoSuperfi</span>
-                Aplicação supercifial <sup>🛈</sup>
+                <span className="tooltiptext">kgDBO/ha.d</span>
+                Taxa de aplicação superficial <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
