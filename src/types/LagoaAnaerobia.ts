@@ -11,4 +11,5 @@ export type LagoaAnaerobia = {
   dqoDbo?: number;
   //sAnaFac?: number;
   aplicacaoSuper?: number;
+  eficienciaAnaerobia?: number;
 };

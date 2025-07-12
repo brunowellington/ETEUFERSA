@@ -54,6 +54,9 @@ const emptyLagoasBaseData: LagoasBaseData = {
   k: 0,
   dqo: 0,
   aplicacaoSuper: 0,
+  eficienciaAnaerobia: 0,
+  concentracaoSSefluente: 0,
+  concentracaoSSDBO5: 0,
   hAnaerobia: 0,
   hFacultativa: 0,
 
@@ -81,6 +84,9 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   k: "",
   dqo: "",
   aplicacaoSuper: "",
+  concentracaoSSefluente: "",
+  concentracaoSSDBO5: "",
+  eficienciaAnaerobia: "",
   hAnaerobia: "",
   hFacultativa: "",
 
@@ -192,6 +198,9 @@ function Home() {
           k,
           dqo,
           aplicacaoSuper,
+          eficienciaAnaerobia,
+          concentracaoSSefluente,
+          concentracaoSSDBO5,
           hAnaerobia,
           hFacultativa,
         } = lagoasBaseData;
@@ -208,6 +217,9 @@ function Home() {
           k,
           dqo,
           aplicacaoSuper,
+          eficienciaAnaerobia,
+          concentracaoSSefluente,
+          concentracaoSSDBO5,
           hAnaerobia,
           hFacultativa,
         };
@@ -224,6 +236,9 @@ function Home() {
           k,
           dqo,
           aplicacaoSuper,
+          eficienciaAnaerobia,
+          concentracaoSSefluente,
+          concentracaoSSDBO5,
           hFacultativa,
         } = lagoasBaseData;
 
@@ -239,13 +254,17 @@ function Home() {
           k,
           dqo,
           aplicacaoSuper,
+          eficienciaAnaerobia,
+          concentracaoSSefluente,
+          concentracaoSSDBO5,
           hFacultativa,
         };
       }
     }
 
-    const validatedValues =
-      !Object.values(obj).includes("") && !Object.values(obj).includes("0");
+    const validatedValues = Object.values(obj).every(
+      (val) => val !== "" && Number(val) >= 0
+    );
     obj.hAnaerobia = lagoasBaseData.hAnaerobia;
     let { hAnaerobia } = lagoasBaseData;
     obj = { ...obj, hAnaerobia };
@@ -260,6 +279,7 @@ function Home() {
       success();
     } else {
       error();
+      console.log("Valores recebidos para validação:", obj);
     }
   }
 
@@ -321,30 +341,36 @@ function Home() {
                 setValue={(e) => updateLagoasBaseData({ temperatura: e })}
               />
             </Item>
-            <Item>
-              <Label>
-                <span className="tooltiptext">
-                  Aplicadas as lagoas anaeróbias em KgDBO/m³dia
-                </span>
-                Taxa volumétrica <sup>🛈</sup>
-              </Label>
-              <Input
-                type="number"
-                value={lagoasBaseData.taxaVolumetrica}
-                setValue={(e) => updateLagoasBaseData({ taxaVolumetrica: e })}
-              />
-            </Item>
-            <Item>
-              <Label>
-                <span className="tooltiptext">Expressa em m³/hab/ano</span>
-                Taxa de acúmulo <sup>🛈</sup>
-              </Label>
-              <Input
-                type="number"
-                value={lagoasBaseData.taxaAcumulo}
-                setValue={(e) => updateLagoasBaseData({ taxaAcumulo: e })}
-              />
-            </Item>
+
+            {!toggleFacultativa && (
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Aplicadas as lagoas anaeróbias em KgDBO/m³dia
+                  </span>
+                  Taxa volumétrica <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.taxaVolumetrica}
+                  setValue={(e) => updateLagoasBaseData({ taxaVolumetrica: e })}
+                />
+              </Item>
+            )}
+
+            {!toggleFacultativa && (
+              <Item>
+                <Label>
+                  <span className="tooltiptext">Expressa em m³/hab/ano</span>
+                  Taxa de acúmulo <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.taxaAcumulo}
+                  setValue={(e) => updateLagoasBaseData({ taxaAcumulo: e })}
+                />
+              </Item>
+            )}
             <Item>
               <Label>
                 <span className="tooltiptext">
@@ -404,12 +430,62 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">kgDBO/ha.d</span>
-                Taxa de aplicação superficial <sup>🛈</sup>
+                Taxa superficial <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
                 value={lagoasBaseData.aplicacaoSuper}
                 setValue={(e) => updateLagoasBaseData({ aplicacaoSuper: e })}
+              />
+            </Item>
+
+            {!toggleFacultativa && (
+              <Item>
+                <Label>
+                  <span className="tooltiptext">%</span>
+                  Eficiência Anaerobia <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.eficienciaAnaerobia}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ eficienciaAnaerobia: e })
+                  }
+                />
+              </Item>
+            )}
+
+            <Item>
+              <Label>
+                <span className="tooltiptext">
+                  {" "}
+                  Concentração sólidos em suspensão do efluente (mg/L)
+                </span>
+                Concentração SS efluente <sup>🛈</sup>
+              </Label>
+              <Input
+                type="number"
+                value={lagoasBaseData.concentracaoSSefluente}
+                setValue={(e) =>
+                  updateLagoasBaseData({ concentracaoSSefluente: e })
+                }
+              />
+            </Item>
+
+            <Item>
+              <Label>
+                <span className="tooltiptext">
+                  {" "}
+                  1 mg/L de sólidos em suspensão no efluente capaz de gerar DBO5{" "}
+                </span>
+                Concentração SS/DBO5 <sup>🛈</sup>
+              </Label>
+              <Input
+                type="number"
+                value={lagoasBaseData.concentracaoSSDBO5}
+                setValue={(e) =>
+                  updateLagoasBaseData({ concentracaoSSDBO5: e })
+                }
               />
             </Item>
           </TopInputs>

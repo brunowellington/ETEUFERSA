@@ -260,6 +260,15 @@ function Result({ lagoasBaseData }: ResultProps) {
               {lagoaFacultativa.DBOTotalAfluenteFacultativa?.toFixed(0)} mg/l
             </Value>
           </Item>
+          <Item>
+            <Description>
+              Eficiência <sup>🛈</sup>
+              <span className="tooltiptext">
+                Eficiência no sistema de lagoa facultativa na remoção de DBO
+              </span>
+            </Description>
+            <Value>{lagoaFacultativa.eficienciaFacultativa} %</Value>
+          </Item>
         </Card>
       </Container>
 

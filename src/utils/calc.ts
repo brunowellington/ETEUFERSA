@@ -27,6 +27,9 @@ export const dimensionamento = ({
   hFacultativa,
   dqo,
   aplicacaoSuper,
+  eficienciaAnaerobia,
+  concentracaoSSefluente,
+  concentracaoSSDBO5,
 
   coliformesFecais,
   ovosHelmintos,
@@ -93,9 +96,8 @@ export const dimensionamento = ({
 
   let CargaFacultativa = 0;
   if (hAnaerobia) {
-    // *ULTIMA REUNIÃO (07/07)*->>> ADICIONAR OUTRA CAIXINHA PARA O 60 **_-
-
-    CargaFacultativa = ((100 - 60) * cargaAnaerobia) / 100;
+    CargaFacultativa =
+      ((100 - (eficienciaAnaerobia ?? 0)) * cargaAnaerobia) / 100;
     areaTotal_Anaerobia = volume / hAnaerobia;
   } else {
     CargaFacultativa = (DBOAfluente * vazaoAfluente) / 1000;
@@ -168,15 +170,20 @@ export const dimensionamento = ({
 
   let sAnaFac = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
 
-  // CALCULAR SEM A ANAEROBIA O S
+  let s: number;
+  let eficienciaFacultativa: number = 0;
+  if (hAnaerobia) {
+    s = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
+  } else {
+    s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
 
-  // *** ULTIMA REUNIAO (07/07)
-  // **** Fazer distinção quando for facultativa usar DBOAfluente e quando for anaeróbia usar DBOEFLUENTE ***
-  // *** e VERIFICAR AS DIMENSOES NO LAYOUT
-  let s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
+    //// ***REUNIÃO 12/07/2025 AJUSTAR A EFICIENCIA SOMENTE DA FACULTATIVA
 
-  // ***-->> COLOCAR UMA CAIXA PARA A DBO5 PARTICULADA EFLUENTE. E O TOLTIP VAI SER O ()***
-  let DBO5Particulada = 28;
+    eficienciaFacultativa = ((DBOAfluente - s) * 100) / DBOAfluente;
+  }
+
+  let DBO5Particulada =
+    (concentracaoSSefluente ?? 0) * (concentracaoSSDBO5 ?? 0);
 
   let DBOTotalAfluenteFacultativa = s + DBO5Particulada;
 
@@ -392,7 +399,11 @@ export const dimensionamento = ({
       s,
       sAnaFac,
       aplicacaoSuper,
+      eficienciaAnaerobia,
+      concentracaoSSefluente,
+      concentracaoSSDBO5,
       DBO5Particulada,
+      eficienciaFacultativa,
       DBOTotalAfluenteFacultativa,
       LFacultativa,
       BFacultativa,

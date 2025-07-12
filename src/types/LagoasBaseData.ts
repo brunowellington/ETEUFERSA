@@ -10,6 +10,9 @@ export type LagoasBaseData = {
   k: number;
   dqo: number;
   aplicacaoSuper: number;
+  eficienciaAnaerobia?: number;
+  concentracaoSSefluente?: number;
+  concentracaoSSDBO5?: number;
   hAnaerobia?: number;
   hFacultativa: number;
 
