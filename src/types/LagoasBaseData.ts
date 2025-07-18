@@ -7,6 +7,7 @@ export type LagoasBaseData = {
   taxaAcumulo: number;
   quantidadeLagoas: number;
   proporcao: number;
+  proporcaoAnaerobia: number;
   k: number;
   dqo: number;
   aplicacaoSuper: number;

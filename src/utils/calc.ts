@@ -22,6 +22,7 @@ export const dimensionamento = ({
   taxaAcumulo,
   quantidadeLagoas,
   proporcao,
+  proporcaoAnaerobia,
   k,
   hAnaerobia,
   hFacultativa,
@@ -122,8 +123,8 @@ export const dimensionamento = ({
 
   let areaLagoaFacultativaIndividual =
     (areaTotalFacultativa / quantidadeLagoas) * 10000;
-  let areaLagoaAnaerobiaIndividual = areaTotal_Anaerobia / quantidadeLagoas;
 
+  let areaLagoaAnaerobiaIndividual = area / quantidadeLagoas;
   // let larguraFacultativa = Math.sqrt(areaLagoaFacultativaIndividual);
   // let baseFacultativa = 2*larguraFacultativa;
 
@@ -132,12 +133,10 @@ export const dimensionamento = ({
   }
 
   const LAnaerobia = Number(
-    Math.sqrt(areaLagoaAnaerobiaIndividual / proporcao).toFixed(2)
+    Math.sqrt(areaLagoaAnaerobiaIndividual / proporcaoAnaerobia).toFixed(2)
   );
 
-  const BAnaerobia = Number(
-    (Math.sqrt(areaLagoaAnaerobiaIndividual / proporcao) * proporcao).toFixed(2)
-  );
+  const BAnaerobia = Number((LAnaerobia * proporcaoAnaerobia).toFixed(2));
 
   const LFacultativa = Number(
     Math.sqrt(areaLagoaFacultativaIndividual / proporcao).toFixed(2)
@@ -176,16 +175,15 @@ export const dimensionamento = ({
     s = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
   } else {
     s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
-
-    //// ***REUNIÃO 12/07/2025 AJUSTAR A EFICIENCIA SOMENTE DA FACULTATIVA
-
-    eficienciaFacultativa = ((DBOAfluente - s) * 100) / DBOAfluente;
   }
 
   let DBO5Particulada =
     (concentracaoSSefluente ?? 0) * (concentracaoSSDBO5 ?? 0);
 
   let DBOTotalAfluenteFacultativa = s + DBO5Particulada;
+
+  eficienciaFacultativa =
+    ((DBOAfluente - DBOTotalAfluenteFacultativa) / DBOAfluente) * 100;
 
   let eficiencia =
     ((DBOAfluente - DBOTotalAfluenteFacultativa) * 100) / DBOAfluente;

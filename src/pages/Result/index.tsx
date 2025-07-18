@@ -220,7 +220,9 @@ function Result({ lagoasBaseData }: ResultProps) {
               Tempo <sup>🛈</sup>
               <span className="tooltiptext">Tempo de detenção hidráulico</span>
             </Description>
-            <Value>{lagoaFacultativa.tempoDetencaoFacultativa} dias</Value>
+            <Value>
+              {lagoaFacultativa.tempoDetencaoFacultativa?.toFixed(2)} dias
+            </Value>
           </Item>
           <Item>
             <Description>
@@ -242,7 +244,7 @@ function Result({ lagoasBaseData }: ResultProps) {
           </Item>
           <Item>
             <Description>
-              DBO<sub>5</sub> Particulada <sup>🛈</sup>
+              DBO<sub>5</sub> particulada <sup>🛈</sup>
               <span className="tooltiptext">
                 Estimativa da DBO particulada efluente
               </span>
@@ -267,7 +269,9 @@ function Result({ lagoasBaseData }: ResultProps) {
                 Eficiência no sistema de lagoa facultativa na remoção de DBO
               </span>
             </Description>
-            <Value>{lagoaFacultativa.eficienciaFacultativa} %</Value>
+            <Value>
+              {lagoaFacultativa.eficienciaFacultativa?.toFixed(0)} %
+            </Value>
           </Item>
         </Card>
       </Container>
@@ -317,7 +321,7 @@ function Result({ lagoasBaseData }: ResultProps) {
               Número de dispersão <sup>🛈</sup>
               <span className="tooltiptext">Número de dispersão</span>
             </Description>
-            <Value>{lagoaMaturacao.D} </Value>
+            <Value>{lagoaMaturacao.D?.toFixed(2)} </Value>
           </Item>
 
           <Item>
@@ -447,7 +451,7 @@ function Result({ lagoasBaseData }: ResultProps) {
                 facultativa na remoção da DBO
               </span>
             </Description>
-            <Value>{sistemaAustraliano.eficiencia}%</Value>
+            <Value>{sistemaAustraliano.eficiencia} %</Value>
           </Item>
           <Item>
             <Description>

@@ -51,6 +51,7 @@ const emptyLagoasBaseData: LagoasBaseData = {
   taxaAcumulo: 0,
   quantidadeLagoas: 0,
   proporcao: 0,
+  proporcaoAnaerobia: 0,
   k: 0,
   dqo: 0,
   aplicacaoSuper: 0,
@@ -81,6 +82,7 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
   taxaAcumulo: "",
   quantidadeLagoas: "",
   proporcao: "",
+  proporcaoAnaerobia: "",
   k: "",
   dqo: "",
   aplicacaoSuper: "",
@@ -195,6 +197,7 @@ function Home() {
           taxaAcumulo,
           quantidadeLagoas,
           proporcao,
+          proporcaoAnaerobia,
           k,
           dqo,
           aplicacaoSuper,
@@ -214,6 +217,7 @@ function Home() {
           taxaAcumulo,
           quantidadeLagoas,
           proporcao,
+          proporcaoAnaerobia,
           k,
           dqo,
           aplicacaoSuper,
@@ -233,6 +237,7 @@ function Home() {
           taxaAcumulo,
           quantidadeLagoas,
           proporcao,
+          proporcaoAnaerobia,
           k,
           dqo,
           aplicacaoSuper,
@@ -251,6 +256,7 @@ function Home() {
           taxaAcumulo,
           quantidadeLagoas,
           proporcao,
+          proporcaoAnaerobia,
           k,
           dqo,
           aplicacaoSuper,
@@ -391,7 +397,7 @@ function Home() {
                 <span className="tooltiptext">
                   Proporção adotada entre as dimensões Largura/Comprimento
                 </span>
-                Proporção/1 <sup>🛈</sup>
+                Proporção/1 Facultativa <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
@@ -399,6 +405,25 @@ function Home() {
                 setValue={(e) => updateLagoasBaseData({ proporcao: e })}
               />
             </Item>
+
+            {!toggleFacultativa && (
+              <Item>
+                <Label>
+                  <span className="tooltiptext">
+                    Proporção adotada entre as dimensões Largura/Comprimento
+                  </span>
+                  Proporção/1 Anaerobia <sup>🛈</sup>
+                </Label>
+                <Input
+                  type="number"
+                  value={lagoasBaseData.proporcaoAnaerobia}
+                  setValue={(e) =>
+                    updateLagoasBaseData({ proporcaoAnaerobia: e })
+                  }
+                />
+              </Item>
+            )}
+
             <Item>
               <Label>
                 <span className="tooltiptext">
