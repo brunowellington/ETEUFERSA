@@ -228,20 +228,17 @@ function Home() {
           hFacultativa,
         };
       } else {
+        // Aqui já incluí todos os campos, mas com os que devem ser zerados substituídos
         let {
           populacao,
           vazaoAfluente,
           DBOAfluente,
           temperatura,
-          taxaVolumetrica,
-          taxaAcumulo,
           quantidadeLagoas,
           proporcao,
-          proporcaoAnaerobia,
           k,
           dqo,
           aplicacaoSuper,
-          eficienciaAnaerobia,
           concentracaoSSefluente,
           concentracaoSSDBO5,
           hFacultativa,
@@ -252,17 +249,18 @@ function Home() {
           vazaoAfluente,
           DBOAfluente,
           temperatura,
-          taxaVolumetrica,
-          taxaAcumulo,
+          taxaVolumetrica: "0", // Zera aqui
+          taxaAcumulo: "0", // Zera aqui
           quantidadeLagoas,
           proporcao,
-          proporcaoAnaerobia,
+          proporcaoAnaerobia: "0", // Zera aqui
           k,
           dqo,
           aplicacaoSuper,
-          eficienciaAnaerobia,
+          eficienciaAnaerobia: "0", // Zera aqui
           concentracaoSSefluente,
           concentracaoSSDBO5,
+          hAnaerobia: "0", // Zera aqui
           hFacultativa,
         };
       }
@@ -274,8 +272,6 @@ function Home() {
     obj.hAnaerobia = lagoasBaseData.hAnaerobia;
     let { hAnaerobia } = lagoasBaseData;
     obj = { ...obj, hAnaerobia };
-
-    if (toggleFacultativa) obj.hAnaerobia = "0";
 
     if (validatedValues) {
       // const [vet1, vet2] = calc.dimensionamento(20.000, 3.000, 350, 23, 4.5, 1.8,  0.15, 0.04,2, 3);

@@ -132,11 +132,13 @@ export const dimensionamento = ({
     proporcao = 2;
   }
 
-  const LAnaerobia = Number(
-    Math.sqrt(areaLagoaAnaerobiaIndividual / proporcaoAnaerobia).toFixed(2)
-  );
+  const proporcaoAna = Number(proporcaoAnaerobia);
+  const areaAna = Number(areaLagoaAnaerobiaIndividual);
 
-  const BAnaerobia = Number((LAnaerobia * proporcaoAnaerobia).toFixed(2));
+  const LAnaerobia =
+    proporcaoAna > 0 ? Number(Math.sqrt(areaAna / proporcaoAna).toFixed(2)) : 0;
+
+  const BAnaerobia = LAnaerobia * proporcaoAna;
 
   const LFacultativa = Number(
     Math.sqrt(areaLagoaFacultativaIndividual / proporcao).toFixed(2)
