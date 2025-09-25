@@ -293,10 +293,8 @@ function Home() {
           <TopInputs>
             <Item>
               <Label>
-                <span className="tooltiptext">
-                  Atendida no alcance de projeto em hab.
-                </span>
-                População <sup>🛈</sup>
+                <span className="tooltiptext">População em habitantes</span>
+                População em habitantes <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
@@ -320,7 +318,7 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  Demanda Bioquímica de Oxigênio na entrada da ETE em mg/L
+                  Demanda Bioquímica de Oxigênio na entrada da ETE em mg³/L
                 </span>
                 DBO afluente <sup>🛈</sup>
               </Label>
@@ -333,9 +331,9 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  Temperatura do esgoto no ambiente °C
+                  Temperatura do esgoto no ambiente em °C
                 </span>
-                Temperatura °C <sup>🛈</sup>
+                Temperatura em °C <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
@@ -363,7 +361,7 @@ function Home() {
             {!toggleFacultativa && (
               <Item>
                 <Label>
-                  <span className="tooltiptext">Expressa em m³/hab/ano</span>
+                  <span className="tooltiptext">Em m³/hab/ano</span>
                   Taxa de acúmulo <sup>🛈</sup>
                 </Label>
                 <Input
@@ -376,8 +374,8 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  N° de lagoas facultativa em paralelo em sistema único ou
-                  lagoas facultativas e anaeróbias em série em sistema
+                  N° de lagoas facultativas em paralelo por sistema único ou
+                  lagoas anaeróbias e facultativas em série por sistema
                   australiano
                 </span>
                 Quantidade de lagoas <sup>🛈</sup>
@@ -436,9 +434,7 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">
-                  Valor de DQO em mg/L para classificação do mecanismo de
-                  remoção condicionada a tecnologia da ETE. Para esgotos
-                  domésticos, a relação DQO/DBO varia entre 1,7 - 2,4
+                  Demanda química de oxigênio expressa em mg/L
                 </span>
                 DQO <sup>🛈</sup>
               </Label>
@@ -450,8 +446,10 @@ function Home() {
             </Item>
             <Item>
               <Label>
-                <span className="tooltiptext">kgDBO/ha.d</span>
-                Taxa superficial <sup>🛈</sup>
+                <span className="tooltiptext">
+                  Taxa de aplicação superficial em kgDBO/ha.d
+                </span>
+                Taxa de aplicação superficial <sup>🛈</sup>
               </Label>
               <Input
                 type="number"
@@ -463,7 +461,7 @@ function Home() {
             {!toggleFacultativa && (
               <Item>
                 <Label>
-                  <span className="tooltiptext">%</span>
+                  <span className="tooltiptext">Em %</span>
                   Eficiência Anaerobia <sup>🛈</sup>
                 </Label>
                 <Input
@@ -477,12 +475,12 @@ function Home() {
             )}
 
             <Item>
-              <Label>
+              <Label title="Concentração em sólidos em suspensão do efluente">
                 <span className="tooltiptext">
                   {" "}
-                  Concentração sólidos em suspensão do efluente (mg/L)
+                  Concentração sólidos em suspensão do efluente em mg/L{" "}
                 </span>
-                Concentração SS efluente <sup>🛈</sup>
+                Concentração SS do efluente<sup>🛈</sup>
               </Label>
               <Input
                 type="number"
@@ -494,10 +492,10 @@ function Home() {
             </Item>
 
             <Item>
-              <Label>
+              <Label title="Concentração em sólidos em suspensão/DBO5">
                 <span className="tooltiptext">
                   {" "}
-                  1 mg/L de sólidos em suspensão no efluente capaz de gerar DBO5{" "}
+                  Concentração sólidos em suspensão/DBO5{" "}
                 </span>
                 Concentração SS/DBO5 <sup>🛈</sup>
               </Label>
@@ -510,7 +508,14 @@ function Home() {
               />
             </Item>
           </TopInputs>
-          <div style={{ margin: "20px 0", color: "#828282", fontSize: "15px" }}>
+          <div
+            style={{
+              margin: "20px 0",
+              color: "#000000",
+              fontSize: "15px",
+              fontWeight: "bold",
+            }}
+          >
             Adote profundidades em m para as lagoas de estabilização:{" "}
           </div>
           <BottomInputs>
@@ -591,9 +596,9 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Concentração de ovos de helmintos no esgoto bruto (ovos/L)
+                    Concentração de ovos helmintos no esgoto bruto em ovos/L
                   </span>
-                  Ovos de helmintos <sup>🛈</sup>
+                  Ovos helmintos <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
@@ -619,7 +624,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Profundidade útil da lagoa de maturação (em metros)
+                    Profundidade útil da lagoa de maturação em metros
                   </span>
                   Profundidade útil <sup>🛈</sup>
                 </Label>
@@ -634,7 +639,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Comprimento da lagoa de maturação (em metros)
+                    Comprimento da lagoa de maturação em metros
                   </span>
                   Comprimento <sup>🛈</sup>
                 </Label>
@@ -649,7 +654,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Largura da lagoa de maturação (em metros)
+                    Largura da lagoa de maturação em metros
                   </span>
                   Largura <sup>🛈</sup>
                 </Label>
@@ -664,7 +669,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Tempo de detenção total (em dias)
+                    Tempo de detenção total em dias
                   </span>
                   Tempo de detenção <sup>🛈</sup>
                 </Label>
@@ -679,7 +684,7 @@ function Home() {
 
               <Item>
                 <Label>
-                  <span className="tooltiptext">Expressa em %</span>
+                  <span className="tooltiptext">Em %</span>
                   Eficiência típica de remoção de DBO <sup>🛈</sup>
                 </Label>
                 <Input
@@ -693,7 +698,7 @@ function Home() {
 
               <Item>
                 <Label>
-                  <span className="tooltiptext">Expressa em %</span>
+                  <span className="tooltiptext">Em %</span>
                   Eficiência típica de remoção de ovos <sup>🛈</sup>
                 </Label>
                 <Input

@@ -180,34 +180,36 @@ function Result({ lagoasBaseData }: ResultProps) {
           <TitleCard>Lagoa Facultativa</TitleCard>
           <Item>
             <Description>
-              Carga afluente <sup>🛈</sup>
+              Carga afluente à lagoa facultativa <sup>🛈</sup>
               <span className="tooltiptext">
-                Carga afluente à lagoa facultativa
+                Carga afluente à lagoa facultativa (kgDBO/d)
               </span>
             </Description>
-            <Value>{lagoaFacultativa.CargaFacultativa} kgDBO/d</Value>
+            <Value>
+              {lagoaFacultativa.CargaFacultativa?.toFixed(0)} kgDBO/d
+            </Value>
           </Item>
           <Item>
             <Description>
-              Área <sup>🛈</sup>
-              <span className="tooltiptext">Área requerida</span>
+              Área requerida<sup>🛈</sup>
+              <span className="tooltiptext">Área requerida (ha)</span>
             </Description>
             <Value>{lagoaFacultativa.areaTotalFacultativa} ha</Value>
           </Item>
           <Item>
             <Description>
-              Área de cada lagoa <sup>🛈</sup>
+              Área individual para cada lagoa facultativa <sup>🛈</sup>
               <span className="tooltiptext">
-                Área individual para cada lagoa facultativa
+                Área individual para cada lagoa facultativa (m³)
               </span>
             </Description>
             <Value>{lagoaFacultativa.areaLagoaFacultativaIndividual} m²</Value>
           </Item>
           <Item>
             <Description>
-              Volume <sup>🛈</sup>
+              Volume resultante da lagoa facultativa <sup>🛈</sup>
               <span className="tooltiptext">
-                Volume resultante da lagoa facultativa
+                Volume resultante da lagoa facultativa (m³)
               </span>
             </Description>
             <Value>
@@ -217,8 +219,10 @@ function Result({ lagoasBaseData }: ResultProps) {
           </Item>
           <Item>
             <Description>
-              Tempo <sup>🛈</sup>
-              <span className="tooltiptext">Tempo de detenção hidráulico</span>
+              Tempo de detenção resultante <sup>🛈</sup>
+              <span className="tooltiptext">
+                Tempo de detenção resultante (d)
+              </span>
             </Description>
             <Value>
               {lagoaFacultativa.tempoDetencaoFacultativa?.toFixed(2)} dias
@@ -226,37 +230,39 @@ function Result({ lagoasBaseData }: ResultProps) {
           </Item>
           <Item>
             <Description>
-              KT <sup>🛈</sup>
+              Correção para a temperatura local <sup>🛈</sup>
               <span className="tooltiptext">
-                Correção para a temperatura local
+                Correção para a temperatura local (ºC)
               </span>
             </Description>
-            <Value>{lagoaFacultativa.kt} d-¹</Value>
+            <Value>
+              {lagoaFacultativa.kt} d<sup>-1</sup>
+            </Value>
           </Item>
           <Item>
             <Description>
-              S <sup>🛈</sup>
+              Estimativa da DBO solúvel efluente <sup>🛈</sup>
               <span className="tooltiptext">
-                Estimativa da DBO solúvel efluente
+                Estimativa da DBO solúvel efluente (mg/L)
               </span>
             </Description>
             <Value>{lagoaFacultativa.s.toFixed(0)} mg/l</Value>
           </Item>
           <Item>
             <Description>
-              DBO<sub>5</sub> particulada <sup>🛈</sup>
+              Estimativa da DBO particulada efluente <sup>🛈</sup>
               <span className="tooltiptext">
-                Estimativa da DBO particulada efluente
+                Estimativa da DBO particulada efluente (mgDBO<sub>5</sub>)
               </span>
             </Description>
             <Value>
-              {lagoaFacultativa.DBO5Particulada} mgDBO<sub>5</sub>/l
+              {lagoaFacultativa.DBO5Particulada.toFixed(0)} mgDBO<sub>5</sub>/l
             </Value>
           </Item>
           <Item>
             <Description>
-              DBO efluente <sup>🛈</sup>
-              <span className="tooltiptext">DBO total efluente</span>
+              DBO total efluente <sup>🛈</sup>
+              <span className="tooltiptext">DBO total efluente (mg/L)</span>
             </Description>
             <Value>
               {lagoaFacultativa.DBOTotalAfluenteFacultativa?.toFixed(0)} mg/l
@@ -266,7 +272,7 @@ function Result({ lagoasBaseData }: ResultProps) {
             <Description>
               Eficiência <sup>🛈</sup>
               <span className="tooltiptext">
-                Eficiência no sistema de lagoa facultativa na remoção de DBO
+                Eficiência no sistema de lagoa facultativa na remoção de DBO (%)
               </span>
             </Description>
             <Value>
@@ -279,12 +285,12 @@ function Result({ lagoasBaseData }: ResultProps) {
       {/*card de lagoa de maturacao */}
       {maturacaoCalculated && lagoaMaturacao && (
         <Card>
-          <TitleCard>Lagoa Maturação</TitleCard>
+          <TitleCard>Lagoa de Maturação</TitleCard>
           <Item>
             <Description>
-              Remoção de coliformes <sup>🛈</sup>
+              Remoção de coliformes após facultativa <sup>🛈</sup>
               <span className="tooltiptext">
-                Concentração efluente pós tratamento secundário
+                Remoção de coliformes após facultativa (CF/100mL)
               </span>
             </Description>
             <Value>{lagoaMaturacao.remocaoColiformes} CF/100 ml</Value>
@@ -293,17 +299,15 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Description>
               Volume das lagoas <sup>🛈</sup>
-              <span className="tooltiptext">Volume de cada lagoa</span>
+              <span className="tooltiptext">Volume das lagoas (m³)</span>
             </Description>
-            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao} m²</Value>
+            <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao} m³</Value>
           </Item>
 
           <Item>
             <Description>
               Área superficial <sup>🛈</sup>
-              <span className="tooltiptext">
-                Área superficial de cada lagoa
-              </span>
+              <span className="tooltiptext">Área superficial (m²)</span>
             </Description>
             <Value>{lagoaMaturacao.areaSuperficialCadaLagoa} m²</Value>
           </Item>
@@ -311,7 +315,7 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Description>
               Área superficial total <sup>🛈</sup>
-              <span className="tooltiptext">Área superficial total</span>
+              <span className="tooltiptext">Área superficial total (m²)</span>
             </Description>
             <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
           </Item>
@@ -328,19 +332,21 @@ function Result({ lagoasBaseData }: ResultProps) {
             <Description>
               Coeficiente de decaimento bacteriano <sup>🛈</sup>
               <span className="tooltiptext">
-                Coeficiente de decaimento bacteriano
+                Coeficiente de decaimento bacteriano a 20 ºC (d<sup>-1</sup>)
               </span>
             </Description>
             <Value>
-              {lagoaMaturacao.kb} d<sup>-1</sup> (20ºC){" "}
+              {lagoaMaturacao.kb} d<sup>-1</sup>{" "}
             </Value>
           </Item>
 
           <Item>
             <Description>
-              Coeficiente de decaimento bacteriano <sup>🛈</sup>
+              Coeficiente de decaimento bacteriano para temperatura local
+              <sup>🛈</sup>
               <span className="tooltiptext">
-                Coeficiente de decaimento bacteriano para temperatura local
+                Coeficiente de decaimento bacteriano para temperatura local (d
+                <sup>-1</sup>)
               </span>
             </Description>
             <Value>
@@ -350,9 +356,10 @@ function Result({ lagoasBaseData }: ResultProps) {
 
           <Item>
             <Description>
-              Concentração de coliformes efluentes <sup>🛈</sup>
+              Concentração de coliformes após maturação 1 <sup>🛈</sup>
               <span className="tooltiptext">
                 Concentração de coliformes efluentes da 1ª lagoa da série
+                (CF/100mL)
               </span>
             </Description>
             <Value>{lagoaMaturacao.NttExpandido} CF/100 ml </Value>
@@ -361,18 +368,17 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Description>
               Eficiência das lagoas <sup>🛈</sup>
-              <span className="tooltiptext">
-                Eficiência das lagoas de polimento na remoção de CF
-              </span>
+              <span className="tooltiptext">(%)</span>
             </Description>
             <Value>{lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} % </Value>
           </Item>
 
           <Item>
             <Description>
-              Concentração de coliformes no efluente final <sup>🛈</sup>
+              Concentração de coliformes após maturação 2 <sup>🛈</sup>
               <span className="tooltiptext">
-                Coliformes fecais no efluente final
+                Concentração de coliformes efluentes da 2ª lagoa da série
+                (CF/100mL)
               </span>
             </Description>
             <Value>{lagoaMaturacao.concentracaoColiformesEfluenteFinal} </Value>
@@ -380,9 +386,9 @@ function Result({ lagoasBaseData }: ResultProps) {
 
           <Item>
             <Description>
-              A eficiência de remoção global <sup>🛈</sup>
+              Eficiência de remoção global <sup>🛈</sup>
               <span className="tooltiptext">
-                Tratamento secundário + lagoas de polimento
+                Tratamento secundário + lagoas de polimento (%)
               </span>
             </Description>
             <Value>
@@ -392,10 +398,9 @@ function Result({ lagoasBaseData }: ResultProps) {
 
           <Item>
             <Description>
-              Concentração de ovos no efluente do tratamento secundário{" "}
-              <sup>🛈</sup>
+              Concentração efluente pós tratamento secundário <sup>🛈</sup>
               <span className="tooltiptext">
-                Ovos de helmintos no efluentes do tratamento secundário
+                Ovos helmintos no efluentes do tratamento secundário (ovos/L)
               </span>
             </Description>
             <Value>
@@ -406,9 +411,7 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Description>
               Eficiência de remoção global dos ovos <sup>🛈</sup>
-              <span className="tooltiptext">
-                Eficiência das lagoas de polimento na remoção de helmintos
-              </span>
+              <span className="tooltiptext">(%)</span>
             </Description>
             <Value>
               {lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} %{" "}
@@ -418,10 +421,7 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Description>
               Eficiência global de remoção de helmintos <sup>🛈</sup>
-              <span className="tooltiptext">
-                Eficiência global na remoção de helmintos (tratamento secundário
-                + lagoas)
-              </span>
+              <span className="tooltiptext">(%)</span>
             </Description>
             <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
           </Item>

@@ -24,21 +24,22 @@ export const Painel = styled.div`
   background-color: white;
 `;
 export const Title = styled.h2`
-  color: #828282;
+  color: #000000ff;
+  font-weight: bold;
   text-align: center;
   margin: 10px 0;
 `;
 export const TopInputs = styled.div`
   display: grid;
   grid-gap: 20px 5px;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px;
 `;
 
 export const InputsDown = styled.div`
   display: grid;
   grid-gap: 20px 5px;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
   padding: 10px;
 `;
 
@@ -51,8 +52,9 @@ export const Item = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 15px;
-  color: #828282;
+  font-size: 14px;
+  color: #262626ff;
+  font-weight: 500;
   position: relative;
   display: inline-block;
 
@@ -135,7 +137,7 @@ export const CalcFacultativa = styled.div`
   sup {
     right: -330px;
   }
-`
+`;
 
 export const CalcMaturacao = styled.div`
   display: flex;
@@ -146,7 +148,7 @@ export const CalcMaturacao = styled.div`
     font-size: 18px;
     color: #828282;
   }
-`
+`;
 
 export const Slider = styled.span`
   position: absolute;
@@ -156,8 +158,8 @@ export const Slider = styled.span`
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 
   ::before {
     position: absolute;
@@ -167,34 +169,33 @@ export const Slider = styled.span`
     left: 1px;
     bottom: 0px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   border-radius: 34px;
   ::before {
     border-radius: 50%;
   }
-  
-`
+`;
 export const Toggle = styled.label`
   position: relative;
   display: inline-block;
   width: 50px;
   height: 28px;
 
-  input { 
+  input {
     opacity: 0;
     width: 0;
     height: 0;
   }
 
   input:checked + ${Slider} {
-    background-color: #2196F3;
+    background-color: #2196f3;
   }
 
   input:focus + ${Slider} {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
   }
 
   input:checked + ${Slider}:before {
@@ -202,4 +203,4 @@ export const Toggle = styled.label`
     -ms-transform: translateX(26px);
     transform: translateX(20px);
   }
-`
+`;

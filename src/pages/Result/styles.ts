@@ -14,12 +14,12 @@ export const Resultado = styled.div`
     padding-top: 5px;
     color: var(--primaria-dark);
   }
-`
+`;
 
 export const Linha = styled.hr`
   width: 100%;
   border: 1px solid var(--primaria-dark);
-`
+`;
 
 export const Card = styled.div`
   width: 70%;
@@ -41,7 +41,7 @@ export const Page = styled.div`
   justify-content: center;
 
   ${Card}:nth-child(3) {
-    width: 550px;
+    width: 600px;
   }
 `;
 export const Value = styled.p`
@@ -57,7 +57,7 @@ export const Container = styled.div`
   justify-content: space-around;
 
   ${Card} {
-    width: 400px;
+    width: 600px;
     margin: 0;
     ${Value} {
       width: 43%;
