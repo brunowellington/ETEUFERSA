@@ -325,16 +325,16 @@ function Result({ lagoasBaseData }: ResultProps) {
           <Item>
             <Label>
               <span className="tooltiptext">Área superficial total (m²)</span>
+              Área superficial total <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            Área superficial total <AiOutlineInfoCircle color="#009be5" />
             <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
           </Item>
 
           <Item>
             <Label>
               <span className="tooltiptext">Número de dispersão</span>
+              Número de dispersão <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            Número de dispersão <AiOutlineInfoCircle color="#009be5" />
             <Value>{lagoaMaturacao.D?.toFixed(2)} </Value>
           </Item>
 
