@@ -109,7 +109,7 @@ const emptyLagoasBaseStringData: LagoasBaseStringData = {
 };
 
 const transformValuesInNumber = <T extends Record<string, string>>(
-  target: T
+  target: T,
 ) => {
   const entires = Object.entries(target) as Array<[keyof T, string]>;
   return entires.reduce<ValuesInNumber<T>>((obj, [key, value]) => {
@@ -123,7 +123,7 @@ function Home() {
   const [toggleFacultativa, setToggleFacultativa] = useState(false);
   const [calculated, setCalculated] = useState(false);
   const [lagoasBaseData, setLagoasBaseData] = useState<LagoasBaseStringData>(
-    emptyLagoasBaseStringData
+    emptyLagoasBaseStringData,
   );
   const [computedLagoasBaseData, setComputedLagoasBaseData] =
     useState<LagoasBaseData>(emptyLagoasBaseData);
@@ -267,7 +267,7 @@ function Home() {
     }
 
     const validatedValues = Object.values(obj).every(
-      (val) => val !== "" && Number(val) >= 0
+      (val) => val !== "" && Number(val) >= 0,
     );
     obj.hAnaerobia = lagoasBaseData.hAnaerobia;
     let { hAnaerobia } = lagoasBaseData;
