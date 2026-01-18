@@ -576,12 +576,12 @@ function Home() {
             </Toggle>
 
             <Label>
-              <span> Considere somente Facultativa?</span>{" "}
-              <AiOutlineInfoCircle color="#009be5" />
               <span className="tooltiptext">
                 Ao ativar o toggle, você estará considerando somente os dados de
                 entrada acima para calcular a lagoa Facultativa
               </span>
+              Considere somente Facultativa?
+              <AiOutlineInfoCircle color="#009be5" />
             </Label>
           </CalcFacultativa>
 
@@ -592,12 +592,12 @@ function Home() {
             </Toggle>
 
             <Label>
-              Deseja calcular Lagoa de Maturação?{" "}
-              <AiOutlineInfoCircle color="#009be5" />
               <span className="tooltiptext">
                 Ativar esta opção calculará a lagoa de maturação com base nos
                 dados informados acima
               </span>
+              Deseja calcular Lagoa de Maturação?
+              <AiOutlineInfoCircle color="#009be5" />
             </Label>
           </CalcMaturacao>
 

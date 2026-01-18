@@ -475,8 +475,8 @@ function Result({ lagoasBaseData }: ResultProps) {
               <span className="tooltiptext">
                 Lagoas anaeróbia + facultativa
               </span>
+              Área útil total <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            Área útil total <AiOutlineInfoCircle color="#009be5" />
             <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
           </Item>
           <Item>
