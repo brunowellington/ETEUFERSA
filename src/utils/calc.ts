@@ -46,6 +46,7 @@ export const dimensionamento = ({
   let cargaAnaerobia = 0;
   let area = 0;
   let volume = 0;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let value = "";
   let expessura = 0;
   let tempo = 0;
@@ -306,6 +307,7 @@ export const dimensionamento = ({
     kbT = Number((kb * Math.pow(1.07, temperatura - 20)).toFixed(2));
 
     //Concentração de coliformes no efluente final
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     a = Number(Math.sqrt(1 + 4 * kbT * (temperatura - 20) * D).toFixed(2));
 
     Nt =
@@ -362,6 +364,7 @@ export const dimensionamento = ({
     eficienciaRemocaoGlobalHelmitosPorcentagem =
       eficienciaRemocaoGlobalHelmitos * 100;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     unidadeLogRemovidasLagoa = Math.round(
       quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos,
     );
