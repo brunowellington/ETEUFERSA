@@ -106,12 +106,12 @@ export const Label = styled.label`
 
   .tooltiptext {
     visibility: hidden;
-    width: 220px;
+    width: 218px;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 8px;
+    padding: 6px;
     position: absolute;
     z-index: 10;
     bottom: 120%;
