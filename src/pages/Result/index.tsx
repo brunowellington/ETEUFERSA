@@ -67,17 +67,13 @@ function Result({ lagoasBaseData }: ResultProps) {
         maturacaoCalculated
           ? "maturacao"
           : is1x1
-          ? "proporcao1x1"
-          : "proporcaonx1"
+            ? "proporcao1x1"
+            : "proporcaonx1"
       ][value];
-    img.src = src;
 
+    img.src = src;
     img.onload = () => setImage(img);
-  }, [
-    lagoasBaseData.quantidadeLagoas,
-    lagoasBaseData.proporcao,
-    lagoasBaseData.quantidadeLagoasMaturacao,
-  ]);
+  }, [lagoasBaseData, maturacaoCalculated]);
 
   useEffect(() => {
     writeInCanvas({
@@ -89,7 +85,14 @@ function Result({ lagoasBaseData }: ResultProps) {
       lagoasBaseData,
       maturacaoCalculated,
     });
-  }, [image, lagoaAnaerobia, lagoaFacultativa, lagoasBaseData]);
+  }, [
+    image,
+    lagoaAnaerobia,
+    lagoaFacultativa,
+    lagoaMaturacao,
+    lagoasBaseData,
+    maturacaoCalculated,
+  ]);
 
   const onClick = () =>
     generatePDF({
