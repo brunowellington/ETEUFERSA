@@ -113,7 +113,7 @@ export const dimensionamento = ({
   if (String(areaTotal_Anaerobia).length > 3) {
     at_value = String(areaTotal_Anaerobia)[1] + ".";
     at_value = Number(
-      at_value + String(areaTotal_Anaerobia).split(".")[0].slice(1, 5)
+      at_value + String(areaTotal_Anaerobia).split(".")[0].slice(1, 5),
     ).toFixed(3);
     areaTotal_Anaerobia = Number(at_value) * 1000;
   }
@@ -141,13 +141,13 @@ export const dimensionamento = ({
   const BAnaerobia = LAnaerobia * proporcaoAna;
 
   const LFacultativa = Number(
-    Math.sqrt(areaLagoaFacultativaIndividual / proporcao).toFixed(2)
+    Math.sqrt(areaLagoaFacultativaIndividual / proporcao).toFixed(2),
   );
 
   const BFacultativa = Number(
     (Math.sqrt(areaLagoaFacultativaIndividual / proporcao) * proporcao).toFixed(
-      2
-    )
+      2,
+    ),
   );
 
   let volumeResultanteFacultativa =
@@ -164,7 +164,7 @@ export const dimensionamento = ({
   // fazendo correção para temperatura de 23 °C
 
   let kt = Number(
-    (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2)
+    (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2),
   );
 
   let DBOEFLUENTE = ((100 - 60) / 100) * DBOAfluente; //calculando o 140
@@ -194,18 +194,18 @@ export const dimensionamento = ({
   let areaTemp = Number(Number("0." + String(area).slice(0, 4)).toFixed(2));
 
   let areaTotalAnaerobiaFacultativa = Number(
-    (areaTemp + areaTotalFacultativa).toFixed(1)
+    (areaTemp + areaTotalFacultativa).toFixed(1),
   );
 
   let areaTotal = Number(
     (
       areaTotalAnaerobiaFacultativa +
       areaTotalAnaerobiaFacultativa * 0.29
-    ).toFixed(1)
+    ).toFixed(1),
   );
 
   let areaPercapitaFacultativa = Number(
-    ((areaTotal * 10000) / populacao).toFixed(1)
+    ((areaTotal * 10000) / populacao).toFixed(1),
   );
 
   // proporção
@@ -280,7 +280,7 @@ export const dimensionamento = ({
     //Remoçao dos coliformes pelo reator UASB
 
     remocaoColiformes = Math.round(
-      coliformesFecais * (1 - eficienciaRemocaoDBO / 100)
+      coliformesFecais * (1 - eficienciaRemocaoDBO / 100),
     );
 
     //Volume das lagoas
@@ -289,7 +289,7 @@ export const dimensionamento = ({
 
     //calculo para a area superficial de cada lagoa
     areaSuperficialCadaLagoa = Math.round(
-      volumeCadaLagoaMaturacao / profundidadeUtilH
+      volumeCadaLagoaMaturacao / profundidadeUtilH,
     ); // aqui que dava dando BO
 
     //calculo para a area supercial total
@@ -320,12 +320,12 @@ export const dimensionamento = ({
 
     eFicienciaSerieLagoa = 1 - Math.pow(1 - e, quantidadeLagoasMaturacao);
     eFicienciaSerieLagoaPorcentagem = Number(
-      (100 * eFicienciaSerieLagoa).toFixed(2)
+      (100 * eFicienciaSerieLagoa).toFixed(2),
     );
     //console.log("valor da porcentagem Eficiencia da lagoas em serie: " + (100*eFicienciaSerieLagoa).toFixed(2) + "%")
 
     concentracaoColiformesEfluenteFinal = Math.round(
-      remocaoColiformes * (1 - eFicienciaSerieLagoa)
+      remocaoColiformes * (1 - eFicienciaSerieLagoa),
     );
     //console.log("Concentração dos coliformes no efluente final expandido: " + (concentracaoColiformesEfluenteFinal / 100).toFixed(1) + " x 10²")
 
@@ -334,7 +334,7 @@ export const dimensionamento = ({
       coliformesFecais;
     //console.log("Eficiencia de remoção global: " + eficienciaRemocaoGlobal.toFixed(4))
     eficienciaRemocaoGlobalPorcentagem = Number(
-      (eficienciaRemocaoGlobal * 100).toFixed(2)
+      (eficienciaRemocaoGlobal * 100).toFixed(2),
     );
     //console.log("Eficiencia de remoção global por %: " + (eficienciaRemocaoGlobal * 100).toFixed(2) + "%")
 
@@ -350,20 +350,20 @@ export const dimensionamento = ({
       100 * (1 - 0.41 * Math.pow(euler, -0.49 * t + 0.0085 * tElevado));
     //console.log("Eficiencia remocao ovos helmitos: " + eficienciaRemocaoOvosHelmitos.toFixed(1) + "%")
     eficienciaRemocaoOvosHelmitosPercentual = Number(
-      (eficienciaRemocaoOvosHelmitos / 100).toFixed(3)
+      (eficienciaRemocaoOvosHelmitos / 100).toFixed(3),
     );
 
     ////Remoção de ovos de helmitos
     //1. Reator UASB
     //Eficiencia de remoção global
     eficienciaRemocaoGlobalHelmitos = Number(
-      (1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4)
+      (1 - Math.pow(1 - eficienciaRemocaoOvosHelmitosPercentual, 4)).toFixed(4),
     );
     eficienciaRemocaoGlobalHelmitosPorcentagem =
       eficienciaRemocaoGlobalHelmitos * 100;
 
     unidadeLogRemovidasLagoa = Math.round(
-      quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos
+      quantidadeLagoasMaturacao * eficienciaRemocaoGlobalHelmitos,
     );
 
     //A eficiência global (reator UASB + lagoas) é:
