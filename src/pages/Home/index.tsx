@@ -30,19 +30,32 @@ type ValuesInString<T extends object> = Record<keyof T, string>;
 type LagoasBaseStringData = ValuesInString<LagoasBaseData>;
 
 // const emptyLagoasBaseData: LagoasBaseData = {
-//   populacao: 20000,
-//   vazaoAfluente: 3000,
-//   DBOAfluente: 350,
-//   temperatura: 23,
-//   taxaVolumetrica: 0.15,
-//   taxaAcumulo: 0.04,
-//   quantidadeLagoas: 2,
-//   proporcao: 2,
-//   k: 0.27,
-//   dqo: 500,
-//   aplicacaoSuperficial: 220,
-//   hAnaerobia: 4.5,
-//   hFacultativa: 1.8,
+//   populacao: "20000",
+//   vazaoAfluente: "3000",
+//   DBOAfluente: "350",
+//   temperatura: "23",
+//   taxaVolumetrica: "0.15",
+//   taxaAcumulo: "0.04",
+//   quantidadeLagoas: "2",
+//   proporcao: "2",
+//   proporcaoAnaerobia: "2",
+//   k: "0.27",
+//   dqo: "500",
+//   aplicacaoSuper: "3",
+//   eficienciaAnaerobia: "80",
+//   concentracaoSSefluente: "100",
+//   concentracaoSSDBO5: "2",
+//   hAnaerobia: "4.5",
+//   hFacultativa: "1.8",
+//   coliformesFecais: "10000000",
+//   ovosHelmintos: "200",
+//   quantidadeLagoasMaturacao: "4",
+//   larguraMaturacao: "37.2",
+//   comprimentoMaturacao: "148.8",
+//   profundidadeUtilH: "0.8",
+//   valorTempoDetencao: "12",
+//   eficienciaRemocaoDBO: "80",
+//   eficienciaRemocaoOvosHelmitoss: "60",
 // };
 
 const emptyLagoasBaseData: LagoasBaseData = {
@@ -77,38 +90,32 @@ const emptyLagoasBaseData: LagoasBaseData = {
 };
 
 const emptyLagoasBaseStringData: LagoasBaseStringData = {
-  populacao: "",
-  vazaoAfluente: "",
-  DBOAfluente: "",
-  temperatura: "",
-  taxaVolumetrica: "",
-  taxaAcumulo: "",
-  quantidadeLagoas: "",
-  proporcao: "",
-  proporcaoAnaerobia: "",
-  k: "",
-  dqo: "",
-  aplicacaoSuper: "",
-  concentracaoSSefluente: "",
-  concentracaoSSDBO5: "",
-  eficienciaAnaerobia: "",
-  hAnaerobia: "",
-  hFacultativa: "",
-
-  // colocar os dados fixos de maturação
-  //aqui vai as variaveis que recebe atribuição
-  //populacaoMaturacao: "10000",
-  //vazaoAfluenteMaturacao: "1478",
-  //temperaturaMediaMaturacao: "23",
-  coliformesFecais: "",
-  ovosHelmintos: "",
-  quantidadeLagoasMaturacao: "",
-  larguraMaturacao: "",
-  comprimentoMaturacao: "",
-  profundidadeUtilH: "",
-  valorTempoDetencao: "",
-  eficienciaRemocaoDBO: "",
-  eficienciaRemocaoOvosHelmitoss: "",
+  populacao: "20000",
+  vazaoAfluente: "3000",
+  DBOAfluente: "350",
+  temperatura: "23",
+  taxaVolumetrica: "0.15",
+  taxaAcumulo: "0.04",
+  quantidadeLagoas: "2",
+  proporcao: "2",
+  proporcaoAnaerobia: "2",
+  k: "0.27",
+  dqo: "500",
+  aplicacaoSuper: "3",
+  eficienciaAnaerobia: "80",
+  concentracaoSSefluente: "100",
+  concentracaoSSDBO5: "2",
+  hAnaerobia: "4.5",
+  hFacultativa: "1.8",
+  coliformesFecais: "10000000",
+  ovosHelmintos: "200",
+  quantidadeLagoasMaturacao: "4",
+  larguraMaturacao: "37.2",
+  comprimentoMaturacao: "148.8",
+  profundidadeUtilH: "0.8",
+  valorTempoDetencao: "12",
+  eficienciaRemocaoDBO: "80",
+  eficienciaRemocaoOvosHelmitoss: "60",
 };
 
 const transformValuesInNumber = <T extends Record<string, string>>(
@@ -486,7 +493,7 @@ function Home() {
                   {" "}
                   Concentração sólidos em suspensão do efluente em mg/L{" "}
                 </span>
-                Concentração SS do efluente
+                Concentração SS do efluente {""}
                 <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input

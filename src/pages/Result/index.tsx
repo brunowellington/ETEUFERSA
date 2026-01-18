@@ -7,7 +7,6 @@ import {
   TitleCard,
   Item,
   Canvas,
-  Description,
   GraficContainer,
   PDFButton,
   Resultado,
@@ -19,6 +18,8 @@ import { LagoasBaseData } from "../../types/LagoasBaseData";
 import * as calc from "../../utils/calc";
 import { mappedImages } from "../../utils/images";
 import { writeInCanvas } from "../../utils/writeInCanvas";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { Label } from "../Home/styles";
 
 type ResultProps = {
   lagoasBaseData: LagoasBaseData;
@@ -109,71 +110,70 @@ function Result({ lagoasBaseData }: ResultProps) {
   return (
     <Page>
       <Resultado>
-        <Linha />
         <h2>Resultados</h2>
-        <Linha />
       </Resultado>
       <Container>
         {anaerobiaCalculated && (
           <Card>
             <TitleCard>Lagoa Anaeróbia</TitleCard>
             <Item>
-              <Description>
-                Carga afluente de DBO <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">Carga afluente de DBO</span>
-              </Description>
+                Carga afluente de DBO <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.cargaAnaerobia} kgDBO/m³.d</Value>
             </Item>
             <Item>
-              <Description>
-                Volume <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">
                   Volume resultante da lagoa anaeróbia
                 </span>
-              </Description>
+                Volume <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.volume} m³</Value>
             </Item>
             <Item>
-              <Description>
-                Tempo <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">
                   Tempo de detenção hidráulico
                 </span>
-              </Description>
+                Tempo <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.tempo?.toFixed(1)} dia</Value>
             </Item>
             <Item>
-              <Description>
-                Área <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">Área requerida</span>
-              </Description>
+                Área <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.area?.toFixed(0)} m²</Value>
             </Item>
             <Item>
-              <Description>
-                Acumulação anual <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">
                   Acúmulo de lodo na lagoa anaeróbia
                 </span>
-              </Description>
+                Acumulação anual <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.acumulacao_anual} m³/ano</Value>
             </Item>
             <Item>
-              <Description>
-                Expessura <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">
                   Expessura da camada de lodo em 1 ano
                 </span>
-              </Description>
+                Expessura <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.expessura} cm/ano</Value>
             </Item>
             <Item>
-              <Description>
-                Tempo para se atingir 1/3 <sup>🛈</sup>
+              <Label>
                 <span className="tooltiptext">
                   Tempo para se atingir 1/3 da altura útil das lagoas
                 </span>
-              </Description>
+                Tempo para se atingir 1/3{" "}
+                <AiOutlineInfoCircle color="#009be5" />
+              </Label>
               <Value>{lagoaAnaerobia.tempo1terco?.toFixed(1)} anos</Value>
             </Item>
           </Card>
@@ -182,102 +182,109 @@ function Result({ lagoasBaseData }: ResultProps) {
         <Card>
           <TitleCard>Lagoa Facultativa</TitleCard>
           <Item>
-            <Description>
-              Carga afluente à lagoa facultativa <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Carga afluente à lagoa facultativa (kgDBO/d)
               </span>
-            </Description>
+              Carga afluente à lagoa facultativa{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.CargaFacultativa?.toFixed(0)} kgDBO/d
             </Value>
           </Item>
           <Item>
-            <Description>
-              Área requerida<sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Área requerida (ha)</span>
-            </Description>
+              Área requerida <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaFacultativa.areaTotalFacultativa} ha</Value>
           </Item>
           <Item>
-            <Description>
-              Área individual para cada lagoa facultativa <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Área individual para cada lagoa facultativa (m³)
               </span>
-            </Description>
+              Área individual para cada lagoa facultativa{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaFacultativa.areaLagoaFacultativaIndividual} m²</Value>
           </Item>
           <Item>
-            <Description>
-              Volume resultante da lagoa facultativa <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Volume resultante da lagoa facultativa (m³)
               </span>
-            </Description>
+              Volume resultante da lagoa facultativa{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {(lagoaFacultativa.volumeResultanteFacultativa / 1000).toFixed(3)}{" "}
               m³
             </Value>
           </Item>
           <Item>
-            <Description>
-              Tempo de detenção resultante <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Tempo de detenção resultante (d)
               </span>
-            </Description>
+              Tempo de detenção resultante{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.tempoDetencaoFacultativa?.toFixed(2)} dias
             </Value>
           </Item>
           <Item>
-            <Description>
-              Correção para a temperatura local <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Correção para a temperatura local (ºC)
               </span>
-            </Description>
+              Correção para a temperatura local{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.kt} d<sup>-1</sup>
             </Value>
           </Item>
           <Item>
-            <Description>
-              Estimativa da DBO solúvel efluente <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Estimativa da DBO solúvel efluente (mg/L)
               </span>
-            </Description>
+              Estimativa da DBO solúvel efluente{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaFacultativa.s.toFixed(0)} mg/l</Value>
           </Item>
           <Item>
-            <Description>
-              Estimativa da DBO particulada efluente <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Estimativa da DBO particulada efluente (mgDBO<sub>5</sub>)
               </span>
-            </Description>
+              Estimativa da DBO particulada efluente{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.DBO5Particulada.toFixed(0)} mgDBO<sub>5</sub>/l
             </Value>
           </Item>
           <Item>
-            <Description>
-              DBO total efluente <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">DBO total efluente (mg/L)</span>
-            </Description>
+              DBO total efluente <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.DBOTotalAfluenteFacultativa?.toFixed(0)} mg/l
             </Value>
           </Item>
           <Item>
-            <Description>
-              Eficiência <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Eficiência no sistema de lagoa facultativa na remoção de DBO (%)
               </span>
-            </Description>
+              Eficiência <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaFacultativa.eficienciaFacultativa?.toFixed(0)} %
             </Value>
@@ -290,152 +297,160 @@ function Result({ lagoasBaseData }: ResultProps) {
         <Card>
           <TitleCard>Lagoa de Maturação</TitleCard>
           <Item>
-            <Description>
-              Remoção de coliformes após facultativa <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Remoção de coliformes após facultativa (CF/100mL)
               </span>
-            </Description>
+              Remoção de coliformes após facultativa{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.remocaoColiformes} CF/100 ml</Value>
           </Item>
 
           <Item>
-            <Description>
-              Volume das lagoas <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Volume das lagoas (m³)</span>
-            </Description>
+              Volume das lagoas <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.volumeCadaLagoaMaturacao} m³</Value>
           </Item>
 
           <Item>
-            <Description>
-              Área superficial <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Área superficial (m²)</span>
-            </Description>
+              Área superficial <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.areaSuperficialCadaLagoa} m²</Value>
           </Item>
 
           <Item>
-            <Description>
-              Área superficial total <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Área superficial total (m²)</span>
-            </Description>
+            </Label>
+            Área superficial total <AiOutlineInfoCircle color="#009be5" />
             <Value>{lagoaMaturacao.areaSuperficialTotal} m²</Value>
           </Item>
 
           <Item>
-            <Description>
-              Número de dispersão <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Número de dispersão</span>
-            </Description>
+            </Label>
+            Número de dispersão <AiOutlineInfoCircle color="#009be5" />
             <Value>{lagoaMaturacao.D?.toFixed(2)} </Value>
           </Item>
 
           <Item>
-            <Description>
-              Coeficiente de decaimento bacteriano <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Coeficiente de decaimento bacteriano a 20 ºC (d<sup>-1</sup>)
               </span>
-            </Description>
+              Coeficiente de decaimento bacteriano{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.kb} d<sup>-1</sup>{" "}
             </Value>
           </Item>
 
           <Item>
-            <Description>
-              Coeficiente de decaimento bacteriano para temperatura local
-              <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Coeficiente de decaimento bacteriano para temperatura local (d
                 <sup>-1</sup>)
               </span>
-            </Description>
+              Coeficiente de decaimento bacteriano para temperatura local
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.kbT} d<sup>-1</sup>{" "}
             </Value>
           </Item>
 
           <Item>
-            <Description>
-              Concentração de coliformes após maturação 1 <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Concentração de coliformes efluentes da 1ª lagoa da série
                 (CF/100mL)
               </span>
-            </Description>
+              Concentração de coliformes após maturação 1{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.NttExpandido} CF/100 ml </Value>
           </Item>
 
           <Item>
-            <Description>
-              Eficiência das lagoas <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">(%)</span>
-            </Description>
+              Eficiência das lagoas <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} % </Value>
           </Item>
 
           <Item>
-            <Description>
-              Concentração de coliformes após maturação 2 <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Concentração de coliformes efluentes da 2ª lagoa da série
                 (CF/100mL)
               </span>
-            </Description>
+              Concentração de coliformes após maturação 2{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.concentracaoColiformesEfluenteFinal} </Value>
           </Item>
 
           <Item>
-            <Description>
-              Eficiência de remoção global <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Tratamento secundário + lagoas de polimento (%)
               </span>
-            </Description>
+              Eficiência de remoção global{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} %{" "}
             </Value>
           </Item>
 
           <Item>
-            <Description>
-              Concentração efluente pós tratamento secundário <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Ovos helmintos no efluentes do tratamento secundário (ovos/L)
               </span>
-            </Description>
+              Concentração efluente pós tratamento secundário{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L{" "}
             </Value>
           </Item>
 
           <Item>
-            <Description>
-              Eficiência de remoção global dos ovos <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">(%)</span>
-            </Description>
+              Eficiência de remoção global dos ovos{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} %{" "}
             </Value>
           </Item>
 
           <Item>
-            <Description>
-              Eficiência global de remoção de helmintos <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">(%)</span>
-            </Description>
+              Eficiência global de remoção de helmintos{" "}
+              <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{lagoaMaturacao.eficienciaGlobalPorcentagem} % </Value>
           </Item>
 
           <Item>
-            <Description>
-              Unidades log removidas <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Unidades log removidas de helmintos (global)
               </span>
-            </Description>
+              Unidades log removidas <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>
               {lagoaMaturacao.unidadeLogRemovida} unidades log removidas{" "}
             </Value>
@@ -447,61 +462,63 @@ function Result({ lagoasBaseData }: ResultProps) {
         <Card>
           <TitleCard>Sistema Australiano</TitleCard>
           <Item>
-            <Description>
-              Eficiência <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Eficiência total do sistema de lagoa anaeróbia - lagoa
                 facultativa na remoção da DBO
               </span>
-            </Description>
+              Eficiência <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{sistemaAustraliano.eficiencia} %</Value>
           </Item>
           <Item>
-            <Description>
-              Área útil total <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 Lagoas anaeróbia + facultativa
               </span>
-            </Description>
+            </Label>
+            Área útil total <AiOutlineInfoCircle color="#009be5" />
             <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
           </Item>
           <Item>
-            <Description>
-              Área total <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">
                 25% a 33% superior a área útil requerida
               </span>
-            </Description>
+              Área total <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{sistemaAustraliano.areaTotal} ha</Value>
           </Item>
           <Item>
-            <Description>
-              Área per capita <sup>🛈</sup>
+            <Label>
               <span className="tooltiptext">Área per capita</span>
-            </Description>
+              Área per capita <AiOutlineInfoCircle color="#009be5" />
+            </Label>
             <Value>{sistemaAustraliano.areaPercapitaFacultativa} m²/hab </Value>
           </Item>
           {lagoaAnaerobia.dqoDbo && (
             <>
               {lagoaAnaerobia.dqoDbo >= 0 && lagoaAnaerobia.dqoDbo < 2.5 && (
                 <Item>
-                  <Description>
-                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <Label>
                     <span className="tooltiptext">
                       Baixa - A fração biodegradável é elevada
                     </span>
-                  </Description>
+                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo}{" "}
+                    <AiOutlineInfoCircle color="#009be5" />
+                  </Label>
                   <Value>Indicação para tratamento biológico </Value>
                 </Item>
               )}
               {lagoaAnaerobia.dqoDbo >= 2.5 && lagoaAnaerobia.dqoDbo < 3.5 && (
                 <Item>
-                  <Description>
-                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <Label>
                     <span className="tooltiptext">
                       Intermediária - A fração biodegradável não é elevada.
                     </span>
-                  </Description>
+                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo}{" "}
+                    <AiOutlineInfoCircle color="#009be5" />
+                  </Label>
                   <Value style={{ textAlign: "justify" }}>
                     Estudos de tratabilidade para verificar viabilidade do
                     tratamento biológico.{" "}
@@ -510,12 +527,13 @@ function Result({ lagoasBaseData }: ResultProps) {
               )}
               {lagoaAnaerobia.dqoDbo >= 3.5 && (
                 <Item>
-                  <Description>
-                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo} <sup>🛈</sup>
+                  <Label>
                     <span className="tooltiptext">
                       Elevada - A fração inerte (não biodegradável) é elevada.
                     </span>
-                  </Description>
+                    Relação DQO/DBO = {lagoaAnaerobia.dqoDbo}{" "}
+                    <AiOutlineInfoCircle color="#009be5" />
+                  </Label>
                   <Value>
                     {" "}
                     Possível indicação para tratamento físico-químico

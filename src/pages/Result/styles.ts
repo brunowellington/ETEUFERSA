@@ -1,18 +1,33 @@
 import styled from "styled-components";
 
+/* ================= PAGE ================= */
+export const Page = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+`;
+
+/* ================= RESULTADO HEADER ================= */
 export const Resultado = styled.div`
   width: 100%;
-  padding: 0 9.8%;
-  display: grid;
-  grid-template-columns: 4fr 1.5fr 4fr;
+  max-width: 1200px;
+  padding: 0 10%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: 1s;
-  transition-property: all;
   margin-bottom: 20px;
+
   h2 {
     padding-top: 5px;
     color: var(--primaria-dark);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 5%;
   }
 `;
 
@@ -21,56 +36,46 @@ export const Linha = styled.hr`
   border: 1px solid var(--primaria-dark);
 `;
 
-export const Card = styled.div`
-  width: 70%;
-  height: 100%;
-  margin: 30px 0;
-  background: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Page = styled.div`
+/* ================= CONTAINER DE CARDS ================= */
+export const Container = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap; /* permite quebrar */
+  gap: 20px; /* espaço entre cards */
   justify-content: center;
-
-  ${Card}:nth-child(3) {
-    width: 600px;
-  }
-`;
-export const Value = styled.p`
-  text-align: right;
-`;
-
-export const Container = styled.div`
-  width: 63vw;
-  padding: 10px;
-  display: flex;
   margin-bottom: 30px;
-  align-items: start;
-  justify-content: space-around;
+`;
 
-  ${Card} {
-    width: 600px;
-    margin: 0;
-    ${Value} {
-      width: 43%;
-    }
+/* ================= CARD ================= */
+export const Card = styled.div`
+  flex: 1 1 300px; /* min width = 300px, cresce para caber */
+  max-width: 600px; /* não fica maior que 600px */
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  @media (max-width: 1024px) {
+    flex: 1 1 45%; /* tablet: 2 cards por linha */
+  }
+
+  @media (max-width: 768px) {
+    flex: 1 1 100%; /* mobile: 1 card por linha */
   }
 `;
 
+/* ================= TITULO DO CARD ================= */
 export const TitleCard = styled.h2`
   color: var(--primaria);
   margin-bottom: 20px;
   font-weight: bold;
 `;
 
+/* ================= ITEM ================= */
 export const Item = styled.div`
   width: 100%;
   padding-bottom: 5px;
@@ -81,23 +86,19 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap; /* para mobile */
+
   p {
     margin-bottom: 0;
   }
 `;
 
-export const Canvas = styled.div`
-  width: 1100px;
-  height: 438px;
-  background-color: #909090;
-`;
-
-export const Description = styled.p`
+export const Label = styled.label`
+  font-size: 14px;
+  color: #262626;
   font-weight: 500;
-  max-width: 70%;
-  cursor: help;
   position: relative;
-  display: inline-block;
+  text-align: center;
 
   sup {
     color: var(--azul);
@@ -105,30 +106,19 @@ export const Description = styled.p`
 
   .tooltiptext {
     visibility: hidden;
-    min-width: 200px;
+    width: 220px;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 8px;
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 10%;
-    margin-left: -105px;
+    z-index: 10;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
-  }
-
-  .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
   }
 
   :hover .tooltiptext {
@@ -137,6 +127,34 @@ export const Description = styled.p`
   }
 `;
 
+/* ================= VALUE ================= */
+export const Value = styled.p`
+  text-align: right;
+  min-width: 80px;
+  flex: 1 1 auto;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: left;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+`;
+
+/* ================= CANVAS ================= */
+export const Canvas = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  background-color: #909090;
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+`;
+
+/* ================= GRÁFICO ================= */
 export const GraficContainer = styled.div`
   width: 100%;
   margin-top: 40px;
@@ -149,15 +167,16 @@ export const GraficContainer = styled.div`
   justify-content: center;
 `;
 
+/* ================= BOTÃO PDF ================= */
 export const PDFButton = styled.div`
   width: 100%;
   margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
 
   button {
     width: 150px;
     height: 40px;
-    margin-left: 76%;
-    margin-right: 0;
     padding: 10px;
     text-align: center;
     border: none;
@@ -168,5 +187,14 @@ export const PDFButton = styled.div`
     color: white;
     font-weight: bold;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      width: 120px;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 `;
