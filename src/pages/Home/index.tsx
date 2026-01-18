@@ -22,6 +22,7 @@ import Result from "../Result";
 import "antd/dist/antd.css";
 import { message } from "antd";
 import { LagoasBaseData } from "../../types/LagoasBaseData";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 type ValuesInNumber<T extends object> = Record<keyof T, number>;
 type ValuesInString<T extends object> = Record<keyof T, string>;
@@ -298,7 +299,7 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">População em habitantes</span>
-                População em habitantes <sup>🛈</sup>
+                População em habitantes <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -311,7 +312,7 @@ function Home() {
                 <span className="tooltiptext">
                   Vazão na entrada da ETE em m³/dia
                 </span>
-                Vazão afluente <sup>🛈</sup>
+                Vazão afluente <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -324,7 +325,7 @@ function Home() {
                 <span className="tooltiptext">
                   Demanda Bioquímica de Oxigênio na entrada da ETE em mg³/L
                 </span>
-                DBO afluente <sup>🛈</sup>
+                DBO afluente <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -337,7 +338,7 @@ function Home() {
                 <span className="tooltiptext">
                   Temperatura do esgoto no ambiente em °C
                 </span>
-                Temperatura em °C <sup>🛈</sup>
+                Temperatura em °C <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -352,7 +353,7 @@ function Home() {
                   <span className="tooltiptext">
                     Aplicadas as lagoas anaeróbias em KgDBO/m³dia
                   </span>
-                  Taxa volumétrica <sup>🛈</sup>
+                  Taxa volumétrica <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -366,7 +367,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">Em m³/hab/ano</span>
-                  Taxa de acúmulo <sup>🛈</sup>
+                  Taxa de acúmulo <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -382,7 +383,7 @@ function Home() {
                   lagoas anaeróbias e facultativas em série por sistema
                   australiano
                 </span>
-                Quantidade de lagoas <sup>🛈</sup>
+                Quantidade de lagoas <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -395,7 +396,7 @@ function Home() {
                 <span className="tooltiptext">
                   Proporção adotada entre as dimensões Largura/Comprimento
                 </span>
-                Proporção/1 Facultativa <sup>🛈</sup>
+                Proporção/1 Facultativa <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -410,7 +411,7 @@ function Home() {
                   <span className="tooltiptext">
                     Proporção adotada entre as dimensões Largura/Comprimento
                   </span>
-                  Proporção/1 Anaerobia <sup>🛈</sup>
+                  Proporção/1 Anaerobia <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -427,7 +428,7 @@ function Home() {
                 <span className="tooltiptext">
                   Correção do coeficiente de remoção de DBO em 1/dia
                 </span>
-                K <sup>🛈</sup>
+                K <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -440,7 +441,7 @@ function Home() {
                 <span className="tooltiptext">
                   Demanda química de oxigênio expressa em mg/L
                 </span>
-                DQO <sup>🛈</sup>
+                DQO <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -453,7 +454,8 @@ function Home() {
                 <span className="tooltiptext">
                   Taxa de aplicação superficial em kgDBO/ha.d
                 </span>
-                Taxa de aplicação superficial <sup>🛈</sup>
+                Taxa de aplicação superficial{" "}
+                <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -466,7 +468,7 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">Em %</span>
-                  Eficiência Anaerobia <sup>🛈</sup>
+                  Eficiência Anaerobia <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -484,7 +486,8 @@ function Home() {
                   {" "}
                   Concentração sólidos em suspensão do efluente em mg/L{" "}
                 </span>
-                Concentração SS do efluente<sup>🛈</sup>
+                Concentração SS do efluente
+                <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -501,7 +504,7 @@ function Home() {
                   {" "}
                   Concentração sólidos em suspensão/DBO5{" "}
                 </span>
-                Concentração SS/DBO5 <sup>🛈</sup>
+                Concentração SS/DBO5 <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -530,7 +533,7 @@ function Home() {
                     <span className="tooltiptext">
                       Recomendado entre 2,5 a 5,0 m
                     </span>
-                    Anaeróbia <sup>🛈</sup>
+                    Anaeróbia <AiOutlineInfoCircle color="#009be5" />
                   </Label>
                   <Input
                     type="number"
@@ -545,7 +548,7 @@ function Home() {
                   <span className="tooltiptext">
                     Recomendado entre 1,5 a 3,0 m
                   </span>
-                  Facultativa <sup>🛈</sup>
+                  Facultativa <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -566,7 +569,8 @@ function Home() {
             </Toggle>
 
             <Label>
-              <span> Considere somente Facultativa?</span> <sup>🛈</sup>
+              <span> Considere somente Facultativa?</span>{" "}
+              <AiOutlineInfoCircle color="#009be5" />
               <span className="tooltiptext">
                 Ao ativar o toggle, você estará considerando somente os dados de
                 entrada acima para calcular a lagoa Facultativa
@@ -581,7 +585,8 @@ function Home() {
             </Toggle>
 
             <Label>
-              Deseja calcular Lagoa de Maturação? <sup>🛈</sup>
+              Deseja calcular Lagoa de Maturação?{" "}
+              <AiOutlineInfoCircle color="#009be5" />
               <span className="tooltiptext">
                 Ativar esta opção calculará a lagoa de maturação com base nos
                 dados informados acima
@@ -603,7 +608,7 @@ function Home() {
                     Concentração de coliformes fecais em CF/100 mL no esgoto
                     bruto
                   </span>
-                  Coliformes fecais <sup>🛈</sup>
+                  Coliformes fecais <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -618,7 +623,7 @@ function Home() {
                   <span className="tooltiptext">
                     Concentração de ovos helmintos no esgoto bruto em ovos/L
                   </span>
-                  Ovos helmintos <sup>🛈</sup>
+                  Ovos helmintos <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -631,7 +636,7 @@ function Home() {
                   <span className="tooltiptext">
                     Número de lagoas de maturação em série
                   </span>
-                  Lagoas em série <sup>🛈</sup>
+                  Lagoas em série <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -646,7 +651,7 @@ function Home() {
                   <span className="tooltiptext">
                     Profundidade útil da lagoa de maturação em metros
                   </span>
-                  Profundidade útil <sup>🛈</sup>
+                  Profundidade útil <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -661,7 +666,7 @@ function Home() {
                   <span className="tooltiptext">
                     Comprimento da lagoa de maturação em metros
                   </span>
-                  Comprimento <sup>🛈</sup>
+                  Comprimento <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -676,7 +681,7 @@ function Home() {
                   <span className="tooltiptext">
                     Largura da lagoa de maturação em metros
                   </span>
-                  Largura <sup>🛈</sup>
+                  Largura <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -691,7 +696,7 @@ function Home() {
                   <span className="tooltiptext">
                     Tempo de detenção total em dias
                   </span>
-                  Tempo de detenção <sup>🛈</sup>
+                  Tempo de detenção <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -705,7 +710,8 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">Em %</span>
-                  Eficiência típica de remoção de DBO <sup>🛈</sup>
+                  Eficiência típica de remoção de DBO{" "}
+                  <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
@@ -719,7 +725,8 @@ function Home() {
               <Item>
                 <Label>
                   <span className="tooltiptext">Em %</span>
-                  Eficiência típica de remoção de ovos <sup>🛈</sup>
+                  Eficiência típica de remoção de ovos{" "}
+                  <AiOutlineInfoCircle color="#009be5" />
                 </Label>
                 <Input
                   type="number"
