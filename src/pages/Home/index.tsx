@@ -580,7 +580,7 @@ function Home() {
                 Ao ativar o toggle, você estará considerando somente os dados de
                 entrada acima para calcular a lagoa Facultativa
               </span>
-              Considere somente Facultativa?
+              Considere somente Facultativa?{""}
               <AiOutlineInfoCircle color="#009be5" />
             </Label>
           </CalcFacultativa>
@@ -596,7 +596,7 @@ function Home() {
                 Ativar esta opção calculará a lagoa de maturação com base nos
                 dados informados acima
               </span>
-              Deseja calcular Lagoa de Maturação?
+              Deseja calcular Lagoa de Maturação?{" "}
               <AiOutlineInfoCircle color="#009be5" />
             </Label>
           </CalcMaturacao>

@@ -123,7 +123,7 @@ export const Item = styled.div`
 
 /* ================= LABEL ================= */
 export const Label = styled.label`
-  font-size: 13px;
+  font-size: 14px;
   color: #262626;
   font-weight: 500;
   position: relative;
