@@ -19,7 +19,7 @@ export const Painel = styled.div`
   background-color: white;
 
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 10px;
   }
 `;
 
