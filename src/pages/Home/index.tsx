@@ -137,9 +137,9 @@ function Home() {
   const msg = message;
 
   msg.config({
-    top: 20, // distância do topo da tela (em px)
-    duration: 3, // duração em segundos
-    maxCount: 1, // limite de mensagens simultâneas
+    getContainer: () => document.body,
+    duration: 3,
+    maxCount: 1,
   });
 
   const success = () => {
@@ -732,7 +732,13 @@ function Home() {
             </InputsDown>
           ) : null}
           <ButtonCalc id="resultados">
-            <a href="#resultados" onClick={calcular}>
+            <a
+              href="#resultados"
+              onClick={(e) => {
+                e.preventDefault();
+                calcular();
+              }}
+            >
               Dimensionar
             </a>
           </ButtonCalc>

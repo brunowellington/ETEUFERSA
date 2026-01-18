@@ -19,7 +19,7 @@ export const Painel = styled.div`
   background-color: white;
 
   @media (max-width: 768px) {
-    padding: 16px;
+    padding: 22px;
   }
 `;
 
@@ -43,10 +43,21 @@ export const TopInputs = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    input {
+      font-size: 12px;
+      padding: 6px;
+    }
+
+    label {
+      font-size: 11px;
+    }
   }
 `;
 
@@ -55,12 +66,23 @@ export const InputsDown = styled.div`
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    input {
+      font-size: 12px;
+      padding: 6px;
+    }
+
+    label {
+      font-size: 11px;
+    }
   }
 `;
 
@@ -71,8 +93,22 @@ export const BottomInputs = styled.div`
   gap: 20px;
   grid-template-columns: repeat(2, 1fr);
 
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
+
   @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    input {
+      font-size: 12px;
+      padding: 6px;
+    }
+
+    label {
+      font-size: 11px;
+    }
   }
 `;
 
@@ -230,11 +266,29 @@ export const AnaerobiaFacultativaWrapper = styled.div`
     min-width: 100px;
   }
 
-  @media (max-width: 480px) {
-    flex-wrap: wrap;
-    margin-left: 0;
+  @media (max-width: 768px) {
+    flex-direction: row;
+    margin-left: 15;
+
     & > ${Item} {
       flex: 1 1 45%;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    & > ${Item} {
+      flex: 1 1 48%;
+      min-width: 0;
+    }
+
+    input {
+      font-size: 12px;
+      padding: 6px;
+    }
+
+    label {
+      font-size: 11px;
     }
   }
 `;

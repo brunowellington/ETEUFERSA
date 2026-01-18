@@ -15,8 +15,8 @@ const Content = styled.section`
   max-width: 1200px;
   margin: 0 auto;
   padding: 32px 16px;
-  width: 100%; /* garante que não ultrapasse a tela */
-  box-sizing: border-box; /* inclui padding na largura total */
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const Info = styled.div`
