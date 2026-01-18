@@ -1,62 +1,97 @@
 import styled from "styled-components";
 
+/* ================= CONTAINER ================= */
 export const Container = styled.div`
   width: 100%;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  .ant-message-notice-content {
-    background: red;
-  }
-  .ant-message-custom-content {
-  }
-  .ant-message-success {
-    background: red;
-  }
 `;
+
+/* ================= PAINEL ================= */
 export const Painel = styled.div`
-  width: 900px;
-  height: 100%;
+  width: 100%;
+  max-width: 900px;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 40px;
   background-color: white;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
 `;
+
+/* ================= TITLE ================= */
 export const Title = styled.h2`
-  color: #000000ff;
+  color: #000;
   font-weight: bold;
   text-align: center;
   margin: 10px 0;
 `;
+
+/* ================= GRIDS ================= */
 export const TopInputs = styled.div`
   display: grid;
-  grid-gap: 20px 5px;
+  gap: 20px;
   grid-template-columns: repeat(4, 1fr);
-  padding: 10px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const InputsDown = styled.div`
   display: grid;
-  grid-gap: 20px 5px;
+  gap: 20px;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
+export const BottomInputs = styled.div`
+  width: 100%;
+  max-width: 350px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+/* ================= ITEM ================= */
 export const Item = styled.div`
   display: flex;
-  height: 60px;
+  min-height: 60px;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 `;
 
+/* ================= LABEL ================= */
 export const Label = styled.label`
   font-size: 14px;
-  color: #262626ff;
+  color: #262626;
   font-weight: 500;
   position: relative;
-  display: inline-block;
+  text-align: center;
 
   sup {
     color: var(--azul);
@@ -64,30 +99,19 @@ export const Label = styled.label`
 
   .tooltiptext {
     visibility: hidden;
-    min-width: 200px;
+    width: 220px;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 8px;
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 100%;
-    margin-left: -105px;
+    z-index: 10;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
-  }
-
-  .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
   }
 
   :hover .tooltiptext {
@@ -95,89 +119,84 @@ export const Label = styled.label`
     opacity: 1;
   }
 `;
-export const BottomInputs = styled.div`
-  width: 343px;
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: auto auto;
+
+export const InfoText = styled.div`
+  margin: 20px 0;
   padding: 10px;
+  color: #000;
+  font-size: 15px;
+  font-weight: bold;
+  width: 100%;
+  word-break: break-word;
 `;
+
+/* ================= BOTÃO ================= */
 export const ButtonCalc = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
   margin-top: 30px;
+
   a {
-    display: block;
-    width: 150px;
-    height: 40px;
-    margin-left: 76%;
-    margin-right: 0;
+    width: 180px;
+    height: 44px;
     padding: 10px;
     text-align: center;
-    border: none;
     border-radius: 8px;
     background-color: var(--primaria);
-    outline: none;
     font-size: 15px;
     color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: 1s;
-    transition-property: all;
+    transition: 0.3s;
+  }
+
+  @media (max-width: 480px) {
+    justify-content: center;
   }
 `;
+
+/* ================= TOGGLES ================= */
 export const CalcFacultativa = styled.div`
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   display: flex;
+  align-items: center;
   margin-top: 20px;
-  h2 {
-    margin-left: 15px;
-    font-size: 18px;
-    color: #828282;
-  }
-  sup {
-    right: -330px;
+  gap: 0px;
+  padding: 9px;
+
+  @media (max-width: 480px) {
+    flex-direction: row;
+    justify-content: flex-start;
   }
 `;
 
-export const CalcMaturacao = styled.div`
-  display: flex;
-  margin-top: 20px;
+// CalcMaturacao herda o mesmo estilo
+export const CalcMaturacao = styled(CalcFacultativa)``;
 
-  h2 {
-    margin-left: 15px;
-    font-size: 18px;
-    color: #828282;
-  }
-`;
-
+/* ================= TOGGLE SWITCH ================= */
 export const Slider = styled.span`
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
+  border-radius: 34px;
 
   ::before {
     position: absolute;
     content: "";
-    height: 28px;
-    width: 28px;
-    left: 1px;
-    bottom: 0px;
+    height: 24px;
+    width: 24px;
+    left: 2px;
+    bottom: 2px;
     background-color: white;
-    -webkit-transition: 0.4s;
     transition: 0.4s;
-  }
-
-  border-radius: 34px;
-  ::before {
     border-radius: 50%;
   }
 `;
+
 export const Toggle = styled.label`
   position: relative;
   display: inline-block;
@@ -194,13 +213,28 @@ export const Toggle = styled.label`
     background-color: #2196f3;
   }
 
-  input:focus + ${Slider} {
-    box-shadow: 0 0 1px #2196f3;
+  input:checked + ${Slider}:before {
+    transform: translateX(22px);
   }
 
-  input:checked + ${Slider}:before {
-    -webkit-transform: translateX(25px);
-    -ms-transform: translateX(26px);
-    transform: translateX(20px);
+  margin-right: 10px;
+`;
+
+export const AnaerobiaFacultativaWrapper = styled.div`
+  display: flex;
+  gap: 22px;
+  margin-left: 31px;
+
+  & > ${Item} {
+    flex: 1 1 50%;
+    min-width: 100px;
+  }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    margin-left: 0;
+    & > ${Item} {
+      flex: 1 1 45%;
+    }
   }
 `;

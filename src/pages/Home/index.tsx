@@ -8,12 +8,14 @@ import {
   InputsDown,
   Item,
   Label,
+  InfoText,
   BottomInputs,
   ButtonCalc,
   CalcMaturacao,
   Toggle,
   Slider,
   CalcFacultativa,
+  AnaerobiaFacultativaWrapper,
 } from "./styles";
 import Input from "../../components/Input";
 import Result from "../Result";
@@ -132,23 +134,25 @@ function Home() {
     setLagoasBaseData((prev) => ({ ...prev, ...value }));
   }
 
+  const msg = message;
+
+  msg.config({
+    top: 20, // distância do topo da tela (em px)
+    duration: 3, // duração em segundos
+    maxCount: 1, // limite de mensagens simultâneas
+  });
+
   const success = () => {
-    message.success({
+    msg.success({
       content: "Dimensionamento efetuado com sucesso!",
       className: "custom-class",
-      style: {
-        marginTop: "10vh",
-      },
     });
   };
 
   const error = () => {
-    message.error({
+    msg.error({
       content: "Preencha os campos corretamente!",
       className: "custom-class",
-      style: {
-        marginTop: "10vh",
-      },
     });
   };
 
@@ -508,64 +512,66 @@ function Home() {
               />
             </Item>
           </TopInputs>
-          <div
-            style={{
-              margin: "20px 0",
-              color: "#000000",
-              fontSize: "15px",
-              fontWeight: "bold",
-            }}
-          >
-            Adote profundidades em m para as lagoas de estabilização:{" "}
-          </div>
+          <InfoText>
+            Adote profundidades em m para as lagoas de estabilização:
+          </InfoText>
           <BottomInputs>
-            {!toggleFacultativa && (
+            <AnaerobiaFacultativaWrapper>
+              {!toggleFacultativa && (
+                <Item
+                  style={{
+                    maxHeight: toggleFacultativa ? "0" : "100px", // altura total do campo
+                    opacity: toggleFacultativa ? 0 : 1,
+                    overflow: "hidden",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <Label>
+                    <span className="tooltiptext">
+                      Recomendado entre 2,5 a 5,0 m
+                    </span>
+                    Anaeróbia <sup>🛈</sup>
+                  </Label>
+                  <Input
+                    type="number"
+                    disabled={toggleFacultativa}
+                    value={lagoasBaseData.hAnaerobia}
+                    setValue={(e) => updateLagoasBaseData({ hAnaerobia: e })}
+                  />
+                </Item>
+              )}
               <Item>
                 <Label>
                   <span className="tooltiptext">
-                    Recomendado entre 2,5 a 5,0 m
+                    Recomendado entre 1,5 a 3,0 m
                   </span>
-                  Anaeróbia <sup>🛈</sup>
+                  Facultativa <sup>🛈</sup>
                 </Label>
                 <Input
                   type="number"
-                  disabled={toggleFacultativa ? true : false}
-                  value={lagoasBaseData.hAnaerobia}
-                  setValue={(e) => updateLagoasBaseData({ hAnaerobia: e })}
+                  value={lagoasBaseData.hFacultativa}
+                  setValue={(e) => updateLagoasBaseData({ hFacultativa: e })}
                 />
               </Item>
-            )}
-            <Item>
-              <Label>
-                <span className="tooltiptext">
-                  Recomendado entre 1,5 a 3,0 m
-                </span>
-                Facultativa <sup>🛈</sup>
-              </Label>
-              <Input
-                type="number"
-                value={lagoasBaseData.hFacultativa}
-                setValue={(e) => updateLagoasBaseData({ hFacultativa: e })}
-              />
-            </Item>
+            </AnaerobiaFacultativaWrapper>
           </BottomInputs>
 
           <CalcFacultativa>
             <Toggle>
-              <Label>
-                <span className="tooltiptext">
-                  Ao ativar o toggle, você estará considerando somente os dados
-                  de entrada acima para calcular a lagoa Facultativa
-                </span>
-                <sup>🛈</sup>
-              </Label>
               <input
                 type="checkbox"
                 onClick={() => setToggleFacultativaValue()}
               />
               <Slider className="round"></Slider>
             </Toggle>
-            <h2>Considere somente Facultativa?</h2>
+
+            <Label>
+              <span> Considere somente Facultativa?</span> <sup>🛈</sup>
+              <span className="tooltiptext">
+                Ao ativar o toggle, você estará considerando somente os dados de
+                entrada acima para calcular a lagoa Facultativa
+              </span>
+            </Label>
           </CalcFacultativa>
 
           <CalcMaturacao>
@@ -573,10 +579,24 @@ function Home() {
               <input type="checkbox" onClick={() => setToggleValue()} />
               <Slider className="round"></Slider>
             </Toggle>
-            <h2>Deseja calcular Lagoa de Maturação?</h2>
+
+            <Label>
+              Deseja calcular Lagoa de Maturação? <sup>🛈</sup>
+              <span className="tooltiptext">
+                Ativar esta opção calculará a lagoa de maturação com base nos
+                dados informados acima
+              </span>
+            </Label>
           </CalcMaturacao>
+
           {toggle ? (
-            <InputsDown>
+            <InputsDown
+              style={{
+                maxHeight: toggle ? "1000px" : "0",
+                overflow: "hidden",
+                transition: "max-height 0.3s ease",
+              }}
+            >
               <Item>
                 <Label>
                   <span className="tooltiptext">
