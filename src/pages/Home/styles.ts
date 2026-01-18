@@ -123,7 +123,7 @@ export const Item = styled.div`
 
 /* ================= LABEL ================= */
 export const Label = styled.label`
-  font-size: 14px;
+  font-size: 13px;
   color: #262626;
   font-weight: 500;
   position: relative;
@@ -135,12 +135,12 @@ export const Label = styled.label`
 
   .tooltiptext {
     visibility: hidden;
-    width: 220px;
+    width: 218px;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 8px;
+    padding: 6px;
     position: absolute;
     z-index: 10;
     bottom: 120%;
