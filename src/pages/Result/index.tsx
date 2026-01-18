@@ -10,7 +10,6 @@ import {
   GraficContainer,
   PDFButton,
   Resultado,
-  Linha,
 } from "./styles";
 import { generatePDF } from "../../utils/generatePDF";
 // import logo from '../../assets/images/logo.png';
