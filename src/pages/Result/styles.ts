@@ -39,11 +39,11 @@ export const Linha = styled.hr`
 /* ================= CONTAINER DE CARDS ================= */
 export const Container = styled.div`
   width: 100%;
+  padding: 16px;
   display: flex;
-  flex-wrap: wrap; /* permite quebrar */
-  gap: 20px; /* espaço entre cards */
-  justify-content: center;
-  margin-bottom: 30px;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* ⬅ espaçamento entre cards */
 `;
 
 /* ================= CARD ================= */
@@ -77,19 +77,17 @@ export const TitleCard = styled.h2`
 
 /* ================= ITEM ================= */
 export const Item = styled.div`
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
   padding-bottom: 5px;
   margin-bottom: 10px;
-  line-height: 18px;
-  font-size: 16px;
   border-bottom: 1px solid #828282;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap; /* para mobile */
 
-  p {
-    margin-bottom: 0;
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -98,32 +96,43 @@ export const Label = styled.label`
   color: #262626;
   font-weight: 500;
   position: relative;
-  text-align: center;
+  text-align: left;
+  min-width: 280px; /* largura mínima para alinhar com os outros cards */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 
-  sup {
-    color: var(--azul);
+  sup,
+  svg {
+    color: #009be5; /* ícone azul */
   }
 
   .tooltiptext {
     visibility: hidden;
-    width: 218px;
-    background-color: #555;
+    width: 220px;
+    background-color: #009be5;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 6px;
+    padding: 8px;
     position: absolute;
-    z-index: 10;
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 10;
   }
 
   :hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+  @media (max-width: 480px) {
+    Label {
+      min-width: auto;
+      font-size: 12px;
+    }
   }
 `;
 
