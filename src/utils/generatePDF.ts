@@ -5,29 +5,43 @@ import { LagoaMaturacao } from "../types/LagoaMaturacao";
 import { LagoasBaseData } from "../types/LagoasBaseData";
 import { SistemaAustraliano } from "../types/SistemaAustraliano";
 
-const addCabecalho = (doc: jsPDF) => {
-  doc.text(
-    "ESTAÇÃO  DE  TRATAMENTO  DE  ESGOTO  UNIVERSIDADE  FEDERAL RURAL DO",
-    80,
-    50,
-    { align: "justify" }
-  );
-  doc.text("SEMI-ÁRIDO - UFERSA", 80, 63);
-  doc.text(
-    "Este programa é destinado à realização do pré-dimensionamento para",
-    80,
-    80
-  );
-  doc.text(
-    "uma estação de tratamento de esgoto do tipo anaeróbia seguida por",
-    80,
-    93
-  );
-  doc.text("lagoa facultativa (sistema australiano)", 80, 106);
+/* ================= CONFIGURAÇÕES ABNT ================= */
 
-  doc.setLineWidth(0.5);
-  doc.line(485, 115, 80, 115);
+const MARGIN_TOP = 85; // 3 cm
+const MARGIN_LEFT = 85; // 3 cm
+const MARGIN_RIGHT = 57; // 2 cm
+const MARGIN_BOTTOM = 7; // 2 cm
+
+const LINE_HEIGHT = 14;
+
+/* ================= CABEÇALHO ================= */
+
+const addCabecalho = (doc: jsPDF) => {
+  doc.setFont("Times", "Normal");
+  doc.setFontSize(10);
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+
+  doc.text(
+    "ESTAÇÃO DE TRATAMENTO DE ESGOTO - UNIVERSIDADE FEDERAL RURAL DO SEMI-ÁRIDO - UFERSA",
+    pageWidth / 2,
+    40,
+    { align: "center" },
+  );
+
+  doc.text(
+    "Este programa é destinado à realização do pré-dimensionamento para uma estação de tratamento\n" +
+      "de esgoto do tipo anaeróbia seguida por lagoa facultativa (sistema australiano) e/ou lagoa de maturação.\n",
+    pageWidth / 2,
+    60,
+    { align: "center" },
+  );
+
+  doc.setLineWidth(0.2);
+  doc.line(MARGIN_LEFT, 75, pageWidth - MARGIN_RIGHT, 75);
 };
+
+/* ================= TYPES ================= */
 
 type GeneratePDFProps = {
   lagoasBaseData: LagoasBaseData;
@@ -40,6 +54,8 @@ type GeneratePDFProps = {
   maturacaoCalculated: boolean;
 };
 
+/* ================= PDF ================= */
+
 export const generatePDF = ({
   lagoasBaseData,
   lagoaAnaerobia,
@@ -50,413 +66,261 @@ export const generatePDF = ({
   anaerobiaCalculated,
   maturacaoCalculated,
 }: GeneratePDFProps) => {
-  const doc = new jsPDF("p", "pt");
+  const doc = new jsPDF("p", "pt", "a4");
 
-  doc.setFont("courier");
-  doc.setFontSize(10);
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  let y = MARGIN_TOP;
+
+  const checkPage = (extra = LINE_HEIGHT) => {
+    if (y + extra > pageHeight - MARGIN_BOTTOM) {
+      doc.addPage();
+      addCabecalho(doc);
+      y = MARGIN_TOP;
+    }
+  };
+
+  const title = (text: string) => {
+    checkPage(30);
+    doc.setFontSize(12);
+    doc.setFont("Times", "Bold");
+    doc.text(text, MARGIN_LEFT, y);
+    y += LINE_HEIGHT + 6;
+    doc.setFont("Times", "Normal");
+    doc.setFontSize(11);
+  };
+
+  const text = (value: string) => {
+    checkPage();
+    doc.text(value, MARGIN_LEFT, y, {
+      maxWidth: pageWidth - MARGIN_LEFT - MARGIN_RIGHT,
+    });
+    y += LINE_HEIGHT;
+  };
+
+  const textWrap = (value: string) => {
+    checkPage(30);
+    const wrapped = doc.splitTextToSize(
+      value,
+      pageWidth - MARGIN_LEFT - MARGIN_RIGHT,
+    );
+    doc.text(wrapped, MARGIN_LEFT, y);
+    y += wrapped.length * LINE_HEIGHT + 10;
+  };
+
+  /* ================= INÍCIO ================= */
+
   addCabecalho(doc);
 
-  doc.text("Dados de entrada", 80, 140);
-  doc.text(`Populacao: ${lagoasBaseData.populacao}`, 100, 160);
-  doc.text(`Vazão afluente: ${lagoasBaseData.vazaoAfluente}`, 100, 173);
-  doc.text(`DBO afluente: ${lagoasBaseData.DBOAfluente}`, 100, 186);
-  doc.text(`Temperatura: ${lagoasBaseData.temperatura}`, 100, 199);
-  doc.text(`Taxa volumétrica: ${lagoasBaseData.taxaVolumetrica}`, 100, 212);
-  doc.text(`Taxa de acúmulo: ${lagoasBaseData.taxaAcumulo}`, 100, 225);
-  doc.text(
-    `Quantidade de lagoas: ${lagoasBaseData.quantidadeLagoas}`,
-    100,
-    238
+  /* ================= DADOS DE ENTRADA ================= */
+
+  text("\n");
+  title("Dados de entrada:");
+
+  text(`População em habitantes: ${lagoasBaseData.populacao}`);
+  text(`Vazão afluente: ${lagoasBaseData.vazaoAfluente}`);
+  text(`DBO afluente: ${lagoasBaseData.DBOAfluente}`);
+  text(`Temperatura em °C: ${lagoasBaseData.temperatura}`);
+  text(`Taxa volumétrica: ${lagoasBaseData.taxaVolumetrica}`);
+  text(`Taxa de acúmulo: ${lagoasBaseData.taxaAcumulo}`);
+  text(`Quantidade de lagoas: ${lagoasBaseData.quantidadeLagoas}`);
+  text(`Proporção/1 facultativa: ${lagoasBaseData.proporcao}`);
+  text(`Proporção/1 anaeróbia: ${lagoasBaseData.proporcaoAnaerobia}`);
+  text(`K: ${lagoasBaseData.k}`);
+  if (lagoasBaseData.dqo) {
+    text(`DQO: ${lagoasBaseData.dqo}`);
+  }
+  text(`Taxa de aplicação superficial: ${lagoasBaseData.aplicacaoSuper}`);
+  text(`Eficiência anaeróbia: ${lagoasBaseData.eficienciaAnaerobia}`);
+  text(
+    `Concentração de sólidos em suspensão do efluente: ${lagoasBaseData.concentracaoSSefluente}`,
   );
-  doc.text(`Proporção/1: ${lagoasBaseData.proporcao}`, 100, 251);
-  doc.text(`K: ${lagoasBaseData.k}`, 100, 264);
+  text(
+    `Concentração de sólidos em suspensão/DBO5: ${lagoasBaseData.concentracaoSSDBO5}`,
+  );
   if (lagoasBaseData.hAnaerobia) {
-    doc.text(`Profundidade Anaeróbia: ${lagoasBaseData.hAnaerobia}`, 100, 277);
-    doc.text(
-      `Profundidade Facultativa: ${lagoasBaseData.hFacultativa}`,
-      100,
-      290
-    );
-  } else {
-    doc.text(
-      `Profundidade Facultativa: ${lagoasBaseData.hFacultativa}`,
-      100,
-      277
-    );
+    text(`Profundidade anaeróbia: ${lagoasBaseData.hAnaerobia}`);
   }
-  if (lagoaAnaerobia.dqoDbo && lagoaAnaerobia.dqoDbo >= 0) {
-    doc.text(`DQO fornecido: ${lagoasBaseData.dqo}`, 100, 303);
-  }
-
-  if (
-    lagoaAnaerobia.cargaAnaerobia &&
-    lagoaAnaerobia.tempo &&
-    lagoaAnaerobia.area &&
-    lagoaAnaerobia.tempo1terco
-  ) {
-    doc.text("Lagoa Anaeróbia", 80, 323);
-    doc.text(
-      `Carga afluente de DBO = ${lagoaAnaerobia.cargaAnaerobia.toFixed(
-        3
-      )} kgDBO/m³.d`,
-      100,
-      343
-    );
-    doc.text(
-      `Volume resultante da lagoa anaeróbia = ${lagoaAnaerobia.volume} m³`,
-      100,
-      356
-    );
-    doc.text(
-      `Tempo de detenção = ${(lagoaAnaerobia.tempo / 1000).toFixed(1)} dia`,
-      100,
-      369
-    );
-    doc.text(
-      `Área requerida = ${(lagoaAnaerobia.area / 1000).toFixed(0)} m²`,
-      100,
-      382
-    );
-    doc.text(
-      `Acúmulo de lodo na lagoa anaeróbia = ${lagoaAnaerobia.acumulacao_anual} m³/ano`,
-      100,
-      395
-    );
-    doc.text(
-      `Expessura da camada de lodo em 1 ano = ${lagoaAnaerobia.expessura}  cm/ano`,
-      100,
-      408
-    );
-    doc.text(
-      `Tempo para se atingir 1/3 da altura útil das lagoas = ${lagoaAnaerobia.tempo1terco.toFixed(
-        1
-      )} ano(s)`,
-      100,
-      425
-    );
-
-    doc.text("Lagoa Facultativa", 80, 450);
-
-    doc.text(
-      `Carga afluente à lagoa facultativa = ${lagoaFacultativa.CargaFacultativa} kgDBO/d`,
-      100,
-      475
-    );
-    doc.text(
-      `Área requerida = ${lagoaFacultativa.areaTotalFacultativa.toFixed(
-        1
-      )} ha (${Number(lagoaFacultativa.areaTotalFacultativa.toFixed(1)).toFixed(
-        3
-      )} m²)`,
-      100,
-      488
-    );
-    doc.text(
-      `Área individual para cada ladoa facultativa = ${lagoaFacultativa.areaLagoaFacultativaIndividual.toFixed(
-        1
-      )} m²`,
-      100,
-      501
-    );
-    doc.text(
-      `volume resultante da lagoa facultativa = ${(
-        lagoaFacultativa.volumeResultanteFacultativa / 1000
-      ).toFixed(3)} m³`,
-      100,
-      514
-    );
-    doc.text(
-      `Tempo de detenção Resultante = ${lagoaFacultativa.tempoDetencaoFacultativa.toFixed(
-        2
-      )} m³/ano`,
-      100,
-      527
-    );
-    doc.text(
-      `Correção para a temperatura de 23°C = ${lagoaFacultativa.kt}  cm/ano`,
-      100,
-      540
-    );
-    doc.text(
-      `Estimativa da DBO solúvel efluente = ${lagoaFacultativa.s.toFixed(
-        0
-      )} mg/l`,
-      100,
-      553
-    );
-    doc.text(
-      `Estimativa da DBO particulada efluente = ${lagoaFacultativa.DBO5Particulada} mgDBO`,
-      100,
-      566
-    );
-    doc.text(
-      `DBO total efluente = ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,
-      100,
-      579
-    );
-  } else {
-    // correção do espaçamento da lagoa anaeróbia aqui
-
-    doc.text("Lagoa Facultativa", 80, 450);
-
-    doc.text(
-      `Carga afluente à lagoa facultativa = ${lagoaFacultativa.CargaFacultativa} kgDBO/d`,
-      100,
-      475
-    );
-    doc.text(
-      `Área requerida = ${lagoaFacultativa.areaTotalFacultativa.toFixed(
-        1
-      )} ha (${Number(lagoaFacultativa.areaTotalFacultativa.toFixed(1)).toFixed(
-        3
-      )} m²)`,
-      100,
-      488
-    );
-    doc.text(
-      `Área individual para cada ladoa facultativa = ${lagoaFacultativa.areaLagoaFacultativaIndividual.toFixed(
-        1
-      )} m²`,
-      100,
-      501
-    );
-    doc.text(
-      `volume resultante da lagoa facultativa = ${(
-        lagoaFacultativa.volumeResultanteFacultativa / 1000
-      ).toFixed(3)} m³`,
-      100,
-      514
-    );
-    doc.text(
-      `Tempo de detenção Resultante = ${lagoaFacultativa.tempoDetencaoFacultativa.toFixed(
-        2
-      )} m³/ano`,
-      100,
-      527
-    );
-    doc.text(
-      `Correção para a temperatura de 23°C = ${lagoaFacultativa.kt}  cm/ano`,
-      100,
-      540
-    );
-    doc.text(
-      `Estimativa da DBO solúvel efluente = ${lagoaFacultativa.s.toFixed(
-        0
-      )} mg/l`,
-      100,
-      553
-    );
-    doc.text(
-      `Estimativa da DBO particulada efluente = ${lagoaFacultativa.DBO5Particulada} mgDBO`,
-      100,
-      566
-    );
-    doc.text(
-      `DBO total efluente = ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,
-      100,
-      579
-    );
-  }
+  text(`Profundidade facultativa: ${lagoasBaseData.hFacultativa}`);
 
   if (maturacaoCalculated && lagoaMaturacao) {
-    doc.text("Lagoa de maturação", 80, 610);
-    doc.text(`Dados de entrada`, 90, 630);
-    doc.text(
-      `Coliformes fecais = ${lagoaMaturacao.coliformesFecais}`,
-      100,
-      650
+    text("\n");
+
+    text(`Coliformes fecais: ${lagoaMaturacao.coliformesFecais}`);
+    text(`Ovos de helmintos: ${lagoaMaturacao.ovosHelmintos}`);
+    text(`Lagoas em série: ${lagoaMaturacao.quantidadeLagoasMaturacao}`);
+    text(`Profundidade útil: ${lagoaMaturacao.profundidadeUtilH}`);
+    text(`Comprimento: ${lagoaMaturacao.comprimentoMaturacao}`);
+    text(`Largura: ${lagoaMaturacao.larguraMaturacao}`);
+    text(`Tempo de detenção: ${lagoaMaturacao.valorTempoDetencao}`);
+    text(
+      `Eficiência típica de remoção de DBO: ${lagoaMaturacao.eficienciaRemocaoDBO}`,
     );
-    doc.text(`Ovos de helmintos = ${lagoaMaturacao.ovosHelmintos}`, 100, 665);
-    doc.text(
-      `Lagoas em série = ${lagoaMaturacao.quantidadeLagoasMaturacao}`,
-      100,
-      680
+    text(
+      `Eficiência típica de remoção de ovos: ${lagoaMaturacao.eficienciaRemocaoOvosHelmitoss}`,
     );
-    doc.text(
-      `Profundidade útil = ${lagoaMaturacao.profundidadeUtilH}`,
-      100,
-      695
+  }
+
+  /* ================= LAGOA ANAERÓBIA ================= */
+  text("\n");
+  if (anaerobiaCalculated && lagoaAnaerobia.cargaAnaerobia) {
+    title("Resultados da análise:");
+    title("Lagoa Anaeróbia");
+    text(
+      `Carga afluente de DBO: ${lagoaAnaerobia.cargaAnaerobia.toFixed(
+        3,
+      )} kgDBO/m³.d`,
     );
-    doc.text(`Comprimento = ${lagoaMaturacao.comprimentoMaturacao}`, 100, 710);
-    doc.text(`Largura = ${lagoaMaturacao.larguraMaturacao}`, 100, 725);
-    doc.text(
-      `Tempo de detenção = ${lagoaMaturacao.valorTempoDetencao}`,
-      100,
-      740
+    text(`Volume: ${lagoaAnaerobia.volume} m³`);
+    text(
+      `Tempo: ${
+        lagoaAnaerobia.tempo ? (lagoaAnaerobia.tempo / 1000).toFixed(1) : "N/A"
+      } dia`,
     );
-    doc.text(
-      `Eficiência típica de remoção de DBO = ${lagoaMaturacao.eficienciaRemocaoDBO}`,
-      100,
-      755
+    text(
+      `Área: ${
+        lagoaAnaerobia.area ? (lagoaAnaerobia.area / 1000).toFixed(0) : "N/A"
+      } m²`,
     );
-    doc.text(
-      `Eficiência típica de remoção de ovos = ${lagoaMaturacao.eficienciaRemocaoOvosHelmitoss}`,
-      100,
-      770
+    text(`Acúmulação anual de lodo: ${lagoaAnaerobia.acumulacao_anual} m³/ano`);
+    text(`Espessura da camada de lodo: ${lagoaAnaerobia.expessura} cm/ano`);
+
+    textWrap(
+      `Tempo para atingir 1/3 da altura útil: ${
+        lagoaAnaerobia.tempo1terco
+          ? lagoaAnaerobia.tempo1terco.toFixed(1)
+          : "N/A"
+      } ano(s)`,
+    );
+  }
+
+  /* ================= LAGOA FACULTATIVA ================= */
+
+  title("Lagoa Facultativa");
+
+  text(
+    `Carga afluente afluente à lagoa facultativa: ${lagoaFacultativa.CargaFacultativa} kgDBO/d`,
+  );
+  text(
+    `Área requerida: ${lagoaFacultativa.areaTotalFacultativa.toFixed(3)} ha`,
+  );
+  text(
+    `Área individual para cada lagoa facultativa: ${lagoaFacultativa.areaLagoaFacultativaIndividual.toFixed(
+      1,
+    )} m²`,
+  );
+  text(
+    `Volume resultante resultante da lagoa facultativa: ${(
+      lagoaFacultativa.volumeResultanteFacultativa / 1000
+    ).toFixed(3)} m³`,
+  );
+  text(
+    `Tempo de detenção resultante: ${lagoaFacultativa.tempoDetencaoFacultativa.toFixed(
+      2,
+    )} dias`,
+  );
+  text(`Correção para temperatura local: ${lagoaFacultativa.kt} d-¹`);
+  text(
+    `Estimativa da DBO solúvel efluente: ${lagoaFacultativa.s.toFixed(0)} mg/l`,
+  );
+  text(
+    `Estimativa da DBO particulada efluente: ${lagoaFacultativa.DBO5Particulada} mgDBO/l`,
+  );
+  text(
+    `DBO total efluente: ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,
+  );
+  text(
+    `Eficiência da lagoa facultativa: ${lagoaFacultativa.DBO5Particulada} %`,
+  );
+
+  /* ================= LAGOA DE MATURAÇÃO ================= */
+
+  if (maturacaoCalculated && lagoaMaturacao) {
+    text("\n");
+    text("\n");
+    title("Lagoa de Maturação");
+
+    text(
+      `Remoção de coliformes após facultativa: ${lagoaMaturacao.remocaoColiformes} CF/100 ml`,
+    );
+    text(`Volume das lagoas: ${lagoaMaturacao.volumeCadaLagoaMaturacao} m³`);
+    text(`Área superficial: ${lagoaMaturacao.areaSuperficialCadaLagoa} m²`);
+    text(`Área superficial total: ${lagoaMaturacao.areaSuperficialTotal} m²`);
+    text(`Número de dispersão: ${lagoaMaturacao.D}`);
+    text(`Coeficiente de decaimento bacteriano: ${lagoaMaturacao.kb} d-¹`);
+    text(
+      `Coeficiente de decaimento bacteriano para temperatura local: ${lagoaMaturacao.kbT} d-¹`,
+    );
+    text(
+      `Concentração de coliformes após maturação 1: ${lagoaMaturacao.NttExpandido} CF/100 ml`,
+    );
+    text(
+      `Eficiência das lagoas: ${lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} %`,
+    );
+    text(
+      `Concentração de coliformes após maturação 2: ${lagoaMaturacao.concentracaoColiformesEfluenteFinal}`,
+    );
+    text(
+      `Eficiência de remoção global: ${lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} %`,
+    );
+    text(
+      `Concentração efluente pós tratamento secundário: ${lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/l`,
+    );
+    text(
+      `Eficiência de remoção global dos ovos: ${lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} %`,
+    );
+    text(
+      `Eficiência global de remoção de helmintos: ${lagoaMaturacao.eficienciaGlobalPorcentagem} %`,
+    );
+    text(
+      `Unidades log removidas: ${lagoaMaturacao.unidadeLogRemovida} unidades log removidas`,
+    );
+  }
+
+  /* ================= SISTEMA AUSTRALIANO ================= */
+
+  if (anaerobiaCalculated) {
+    text("\n");
+    title("Sistema Australiano");
+
+    text(`Eficiência: ${sistemaAustraliano.eficiencia}%`);
+    text(
+      `Área útil total: ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,
+    );
+    text(`Área total: ${sistemaAustraliano.areaTotal} ha`);
+    text(
+      `Área per capita: ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,
     );
 
-    doc.addPage();
+    if (lagoaAnaerobia.dqoDbo !== undefined) {
+      let message =
+        lagoaAnaerobia.dqoDbo < 2.5
+          ? "Baixa – fração biodegradável elevada"
+          : lagoaAnaerobia.dqoDbo < 3.5
+            ? "Intermediária – fração biodegradável moderada"
+            : "Elevada – fração inerte predominante";
 
-    addCabecalho(doc);
-
-    doc.text(`Resultado da lagoa de maturação`, 90, 135);
-    doc.text(
-      `Remoção de coliformes = ${lagoaMaturacao.remocaoColiformes} CF/100 ml`,
-      100,
-      155
-    );
-    doc.text(
-      `Volume das lagoas = ${lagoaMaturacao.volumeCadaLagoaMaturacao} m²`,
-      100,
-      170
-    );
-    doc.text(
-      `Área superficial = ${lagoaMaturacao.areaSuperficialCadaLagoa} m²`,
-      100,
-      185
-    );
-    doc.text(
-      `Área superficial total = ${lagoaMaturacao.areaSuperficialTotal} m²`,
-      100,
-      200
-    );
-    doc.text(`Número de dispersão = ${lagoaMaturacao.D}`, 100, 215);
-    doc.text(
-      `Coeficiente de decaimento bacteriano = ${lagoaMaturacao.kb} d-1`,
-      100,
-      230
-    );
-    doc.text(
-      `Coeficiente de decaimento bacteriano = ${lagoaMaturacao.kbT} d-1`,
-      100,
-      245
-    );
-    doc.text(
-      `Concentração de coliformes efluentes = ${lagoaMaturacao.NttExpandido} CF/100 ml`,
-      100,
-      260
-    );
-    doc.text(
-      `Eficiência das lagoas = ${lagoaMaturacao.eFicienciaSerieLagoaPorcentagem} %`,
-      100,
-      275
-    );
-    doc.text(
-      `Concentração de coliformes no efluente final = ${lagoaMaturacao.concentracaoColiformesEfluenteFinal}`,
-      100,
-      290
-    );
-    doc.text(
-      `A eficiência de remoção global = ${lagoaMaturacao.eficienciaRemocaoGlobalPorcentagem} %`,
-      100,
-      305
-    );
-    doc.text(
-      `Concentração efluente pós tratamento secundário = ${lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L`,
-      100,
-      320
-    );
-    doc.text(
-      `Eficiência de remoção global dos ovos = ${lagoaMaturacao.eficienciaRemocaoGlobalHelmitosPorcentagem} %`,
-      100,
-      335
-    );
-    doc.text(
-      `Eficiência global de remoção de helmitos = ${lagoaMaturacao.eficienciaGlobalPorcentagem} %`,
-      100,
-      350
-    );
-    doc.text(
-      `Unidades log removidas = ${lagoaMaturacao.unidadeLogRemovida} unidades log removidas`,
-      100,
-      365
-    );
-
-    if (anaerobiaCalculated) {
-      doc.text("Sistema Australiano", 80, 395);
-
-      doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 410);
-      doc.text(
-        `Area útil total = ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,
-        100,
-        425
-      );
-      doc.text(`Area Total = ${sistemaAustraliano.areaTotal} ha`, 100, 440);
-      doc.text(
-        `Area per capita = ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,
-        100,
-        455
-      );
-
-      if (lagoaAnaerobia.dqoDbo && lagoaAnaerobia.dqoDbo >= 0) {
-        let message = "";
-        if (lagoaAnaerobia.dqoDbo >= 0 && lagoaAnaerobia.dqoDbo < 2.5) {
-          message = "(Baixa) - A fração biodegradável é elevada.";
-        } else if (
-          lagoaAnaerobia.dqoDbo >= 2.5 &&
-          lagoaAnaerobia.dqoDbo < 3.5
-        ) {
-          message = "(Intermediária) - A fração biodegradável não é elevada.";
-        } else if (lagoaAnaerobia.dqoDbo >= 3.5) {
-          message =
-            "(Elevada) - A fração inerte (não biodegradável) é elevada.";
-        }
-
-        doc.text(
-          `Relação DQO/DBO = ${lagoaAnaerobia.dqoDbo} ${message}`,
-          100,
-          470
-        );
-      }
-    }
-  } else if (anaerobiaCalculated) {
-    doc.text("Sistema Australiano", 80, 600);
-
-    doc.text(`Eficiência = ${sistemaAustraliano.eficiencia}%`, 100, 620);
-    doc.text(
-      `Area útil total = ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,
-      100,
-      635
-    );
-    doc.text(`Area Total = ${sistemaAustraliano.areaTotal} ha`, 100, 650);
-    doc.text(
-      `Area per capita = ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,
-      100,
-      665
-    );
-
-    if (lagoaAnaerobia.dqoDbo && lagoaAnaerobia.dqoDbo >= 0) {
-      let message = "";
-      if (lagoaAnaerobia.dqoDbo >= 0 && lagoaAnaerobia.dqoDbo < 2.5) {
-        message = "(Baixa) - A fração biodegradável é elevada.";
-      } else if (lagoaAnaerobia.dqoDbo >= 2.5 && lagoaAnaerobia.dqoDbo < 3.5) {
-        message = "(Intermediária) - A fração biodegradável não é elevada.";
-      } else if (lagoaAnaerobia.dqoDbo >= 3.5) {
-        message = "(Elevada) - A fração inerte (não biodegradável) é elevada.";
-      }
-
-      doc.text(
-        `Relação DQO/DBO = ${lagoaAnaerobia.dqoDbo} ${message}`,
-        100,
-        680
-      );
+      textWrap(`Relação DQO/DBO: ${lagoaAnaerobia.dqoDbo} (${message})`);
     }
   }
 
-  if (canvas !== null) {
-    doc.addPage();
-    addCabecalho(doc);
+  /* ================= LAYOUT ================= */
 
-    doc.text(
-      !anaerobiaCalculated || maturacaoCalculated
-        ? "Layout"
-        : "Layout do Sistema Australiano",
-      80,
-      140
+  if (canvas) {
+    text("\n");
+    text("\n");
+    title("Layout do sistema");
+
+    doc.addImage(
+      canvas.toDataURL(),
+      "PNG",
+      MARGIN_LEFT,
+      y,
+      pageWidth - MARGIN_LEFT - MARGIN_RIGHT,
+      260,
     );
-    doc.addImage(canvas.toDataURL(), "PNG", 15, 145, 580, 250);
   }
 
   window.open(doc.output("bloburl"));
-  // doc.save("Relatório Analítico - ETEUFERSA.pdf");
 };

@@ -419,7 +419,7 @@ function Result({ lagoasBaseData }: ResultProps) {
               <AiOutlineInfoCircle color="#009be5" />
             </Label>
             <Value>
-              {lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/L{" "}
+              {lagoaMaturacao.concentracaoOvosEfluenteReatorUASB} ovos/l{" "}
             </Value>
           </Item>
 

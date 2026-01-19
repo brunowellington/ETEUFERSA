@@ -37,19 +37,16 @@ export const Linha = styled.hr`
 export const Container = styled.div`
   width: 100%;
   display: grid;
-  gap: 20px; /* espaçamento entre os cards */
+  gap: 20px;
   margin-bottom: 30px;
 
-  /* Desktop: 3 colunas, cards menores */
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
   @media (max-width: 1024px) {
-    /* Tablet: 2 colunas */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   @media (max-width: 768px) {
-    /* Mobile: 1 coluna */
     grid-template-columns: 1fr;
   }
 `;
