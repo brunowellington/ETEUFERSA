@@ -534,7 +534,7 @@ function Home() {
               {!toggleFacultativa && (
                 <Item
                   style={{
-                    maxHeight: toggleFacultativa ? "0" : "100px", // altura total do campo
+                    maxHeight: toggleFacultativa ? "0" : "100px",
                     opacity: toggleFacultativa ? 0 : 1,
                     overflow: "hidden",
                     transition: "all 0.3s ease",

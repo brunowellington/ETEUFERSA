@@ -145,7 +145,7 @@ export const Label = styled.label`
     z-index: 10;
     bottom: 120%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-30%);
     opacity: 0;
     transition: opacity 0.3s;
   }
