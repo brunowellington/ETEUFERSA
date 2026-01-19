@@ -92,10 +92,6 @@ export const Label = styled.label`
   align-items: center;
   gap: 5px;
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
   sup {
     color: var(--azul);
   }
