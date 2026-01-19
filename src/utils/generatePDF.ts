@@ -41,8 +41,6 @@ const addCabecalho = (doc: jsPDF) => {
   doc.line(MARGIN_LEFT, 75, pageWidth - MARGIN_RIGHT, 75);
 };
 
-/* ================= TYPES ================= */
-
 type GeneratePDFProps = {
   lagoasBaseData: LagoasBaseData;
   lagoaAnaerobia: LagoaAnaerobia;
@@ -53,8 +51,6 @@ type GeneratePDFProps = {
   anaerobiaCalculated: boolean;
   maturacaoCalculated: boolean;
 };
-
-/* ================= PDF ================= */
 
 export const generatePDF = ({
   lagoasBaseData,
@@ -109,11 +105,7 @@ export const generatePDF = ({
     y += wrapped.length * LINE_HEIGHT + 10;
   };
 
-  /* ================= INÍCIO ================= */
-
   addCabecalho(doc);
-
-  /* ================= DADOS DE ENTRADA ================= */
 
   text("\n");
   title("Dados de entrada:");
@@ -162,7 +154,6 @@ export const generatePDF = ({
     );
   }
 
-  /* ================= LAGOA ANAERÓBIA ================= */
   text("\n");
   if (anaerobiaCalculated && lagoaAnaerobia.cargaAnaerobia) {
     title("Resultados da análise:");
@@ -194,8 +185,6 @@ export const generatePDF = ({
       } ano(s)`,
     );
   }
-
-  /* ================= LAGOA FACULTATIVA ================= */
 
   title("Lagoa Facultativa");
 
@@ -233,8 +222,6 @@ export const generatePDF = ({
   text(
     `Eficiência da lagoa facultativa: ${lagoaFacultativa.DBO5Particulada} %`,
   );
-
-  /* ================= LAGOA DE MATURAÇÃO ================= */
 
   if (maturacaoCalculated && lagoaMaturacao) {
     text("\n");
@@ -278,8 +265,6 @@ export const generatePDF = ({
     );
   }
 
-  /* ================= SISTEMA AUSTRALIANO ================= */
-
   if (anaerobiaCalculated) {
     text("\n");
     title("Sistema Australiano");
@@ -304,8 +289,6 @@ export const generatePDF = ({
       textWrap(`Relação DQO/DBO: ${lagoaAnaerobia.dqoDbo} (${message})`);
     }
   }
-
-  /* ================= LAYOUT ================= */
 
   if (canvas) {
     text("\n");

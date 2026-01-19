@@ -35,7 +35,7 @@ export const Linha = styled.hr`
 `;
 
 export const Container = styled.div`
-  width: 100%;
+  width: 80%;
   display: grid;
   gap: 20px;
   margin-bottom: 30px;
@@ -81,7 +81,7 @@ export const Item = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 16px;
+  font-size: 14px;
   color: #262626;
   font-weight: 500;
   position: relative;
@@ -132,7 +132,7 @@ export const Value = styled.div`
   text-align: right;
   min-width: 80px;
   flex: 1 1 auto;
-  font-size: 16px;
+  font-size: 15px;
 
   @media (max-width: 1024px) {
     font-size: 14px;
@@ -165,7 +165,7 @@ export const Canvas = styled.div`
 `;
 
 export const GraficContainer = styled.div`
-  width: 100%;
+  width: 80%;
   margin-top: 40px;
   padding: 10px;
   border-radius: 8px;
@@ -185,7 +185,7 @@ export const GraficContainer = styled.div`
 `;
 
 export const PDFButton = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 20px 0;
   display: flex;
   justify-content: flex-end;

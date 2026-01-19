@@ -293,7 +293,7 @@ function Result({ lagoasBaseData }: ResultProps) {
 
       {/*card de lagoa de maturacao */}
       {maturacaoCalculated && lagoaMaturacao && (
-        <Card style={{ marginBottom: "30px" }}>
+        <Card style={{ marginBottom: "30px", width: "80%" }}>
           <TitleCard>Lagoa de Maturação</TitleCard>
           <Item>
             <Label>
@@ -458,7 +458,7 @@ function Result({ lagoasBaseData }: ResultProps) {
       )}
 
       {anaerobiaCalculated && (
-        <Card>
+        <Card style={{ width: "80%" }}>
           <TitleCard>Sistema Australiano</TitleCard>
           <Item>
             <Label>
