@@ -532,14 +532,7 @@ function Home() {
           <BottomInputs>
             <AnaerobiaFacultativaWrapper>
               {!toggleFacultativa && (
-                <Item
-                  style={{
-                    maxHeight: toggleFacultativa ? "0" : "100px",
-                    opacity: toggleFacultativa ? 0 : 1,
-                    overflow: "hidden",
-                    transition: "all 0.3s ease",
-                  }}
-                >
+                <Item>
                   <Label>
                     <span className="tooltiptext">
                       Recomendado entre 2,5 a 5,0 m
