@@ -35,7 +35,7 @@ export const Linha = styled.hr`
 `;
 
 export const Container = styled.div`
-  width: 80%;
+  width: 100%;
   display: grid;
   gap: 20px;
   margin-bottom: 30px;
@@ -48,7 +48,6 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    width: 100%;
   }
 `;
 
@@ -62,12 +61,6 @@ export const Card = styled.div`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   width: 100%;
-  @media (max-width: 1024px) {
-    width: 80%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 export const TitleCard = styled.h2`
@@ -88,7 +81,7 @@ export const Item = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 14px;
+  font-size: 16px;
   color: #262626;
   font-weight: 500;
   position: relative;
@@ -139,7 +132,7 @@ export const Value = styled.div`
   text-align: right;
   min-width: 80px;
   flex: 1 1 auto;
-  font-size: 15px;
+  font-size: 16px;
 
   @media (max-width: 1024px) {
     font-size: 14px;
@@ -172,7 +165,7 @@ export const Canvas = styled.div`
 `;
 
 export const GraficContainer = styled.div`
-  width: 80%;
+  width: 100%;
   margin-top: 40px;
   padding: 10px;
   border-radius: 8px;
@@ -184,7 +177,6 @@ export const GraficContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 5px;
-    width: 100%;
   }
 
   @media (max-width: 480px) {
@@ -193,7 +185,7 @@ export const GraficContainer = styled.div`
 `;
 
 export const PDFButton = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 20px 0;
   display: flex;
   justify-content: flex-end;
