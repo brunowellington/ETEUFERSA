@@ -148,7 +148,7 @@ export const Canvas = styled.div`
   }
 
   @media (max-width: 768px) {
-    max-width: 95%; /* ocupa mais espaço no mobile */
+    max-width: 98%; /* ocupa mais espaço no mobile */
   }
 `;
 
@@ -164,7 +164,7 @@ export const GraficContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    padding: 5px; /* reduz o padding e aumenta o canvas visível */
+    padding: 2px; /* reduz o padding e aumenta o canvas visível */
   }
 `;
 
