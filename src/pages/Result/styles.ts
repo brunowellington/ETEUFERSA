@@ -73,6 +73,7 @@ export const TitleCard = styled.h2`
 export const Item = styled.div`
   width: 100%;
   font-size: 16px;
+  margin-bottom: 4px;
   border-bottom: 1px solid #828282;
   display: flex;
   align-items: center;
@@ -106,7 +107,7 @@ export const Label = styled.label`
     position: absolute;
     z-index: 10;
     bottom: 120%;
-    left: 50%;
+    left: 80%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
