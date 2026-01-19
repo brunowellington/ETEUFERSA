@@ -300,7 +300,7 @@ function Home() {
   return (
     <PageTemplate imageSrc={true} title={true} topBar={true}>
       <Container>
-        <Painel>
+        <Painel translate="no">
           <Title>Painel de entrada de dados</Title>
           <TopInputs>
             <Item>
