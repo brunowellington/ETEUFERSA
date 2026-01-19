@@ -141,11 +141,14 @@ export const Canvas = styled.div`
   width: 100%;
   max-width: 1100px;
   height: auto;
-  background-color: #909090;
 
   canvas {
     width: 100% !important;
     height: auto !important;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 95%; /* ocupa mais espaço no mobile */
   }
 `;
 
@@ -159,6 +162,10 @@ export const GraficContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 5px; /* reduz o padding e aumenta o canvas visível */
+  }
 `;
 
 export const PDFButton = styled.div`
