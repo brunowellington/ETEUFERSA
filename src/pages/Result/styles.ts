@@ -127,10 +127,11 @@ export const Label = styled.label`
   }
 `;
 
-export const Value = styled.p`
+export const Value = styled.div`
   text-align: right;
   min-width: 80px;
   flex: 1 1 auto;
+  margin-bottom: 8px;
 
   @media (max-width: 480px) {
     width: 100%;

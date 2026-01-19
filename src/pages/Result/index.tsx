@@ -107,7 +107,7 @@ function Result({ lagoasBaseData }: ResultProps) {
     });
 
   return (
-    <Page>
+    <Page translate="no">
       <Resultado>
         <h2>Resultados</h2>
       </Resultado>
