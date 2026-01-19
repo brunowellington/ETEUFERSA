@@ -56,7 +56,7 @@ export const TopInputs = styled.div`
     }
 
     label {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 `;
@@ -81,7 +81,7 @@ export const InputsDown = styled.div`
     }
 
     label {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 `;
@@ -107,7 +107,7 @@ export const BottomInputs = styled.div`
     }
 
     label {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 `;
