@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-/* ================= PAGE ================= */
 export const Page = styled.div`
   width: 100%;
   display: flex;
@@ -10,7 +9,6 @@ export const Page = styled.div`
   padding: 20px 0;
 `;
 
-/* ================= RESULTADO HEADER ================= */
 export const Resultado = styled.div`
   width: 100%;
   max-width: 1200px;
@@ -36,20 +34,23 @@ export const Linha = styled.hr`
   border: 1px solid var(--primaria-dark);
 `;
 
-/* ================= CONTAINER DE CARDS ================= */
 export const Container = styled.div`
   width: 100%;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px; /* ⬅ espaçamento entre cards */
+  display: grid;
+  gap: 20px;
+  margin-bottom: 30px;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-/* ================= CARD ================= */
 export const Card = styled.div`
-  flex: 1 1 300px; /* min width = 300px, cresce para caber */
-  max-width: 600px; /* não fica maior que 600px */
   background: #fff;
   border-radius: 8px;
   padding: 15px 20px;
@@ -58,85 +59,74 @@ export const Card = styled.div`
   align-items: flex-start;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-
-  @media (max-width: 1024px) {
-    flex: 1 1 45%; /* tablet: 2 cards por linha */
-  }
-
-  @media (max-width: 768px) {
-    flex: 1 1 100%; /* mobile: 1 card por linha */
-  }
+  align-self: start;
+  min-width: 280px;
+  max-width: 100%;
 `;
 
-/* ================= TITULO DO CARD ================= */
 export const TitleCard = styled.h2`
   color: var(--primaria);
   margin-bottom: 20px;
   font-weight: bold;
 `;
 
-/* ================= ITEM ================= */
 export const Item = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 60px;
+  width: 100%;
   padding-bottom: 5px;
   margin-bottom: 10px;
+  line-height: 18px;
+  font-size: 16px;
   border-bottom: 1px solid #828282;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* para mobile */
 `;
 
 export const Label = styled.label`
-  font-size: 14px;
+  font-size: 18px;
   color: #262626;
   font-weight: 500;
   position: relative;
   text-align: left;
-  min-width: 280px; /* largura mínima para alinhar com os outros cards */
+  min-width: 250px;
   display: inline-flex;
   align-items: center;
   gap: 5px;
 
-  sup,
-  svg {
-    color: #009be5; /* ícone azul */
+  sup {
+    color: var(--azul);
   }
 
   .tooltiptext {
     visibility: hidden;
     width: 220px;
-    background-color: #009be5;
+    background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 8px;
     position: absolute;
+    z-index: 10;
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
-    z-index: 10;
   }
 
   :hover .tooltiptext {
     visibility: visible;
     opacity: 1;
   }
+
   @media (max-width: 480px) {
-    Label {
-      min-width: auto;
-      font-size: 12px;
-    }
+    min-width: auto;
+    font-size: 12px;
+    text-align: left;
   }
 `;
 
-/* ================= VALUE ================= */
 export const Value = styled.p`
   text-align: right;
   min-width: 80px;
@@ -150,7 +140,6 @@ export const Value = styled.p`
   }
 `;
 
-/* ================= CANVAS ================= */
 export const Canvas = styled.div`
   width: 100%;
   max-width: 1100px;
@@ -163,7 +152,6 @@ export const Canvas = styled.div`
   }
 `;
 
-/* ================= GRÁFICO ================= */
 export const GraficContainer = styled.div`
   width: 100%;
   margin-top: 40px;
@@ -176,7 +164,6 @@ export const GraficContainer = styled.div`
   justify-content: center;
 `;
 
-/* ================= BOTÃO PDF ================= */
 export const PDFButton = styled.div`
   width: 100%;
   margin: 20px 0;

@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import {
   Page,
   Value,
+  Label,
   Card,
   Container,
   TitleCard,
@@ -18,7 +19,6 @@ import * as calc from "../../utils/calc";
 import { mappedImages } from "../../utils/images";
 import { writeInCanvas } from "../../utils/writeInCanvas";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { Label } from "../Home/styles";
 
 type ResultProps = {
   lagoasBaseData: LagoasBaseData;
@@ -293,7 +293,7 @@ function Result({ lagoasBaseData }: ResultProps) {
 
       {/*card de lagoa de maturacao */}
       {maturacaoCalculated && lagoaMaturacao && (
-        <Card>
+        <Card style={{ marginBottom: "30px" }}>
           <TitleCard>Lagoa de Maturação</TitleCard>
           <Item>
             <Label>
