@@ -37,15 +37,19 @@ export const Linha = styled.hr`
 export const Container = styled.div`
   width: 100%;
   display: grid;
-  gap: 20px;
+  gap: 20px; /* espaçamento entre os cards */
   margin-bottom: 30px;
-  grid-template-columns: repeat(3, 1fr);
+
+  /* Desktop: 3 colunas, cards menores */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+    /* Tablet: 2 colunas */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   @media (max-width: 768px) {
+    /* Mobile: 1 coluna */
     grid-template-columns: 1fr;
   }
 `;
@@ -53,15 +57,13 @@ export const Container = styled.div`
 export const Card = styled.div`
   background: #fff;
   border-radius: 8px;
-  padding: 15px 20px;
+  padding: 20px 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  align-self: start;
-  min-width: 280px;
-  max-width: 100%;
+  width: 100%;
 `;
 
 export const TitleCard = styled.h2`
@@ -82,7 +84,7 @@ export const Item = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 18px;
+  font-size: 16px;
   color: #262626;
   font-weight: 500;
   position: relative;
@@ -118,9 +120,13 @@ export const Label = styled.label`
     opacity: 1;
   }
 
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
+
   @media (max-width: 480px) {
-    min-width: auto;
     font-size: 12px;
+    min-width: auto;
     text-align: left;
   }
 `;
@@ -129,11 +135,16 @@ export const Value = styled.div`
   text-align: right;
   min-width: 80px;
   flex: 1 1 auto;
+  font-size: 16px;
+
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
 
   @media (max-width: 480px) {
     width: 100%;
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
@@ -148,11 +159,11 @@ export const Canvas = styled.div`
   }
 
   @media (max-width: 768px) {
-    max-width: 98%; /* quase toda a largura da tela */
+    max-width: 98%;
   }
 
   @media (max-width: 480px) {
-    max-width: 100%; /* preenche 100% da tela no celular */
+    max-width: 100%;
   }
 `;
 
@@ -168,11 +179,11 @@ export const GraficContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    padding: 5px; /* menos padding no tablet */
+    padding: 5px;
   }
 
   @media (max-width: 480px) {
-    padding: 2px; /* quase sem padding no celular */
+    padding: 2px;
   }
 `;
 
