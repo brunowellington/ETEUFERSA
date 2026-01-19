@@ -107,8 +107,8 @@ export const Label = styled.label`
     position: absolute;
     z-index: 10;
     bottom: 120%;
-    left: 80%;
-    transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-20%);
     opacity: 0;
     transition: opacity 0.3s;
   }
