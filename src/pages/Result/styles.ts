@@ -72,8 +72,6 @@ export const TitleCard = styled.h2`
 
 export const Item = styled.div`
   width: 100%;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
   line-height: 18px;
   font-size: 16px;
   border-bottom: 1px solid #828282;
@@ -131,7 +129,6 @@ export const Value = styled.div`
   text-align: right;
   min-width: 80px;
   flex: 1 1 auto;
-  margin-bottom: 8px;
 
   @media (max-width: 480px) {
     width: 100%;
