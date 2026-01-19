@@ -148,7 +148,11 @@ export const Canvas = styled.div`
   }
 
   @media (max-width: 768px) {
-    max-width: 98%; /* ocupa mais espaço no mobile */
+    max-width: 98%; /* quase toda a largura da tela */
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%; /* preenche 100% da tela no celular */
   }
 `;
 
@@ -164,7 +168,11 @@ export const GraficContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    padding: 2px; /* reduz o padding e aumenta o canvas visível */
+    padding: 5px; /* menos padding no tablet */
+  }
+
+  @media (max-width: 480px) {
+    padding: 2px; /* quase sem padding no celular */
   }
 `;
 
