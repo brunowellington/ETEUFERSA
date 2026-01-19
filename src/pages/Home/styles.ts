@@ -56,7 +56,7 @@ export const TopInputs = styled.div`
     }
 
     label {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
 `;
@@ -81,7 +81,7 @@ export const InputsDown = styled.div`
     }
 
     label {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
 `;
@@ -107,7 +107,7 @@ export const BottomInputs = styled.div`
     }
 
     label {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
 `;
@@ -153,19 +153,6 @@ export const Label = styled.label`
   :hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
-
-  @media (max-width: 480px) {
-    .tooltiptext {
-      position: fixed;
-      bottom: auto;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 300px;
-      z-index: 9999;
-    }
   }
 `;
 

@@ -306,7 +306,8 @@ function Home() {
             <Item>
               <Label>
                 <span className="tooltiptext">População em habitantes</span>
-                População em habitantes <AiOutlineInfoCircle color="#009be5" />
+                População em habitantes{""}{" "}
+                <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
