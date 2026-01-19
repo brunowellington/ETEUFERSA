@@ -72,13 +72,12 @@ export const TitleCard = styled.h2`
 
 export const Item = styled.div`
   width: 100%;
-  line-height: 18px;
   font-size: 16px;
   border-bottom: 1px solid #828282;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap; /* para mobile */
+  flex-wrap: wrap;
 `;
 
 export const Label = styled.label`
