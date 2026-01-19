@@ -320,7 +320,7 @@ function Home() {
                 <span className="tooltiptext">
                   Vazão na entrada da ETE em m³/dia
                 </span>
-                Vazão afluente <AiOutlineInfoCircle color="#009be5" />
+                Vazão afluente{""} <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -333,7 +333,7 @@ function Home() {
                 <span className="tooltiptext">
                   Demanda Bioquímica de Oxigênio na entrada da ETE em mg³/L
                 </span>
-                DBO afluente <AiOutlineInfoCircle color="#009be5" />
+                DBO afluente{""} <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
@@ -346,7 +346,7 @@ function Home() {
                 <span className="tooltiptext">
                   Temperatura do esgoto no ambiente em °C
                 </span>
-                Temperatura em °C <AiOutlineInfoCircle color="#009be5" />
+                Temperatura em °C{""} <AiOutlineInfoCircle color="#009be5" />
               </Label>
               <Input
                 type="number"
