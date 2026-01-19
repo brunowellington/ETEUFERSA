@@ -154,6 +154,19 @@ export const Label = styled.label`
     visibility: visible;
     opacity: 1;
   }
+
+  @media (max-width: 480px) {
+    .tooltiptext {
+      position: fixed;
+      bottom: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 300px;
+      z-index: 9999;
+    }
+  }
 `;
 
 export const InfoText = styled.div`
@@ -171,7 +184,8 @@ export const ButtonCalc = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px;
+  margin-top: 40px;
+  margin-bottom: 12px;
 
   a {
     width: 180px;
