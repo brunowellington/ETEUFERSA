@@ -358,7 +358,7 @@ function Result({ lagoasBaseData }: ResultProps) {
                 <sup>-1</sup>)
               </span>
               Coeficiente de decaimento bacteriano para temperatura local
-              <AiOutlineInfoCircle color="#009be5" size={10} />
+              <AiOutlineInfoCircle color="#009be5" />
             </Label>
             <Value>
               {lagoaMaturacao.kbT} d<sup>-1</sup>{" "}
