@@ -62,8 +62,8 @@ export const Card = styled.div`
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   width: 100%;
-  @media (max-width: 768px) {
-    width: 100%;
+  @media (max-width: 1024px) {
+    width: 80%;
   }
 `;
 
