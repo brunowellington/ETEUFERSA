@@ -20,6 +20,18 @@ import { mappedImages } from "../../utils/images";
 import { writeInCanvas } from "../../utils/writeInCanvas";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
+function formatValue(
+  value: number | undefined | null,
+  decimals = 0,
+  unit = "",
+) {
+  if (value === null || value === undefined || !Number.isFinite(value)) {
+    return "-";
+  }
+
+  return `${value.toFixed(decimals)} ${unit}`;
+}
+
 type ResultProps = {
   lagoasBaseData: LagoasBaseData;
 };
@@ -120,7 +132,9 @@ function Result({ lagoasBaseData }: ResultProps) {
                 <span className="tooltiptext">Carga afluente de DBO</span>
                 Carga afluente de DBO <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.cargaAnaerobia} kgDBO/m³.d</Value>
+              <Value>
+                {formatValue(lagoaAnaerobia.cargaAnaerobia, 0, "kgDBO/d")}
+              </Value>
             </Item>
             <Item>
               <Label>
@@ -129,7 +143,7 @@ function Result({ lagoasBaseData }: ResultProps) {
                 </span>
                 Volume <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.volume} m³</Value>
+              <Value>{formatValue(lagoaAnaerobia.volume, 0, "m³")}</Value>
             </Item>
             <Item>
               <Label>
@@ -138,14 +152,14 @@ function Result({ lagoasBaseData }: ResultProps) {
                 </span>
                 Tempo <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.tempo?.toFixed(1)} dia</Value>
+              <Value>{formatValue(lagoaAnaerobia.tempo, 1, "dia")}</Value>
             </Item>
             <Item>
               <Label>
                 <span className="tooltiptext">Área requerida</span>
                 Área <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.area?.toFixed(0)} m²</Value>
+              <Value>{formatValue(lagoaAnaerobia.area, 0, "m²")}</Value>
             </Item>
             <Item>
               <Label>
@@ -154,7 +168,9 @@ function Result({ lagoasBaseData }: ResultProps) {
                 </span>
                 Acumulação anual <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.acumulacao_anual} m³/ano</Value>
+              <Value>
+                {formatValue(lagoaAnaerobia.acumulacao_anual, 0, "m³/ano")}
+              </Value>
             </Item>
             <Item>
               <Label>
@@ -163,7 +179,9 @@ function Result({ lagoasBaseData }: ResultProps) {
                 </span>
                 Expessura <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.expessura} cm/ano</Value>
+              <Value>
+                {formatValue(lagoaAnaerobia.expessura, 0, "cm/ano")}
+              </Value>
             </Item>
             <Item>
               <Label>
@@ -173,7 +191,9 @@ function Result({ lagoasBaseData }: ResultProps) {
                 Tempo para se atingir 1/3{" "}
                 <AiOutlineInfoCircle color="#009be5" />
               </Label>
-              <Value>{lagoaAnaerobia.tempo1terco?.toFixed(1)} anos</Value>
+              <Value>
+                {formatValue(lagoaAnaerobia.tempo1terco, 1, "anos")}
+              </Value>
             </Item>
           </Card>
         )}
@@ -468,7 +488,7 @@ function Result({ lagoasBaseData }: ResultProps) {
               </span>
               Eficiência <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            <Value>{sistemaAustraliano.eficiencia} %</Value>
+            <Value>{formatValue(sistemaAustraliano.eficiencia, 0, "%")}</Value>
           </Item>
           <Item>
             <Label>
@@ -477,7 +497,13 @@ function Result({ lagoasBaseData }: ResultProps) {
               </span>
               Área útil total <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            <Value>{sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha</Value>
+            <Value>
+              {formatValue(
+                sistemaAustraliano.areaTotalAnaerobiaFacultativa,
+                0,
+                "ha",
+              )}
+            </Value>
           </Item>
           <Item>
             <Label>
@@ -486,14 +512,20 @@ function Result({ lagoasBaseData }: ResultProps) {
               </span>
               Área total <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            <Value>{sistemaAustraliano.areaTotal} ha</Value>
+            <Value>{formatValue(sistemaAustraliano.areaTotal, 0, "ha")}</Value>
           </Item>
           <Item>
             <Label>
               <span className="tooltiptext">Área per capita</span>
               Área per capita <AiOutlineInfoCircle color="#009be5" />
             </Label>
-            <Value>{sistemaAustraliano.areaPercapitaFacultativa} m²/hab </Value>
+            <Value>
+              {formatValue(
+                sistemaAustraliano.areaPercapitaFacultativa,
+                0,
+                "m²/hab",
+              )}
+            </Value>
           </Item>
           {lagoaAnaerobia.dqoDbo && (
             <>
