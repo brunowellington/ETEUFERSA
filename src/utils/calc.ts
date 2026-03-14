@@ -168,16 +168,19 @@ export const dimensionamento = ({
     (regimeMistura_facultativa * Math.pow(1.05, temperatura - 20)).toFixed(2),
   );
 
-  let DBOEFLUENTE = ((100 - 60) / 100) * DBOAfluente; //calculando o 140
+  let DBOEFLUENTE = ((100 - (eficienciaAnaerobia ?? 0)) / 100) * DBOAfluente; //calculando o 140
 
   let sAnaFac = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
 
   let s: number;
   let eficienciaFacultativa: number = 0;
-  if (hAnaerobia) {
-    s = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
-  } else {
+
+  if (!hAnaerobia) {
+    console.log("SEM ANAEROBIA");
     s = DBOAfluente / (1 + kt * tempoDetencaoFacultativa);
+  } else {
+    console.log("COM ANAEROBIA");
+    s = DBOEFLUENTE / (1 + kt * tempoDetencaoFacultativa);
   }
 
   let DBO5Particulada =
