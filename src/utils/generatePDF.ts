@@ -5,6 +5,18 @@ import { LagoaMaturacao } from "../types/LagoaMaturacao";
 import { LagoasBaseData } from "../types/LagoasBaseData";
 import { SistemaAustraliano } from "../types/SistemaAustraliano";
 
+function formatValue(
+  value: number | undefined | null,
+  decimals = 0,
+  unit = "",
+) {
+  if (value === null || value === undefined || !Number.isFinite(value)) {
+    return "-";
+  }
+
+  return `${value.toFixed(decimals)} ${unit}`;
+}
+
 /* ================= CONFIGURAÇÕES ABNT ================= */
 
 const MARGIN_TOP = 85; // 3 cm
@@ -121,7 +133,7 @@ export const generatePDF = ({
   text(`Proporção/1 anaeróbia: ${lagoasBaseData.proporcaoAnaerobia}`);
   text(`K: ${lagoasBaseData.k}`);
   if (lagoasBaseData.dqo) {
-    text(`DQO: ${lagoasBaseData.dqo}`);
+    text(`DQO: ${formatValue(lagoasBaseData.dqo)}`);
   }
   text(`Taxa de aplicação superficial: ${lagoasBaseData.aplicacaoSuper}`);
   text(`Eficiência anaeróbia: ${lagoasBaseData.eficienciaAnaerobia}`);
@@ -159,30 +171,29 @@ export const generatePDF = ({
     title("Resultados da análise:");
     title("Lagoa Anaeróbia");
     text(
-      `Carga afluente de DBO: ${lagoaAnaerobia.cargaAnaerobia.toFixed(
-        3,
-      )} kgDBO/m³.d`,
+      `Carga afluente de DBO: ${formatValue(lagoaAnaerobia.cargaAnaerobia, 0, "kgDBO/m³.d")} `,
     );
-    text(`Volume: ${lagoaAnaerobia.volume} m³`);
+    text(`Volume: ${formatValue(lagoaAnaerobia.volume, 0, "m³")}`);
+    text(`Tempo: ${formatValue(lagoaAnaerobia.tempo, 1, "dia")}`);
+    text(`Área: ${formatValue(lagoaAnaerobia.area, 0, "m²")}`);
+    // text(
+    //   `Área: ${
+    //     lagoaAnaerobia.area ? (lagoaAnaerobia.area / 1000).toFixed(0) : "N/A"
+    //   } m²`,
+    // );
     text(
-      `Tempo: ${
-        lagoaAnaerobia.tempo ? (lagoaAnaerobia.tempo / 1000).toFixed(1) : "N/A"
-      } dia`,
+      `Acúmulação anual de lodo: ${formatValue(lagoaAnaerobia.acumulacao_anual, 0, "m³/ano")}`,
     );
     text(
-      `Área: ${
-        lagoaAnaerobia.area ? (lagoaAnaerobia.area / 1000).toFixed(0) : "N/A"
-      } m²`,
+      `Espessura da camada de lodo: ${formatValue(lagoaAnaerobia.expessura, 0, "cm/ano")}`,
     );
-    text(`Acúmulação anual de lodo: ${lagoaAnaerobia.acumulacao_anual} m³/ano`);
-    text(`Espessura da camada de lodo: ${lagoaAnaerobia.expessura} cm/ano`);
 
     textWrap(
-      `Tempo para atingir 1/3 da altura útil: ${
-        lagoaAnaerobia.tempo1terco
-          ? lagoaAnaerobia.tempo1terco.toFixed(1)
-          : "N/A"
-      } ano(s)`,
+      `Tempo para atingir 1/3 da altura útil: ${formatValue(
+        lagoaAnaerobia.tempo1terco,
+        1,
+        "ano(s)",
+      )}`,
     );
   }
 
@@ -192,11 +203,11 @@ export const generatePDF = ({
     `Carga afluente afluente à lagoa facultativa: ${lagoaFacultativa.CargaFacultativa} kgDBO/d`,
   );
   text(
-    `Área requerida: ${lagoaFacultativa.areaTotalFacultativa.toFixed(3)} ha`,
+    `Área requerida: ${lagoaFacultativa.areaTotalFacultativa.toFixed(1)} ha`,
   );
   text(
     `Área individual para cada lagoa facultativa: ${lagoaFacultativa.areaLagoaFacultativaIndividual.toFixed(
-      1,
+      0,
     )} m²`,
   );
   text(
@@ -217,7 +228,7 @@ export const generatePDF = ({
     `Estimativa da DBO particulada efluente: ${lagoaFacultativa.DBO5Particulada} mgDBO/l`,
   );
   text(
-    `DBO total efluente: ${lagoaFacultativa.DBOTotalAfluenteFacultativa} mg/l`,
+    `DBO total efluente: ${lagoaFacultativa.DBOTotalAfluenteFacultativa.toFixed(0)} mg/l`,
   );
   text(
     `Eficiência da lagoa facultativa: ${lagoaFacultativa.DBO5Particulada} %`,
@@ -271,11 +282,11 @@ export const generatePDF = ({
 
     text(`Eficiência: ${sistemaAustraliano.eficiencia}%`);
     text(
-      `Área útil total: ${sistemaAustraliano.areaTotalAnaerobiaFacultativa} ha`,
+      `Área útil total: ${formatValue(sistemaAustraliano.areaTotalAnaerobiaFacultativa, 0, "ha")}`,
     );
-    text(`Área total: ${sistemaAustraliano.areaTotal} ha`);
+    text(`Área total: ${formatValue(sistemaAustraliano.areaTotal, 0, "ha")}`);
     text(
-      `Área per capita: ${sistemaAustraliano.areaPercapitaFacultativa} m²/hab`,
+      `Área per capita: ${formatValue(sistemaAustraliano.areaPercapitaFacultativa, 0, "m²/hab")}`,
     );
 
     if (lagoaAnaerobia.dqoDbo !== undefined) {
@@ -289,7 +300,7 @@ export const generatePDF = ({
       textWrap(`Relação DQO/DBO: ${lagoaAnaerobia.dqoDbo} (${message})`);
     }
   }
-
+  text("\n");
   if (canvas) {
     text("\n");
     text("\n");

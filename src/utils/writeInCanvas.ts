@@ -3,6 +3,18 @@ import { LagoaFacultativa } from "../types/LagoaFacultativa";
 import { LagoaMaturacao } from "../types/LagoaMaturacao";
 import { LagoasBaseData } from "../types/LagoasBaseData";
 
+function formatCanvasValue(
+  value: number | undefined | null,
+  decimals = 0,
+  unit = "m",
+) {
+  if (value === null || value === undefined || !Number.isFinite(value)) {
+    return "-";
+  }
+
+  return `${value.toFixed(decimals)} ${unit}`;
+}
+
 type WriteInCanvasProps = {
   image: HTMLImageElement | null;
   canvas: HTMLCanvasElement | null;
@@ -36,295 +48,772 @@ export const writeInCanvas = ({
           if (lagoasBaseData.quantidadeLagoas === 1) {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 158);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 316, 190);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 108);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 700, 140);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                158,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                316,
+                190,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                108,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                700,
+                140,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 850,
                 175,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 950, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                950,
+                205,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 130, 165);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 220, 190);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 410, 120);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 545, 150);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                130,
+                165,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                220,
+                190,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                410,
+                120,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                545,
+                150,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 670,
                 180,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 180,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 205);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 760, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                205,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                760,
+                205,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 115, 165);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 220, 200);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 400, 128);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 540, 160);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                115,
+                165,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                220,
+                200,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                400,
+                128,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                540,
+                160,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 660,
                 180,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 890,
                 180,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 743, 205);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 980, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                743,
+                205,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                980,
+                205,
+              );
               ctx.font = "bold 14px Roboto";
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 963, 236);
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                963,
+                236,
+              );
             }
           } else if (lagoasBaseData.quantidadeLagoas === 2) {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 310, 110);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 310, 340);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 415, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 415, 310);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 650, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 650, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 800, 70);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 800, 390);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                310,
+                110,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                310,
+                340,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                415,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                415,
+                310,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                650,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                650,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                800,
+                70,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                800,
+                390,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 100,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 287,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 330);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                330,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 120);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 330);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 300);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 50);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 400);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 665, 80);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 665, 370);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                120,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                400,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                665,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                665,
+                370,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 113,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 278,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 113,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 278,
               );
               ctx.font = `12px Roboto`;
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 830, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 830, 300);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 990, 145);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 990, 315);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                830,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                830,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                990,
+                145,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                990,
+                315,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 130);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 330);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 300);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 55);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 400);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 650, 80);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 650, 370);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                130,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                55,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                400,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                650,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                650,
+                370,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 115,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 275,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 930,
                 115,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 930,
                 275,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 810, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 810, 295);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 1010, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 1010, 295);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
+                930,
+                275,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                810,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                810,
+                295,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                1010,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                1010,
+                295,
+              );
               ctx.font = "bold 14px Roboto";
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 990, 162);
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 990, 325);
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                990,
+                162,
+              );
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                990,
+                325,
+              );
             }
           } else {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 375, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 375, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 450, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 450, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 630, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 630, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 740, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 740, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                375,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                375,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                450,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                450,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                630,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                630,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                740,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                740,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 800,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 800,
                 310,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 875, 105);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 875, 340);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                875,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                875,
+                340,
+              );
               ctx.font = "bold 18px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 427, 315);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 703, 353);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                427,
+                315,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                703,
+                353,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 305, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 305, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 380, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 380, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 560, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 560, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 670, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 670, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                305,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                305,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                380,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                380,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                560,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                560,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                670,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                670,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 860,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 305,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 860,
                 305,
               );
               ctx.font = "bold 18px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 360, 312);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 640, 350);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                360,
+                312,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                640,
+                350,
+              );
               ctx.font = `12px Roboto`;
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 805, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 940, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 805, 325);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 940, 325);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                805,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                940,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                805,
+                325,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                940,
+                325,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 280, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 280, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 645, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 645, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                280,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                280,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                350,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                350,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                645,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                645,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 700,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 700,
                 305,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 305,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 780, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 780, 325);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 325);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                780,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                780,
+                325,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                325,
+              );
               ctx.font = "bold 20px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 327, 316);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 610, 354);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                327,
+                316,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                610,
+                354,
+              );
               ctx.font = "bold 14px Roboto";
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 955, 114);
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 955, 352);
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                955,
+                114,
+              );
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                955,
+                352,
+              );
             }
           }
         } else {
           if (lagoasBaseData.quantidadeLagoas === 1) {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 170);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 310, 195);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 760, 140);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 870, 224);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              230,
+              170,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              310,
+              195,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              760,
+              140,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              870,
+              224,
+            );
             ctx.font = "bold 18px Roboto";
           } else if (lagoasBaseData.quantidadeLagoas === 2) {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 235, 130);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 310, 155);
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 330);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 310, 300);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              235,
+              130,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              310,
+              155,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              230,
+              330,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              310,
+              300,
+            );
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 750, 65);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 870, 152);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 750, 395);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 870, 305);
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              750,
+              65,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              870,
+              152,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              750,
+              395,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              870,
+              305,
+            );
           } else {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 82);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 310, 115);
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 267);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 310, 350);
+            ctx.fillText(formatCanvasValue(lagoaAnaerobia.BAnaerobia), 230, 82);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              310,
+              115,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              230,
+              267,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              310,
+              350,
+            );
             ctx.font = "bold 18px Roboto";
             if (lagoasBaseData.quantidadeLagoas > 9) {
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 280, 334);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                280,
+                334,
+              );
             } else {
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 285, 334);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                285,
+                334,
+              );
             }
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 790, 20);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 870, 108);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 790, 267);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 870, 355);
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              790,
+              20,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              870,
+              108,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              790,
+              267,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              870,
+              355,
+            );
             ctx.font = "bold 18px Roboto";
-            ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 826, 368);
+            ctx.fillText(
+              formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+              826,
+              368,
+            );
           }
         }
       } else {
@@ -332,147 +821,355 @@ export const writeInCanvas = ({
           if (lagoasBaseData.quantidadeLagoas === 1) {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 158);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 316, 190);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 108);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 700, 140);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                158,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                316,
+                190,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                108,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                700,
+                140,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 850,
                 175,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 950, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                950,
+                205,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 130, 165);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 220, 190);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 410, 120);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 545, 150);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                130,
+                165,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                220,
+                190,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                410,
+                120,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                545,
+                150,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 670,
                 180,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 180,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 205);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 760, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                205,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                760,
+                205,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 115, 165);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 220, 200);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 400, 128);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 540, 160);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                115,
+                165,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                220,
+                200,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                400,
+                128,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                540,
+                160,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 660,
                 180,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 890,
                 180,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 743, 205);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 980, 205);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                743,
+                205,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                980,
+                205,
+              );
               ctx.font = "bold 14px Roboto";
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 963, 236);
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                963,
+                236,
+              );
             }
           } else if (lagoasBaseData.quantidadeLagoas === 2) {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 310, 110);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 310, 340);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 415, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 415, 310);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 650, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 650, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 800, 70);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 800, 390);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                310,
+                110,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                310,
+                340,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                415,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                415,
+                310,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                650,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                650,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                800,
+                70,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                800,
+                390,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 100,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 880,
                 287,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 330);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                330,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 120);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 330);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 300);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 50);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 400);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 665, 80);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 665, 370);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                120,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                400,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                665,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                665,
+                370,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 113,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 278,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 113,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 278,
               );
               ctx.font = `12px Roboto`;
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 830, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 830, 300);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 990, 145);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 990, 315);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                830,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                830,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                990,
+                145,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                990,
+                315,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 130);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 210, 330);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 155);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 290, 300);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 55);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 500, 400);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 650, 80);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 650, 370);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                130,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                210,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                155,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                290,
+                300,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                55,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                500,
+                400,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                650,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                650,
+                370,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 115,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 275,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 930,
                 115,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 930,
                 275,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 810, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 810, 295);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 1010, 135);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 1010, 295);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                810,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                810,
+                295,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                1010,
+                135,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                1010,
+                295,
+              );
               ctx.font = "bold 14px Roboto";
               ctx.fillText(`${quantidadeLagoasMaturacao}`, 990, 162);
               ctx.fillText(`${quantidadeLagoasMaturacao}`, 990, 325);
@@ -480,143 +1177,395 @@ export const writeInCanvas = ({
           } else {
             if (quantidadeLagoasMaturacao === 1) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 375, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 375, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 450, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 450, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 630, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 630, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 740, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 740, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                375,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                375,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                450,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                450,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                630,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                630,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                740,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                740,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 800,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 800,
                 310,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 875, 105);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 875, 340);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                875,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                875,
+                340,
+              );
               ctx.font = "bold 18px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 427, 315);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 703, 353);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                427,
+                315,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                703,
+                353,
+              );
             } else if (quantidadeLagoasMaturacao === 2) {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 305, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 305, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 380, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 380, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 560, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 560, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 670, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 670, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                305,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                305,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                380,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                380,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                560,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                560,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                670,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                670,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 860,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 730,
                 305,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 860,
                 305,
               );
               ctx.font = "bold 18px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 360, 312);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 640, 350);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                360,
+                312,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                640,
+                350,
+              );
               ctx.font = `12px Roboto`;
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 805, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 940, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 805, 325);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 940, 325);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                805,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                940,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                805,
+                325,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                940,
+                325,
+              );
             } else {
               ctx.font = `14px Roboto`;
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 280, 80);
-              ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 280, 355);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 105);
-              ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 330);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 30);
-              ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 530, 420);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 645, 50);
-              ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 645, 395);
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                280,
+                80,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+                280,
+                355,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                350,
+                105,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+                350,
+                330,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                30,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.BFacultativa),
+                530,
+                420,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                645,
+                50,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaFacultativa.LFacultativa),
+                645,
+                395,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 700,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 70,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 700,
                 305,
               );
               ctx.fillText(
-                `${lagoaMaturacao?.comprimentoMaturacao} m`,
+                formatCanvasValue(lagoaMaturacao?.comprimentoMaturacao),
                 900,
                 305,
               );
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 780, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 90);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 780, 325);
-              ctx.fillText(`${lagoaMaturacao?.larguraMaturacao} m`, 970, 325);
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                780,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                90,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                780,
+                325,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoaMaturacao?.larguraMaturacao),
+                970,
+                325,
+              );
               ctx.font = "bold 20px Roboto";
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 327, 316);
-              ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 610, 354);
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                327,
+                316,
+              );
+              ctx.fillText(
+                formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+                610,
+                354,
+              );
               ctx.font = "bold 14px Roboto";
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 955, 114);
-              ctx.fillText(`${quantidadeLagoasMaturacao}`, 955, 352);
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                955,
+                114,
+              );
+              ctx.fillText(
+                formatCanvasValue(quantidadeLagoasMaturacao),
+                955,
+                352,
+              );
             }
           }
         } else {
           if (lagoasBaseData.quantidadeLagoas === 1) {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 170);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 110, 225);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 760, 140);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 945, 225);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              230,
+              170,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              110,
+              225,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              760,
+              140,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              945,
+              225,
+            );
             ctx.font = "bold 18px Roboto";
           } else if (lagoasBaseData.quantidadeLagoas === 2) {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 235, 130);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 155);
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 230, 330);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 300);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              235,
+              130,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              350,
+              155,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              230,
+              330,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              350,
+              300,
+            );
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 750, 65);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 935, 152);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 750, 395);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 935, 305);
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              750,
+              65,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              935,
+              152,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              750,
+              395,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              935,
+              305,
+            );
           } else {
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 185, 82);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 115);
-            ctx.fillText(`${lagoaAnaerobia.BAnaerobia} m`, 185, 267);
-            ctx.fillText(`${lagoaAnaerobia.LAnaerobia} m`, 350, 350);
+            ctx.fillText(formatCanvasValue(lagoaAnaerobia.BAnaerobia), 185, 82);
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              350,
+              115,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.BAnaerobia),
+              185,
+              267,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaAnaerobia.LAnaerobia),
+              350,
+              350,
+            );
             ctx.font = "bold 18px Roboto";
-            ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 303, 321);
+            ctx.fillText(
+              formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+              303,
+              321,
+            );
             ctx.font = `14px Roboto`;
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 790, 20);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 935, 108);
-            ctx.fillText(`${lagoaFacultativa.BFacultativa} m`, 790, 267);
-            ctx.fillText(`${lagoaFacultativa.LFacultativa} m`, 935, 355);
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              790,
+              20,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              935,
+              108,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.BFacultativa),
+              790,
+              267,
+            );
+            ctx.fillText(
+              formatCanvasValue(lagoaFacultativa.LFacultativa),
+              935,
+              355,
+            );
             ctx.font = "bold 18px Roboto";
-            ctx.fillText(`${lagoasBaseData.quantidadeLagoas}`, 841, 354);
+            ctx.fillText(
+              formatCanvasValue(lagoasBaseData.quantidadeLagoas),
+              841,
+              354,
+            );
           }
         }
       }
